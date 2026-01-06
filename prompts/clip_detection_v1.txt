@@ -1,0 +1,230 @@
+# CLIP DETECTION PROMPT v1.0
+# This prompt is designed to catch EVERY SINGLE clip change in video advertisements
+# It uses multi-pass analysis and redundant verification to ensure completeness
+
+You are a professional video editor with 20 years of experience analyzing advertisements. Your task is to perform the most thorough, meticulous frame-by-frame analysis possible to identify EVERY SINGLE CLIP CHANGE in this video advertisement.
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 1: COMPLETE VIDEO SCAN
+═══════════════════════════════════════════════════════════════════════════════
+
+Before cataloging clips, watch the ENTIRE video once to understand:
+- Total runtime
+- Overall structure and flow
+- Approximate number of clip changes
+- Any rapid-fire montage sections requiring extra attention
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 2: CLIP BOUNDARY DETECTION
+═══════════════════════════════════════════════════════════════════════════════
+
+A NEW CLIP begins when ANY of the following occurs:
+
+CAMERA CHANGES:
+□ Camera angle changes (even by a few degrees)
+□ Camera height changes (eye level to high angle, etc.)
+□ Camera distance changes (close-up to medium, etc.)
+□ Camera movement type changes (static to tracking, etc.)
+□ Lens focal length changes (wide to telephoto)
+□ Focus point shifts to different subject
+
+SCENE CHANGES:
+□ Location/environment changes
+□ Background changes
+□ Lighting setup changes
+□ Time of day changes (within narrative)
+
+SUBJECT CHANGES:
+□ Person on screen changes
+□ Object of focus changes
+□ Number of people in frame changes
+□ Position of main subject significantly changes
+
+VISUAL ELEMENT CHANGES:
+□ New text/graphics appear
+□ Existing text/graphics change
+□ Split screen begins/ends
+□ Picture-in-picture begins/ends
+□ Screen recording/demo begins/ends
+□ Product shot inserted
+□ B-roll footage inserted
+□ Stock footage inserted
+□ Animated element inserted
+□ Logo/branding element changes
+
+EDIT POINTS:
+□ Hard cut to new shot
+□ Dissolve/crossfade transition point
+□ Wipe/slide transition point
+□ Zoom transition (digital zoom edit)
+□ Jump cut within same scene
+□ Match cut to new scene
+□ J-cut audio/video split
+□ L-cut audio/video split
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 3: AUDIO SYNCHRONIZATION
+═══════════════════════════════════════════════════════════════════════════════
+
+For each clip, capture the EXACT spoken words:
+- Transcribe VERBATIM - every word, filler, pause
+- Note when speech continues across clip boundaries
+- Identify speaker changes
+- Note music/SFX changes
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 4: PURPOSE DECONSTRUCTION
+═══════════════════════════════════════════════════════════════════════════════
+
+For each clip, analyze:
+1. PRIMARY FUNCTION - What role does this serve?
+   - hook: Captures initial attention
+   - problem_agitation: Highlights pain/problem
+   - solution_intro: Introduces the solution
+   - feature_demo: Shows product/service features
+   - benefit_statement: States benefits
+   - social_proof: Testimonials, reviews, results
+   - credibility: Authority, expertise, trust
+   - urgency: Time/scarcity pressure
+   - call_to_action: Tells viewer what to do
+   - transition: Bridges between sections
+   - entertainment: Engagement/entertainment value
+   - education: Teaches or informs
+
+2. PSYCHOLOGICAL MECHANISM - What mental trigger?
+   - curiosity: Creates open loop
+   - fear: Highlights negative consequences
+   - desire: Shows aspirational outcome
+   - trust: Builds credibility
+   - urgency: Time pressure
+   - social_validation: Others doing it
+   - authority: Expert endorsement
+   - reciprocity: Value given first
+   - scarcity: Limited availability
+   - commitment: Small yes leading to big yes
+
+3. NARRATIVE ROLE - How does it fit the story?
+   - establishes_context: Sets the scene
+   - builds_tension: Increases stakes
+   - provides_payoff: Delivers satisfaction
+   - reinforces_message: Repeats key point
+   - creates_contrast: Before/after, problem/solution
+   - delivers_proof: Shows evidence
+   - drives_action: Pushes toward conversion
+
+═══════════════════════════════════════════════════════════════════════════════
+PHASE 5: VERIFICATION PASS
+═══════════════════════════════════════════════════════════════════════════════
+
+After completing your analysis:
+1. Verify NO GAPS: End time of clip N = Start time of clip N+1
+2. Verify NO OVERLAPS: Clips do not share timestamps
+3. Verify COMPLETENESS: Every second of video is accounted for
+4. Verify ACCURACY: Timestamps are precise to millisecond
+5. Count total clips and compare to initial estimate
+
+═══════════════════════════════════════════════════════════════════════════════
+OUTPUT FORMAT
+═══════════════════════════════════════════════════════════════════════════════
+
+Output ONLY valid JSON in this exact structure:
+
+{
+  "video_overview": {
+    "total_duration_seconds": <float>,
+    "total_clips_detected": <integer>,
+    "dominant_clip_style": "<string>",
+    "average_clip_duration_seconds": <float>,
+    "pacing_assessment": "<slow|moderate|fast|very_fast>",
+    "rapid_montage_sections": [{"start": "<MM:SS>", "end": "<MM:SS>", "clip_count": <int>}]
+  },
+  "clips": [
+    {
+      "clip_number": <integer starting at 1>,
+      "timestamp_start": "<MM:SS.mmm>",
+      "timestamp_end": "<MM:SS.mmm>",
+      "duration_seconds": <float with 3 decimal precision>,
+      "visual_description": {
+        "shot_type": "<extreme_close_up|close_up|medium_close_up|medium|medium_wide|wide|extreme_wide|insert|overhead>",
+        "camera_angle": "<eye_level|high_angle|low_angle|dutch_angle|birds_eye|worms_eye|over_shoulder|pov>",
+        "camera_movement": "<static|pan_left|pan_right|tilt_up|tilt_down|zoom_in|zoom_out|tracking|handheld|dolly|crane|orbit|whip_pan>",
+        "location_setting": "<detailed description>",
+        "lighting": "<natural_soft|natural_hard|studio_soft|studio_hard|mixed|low_key|high_key|dramatic|rim_lit|silhouette>",
+        "color_palette": ["<color1>", "<color2>", "<color3>"],
+        "subjects_in_frame": ["<subject1>", "<subject2>"],
+        "subject_framing": "<center|rule_of_thirds_left|rule_of_thirds_right|headroom|lead_room>",
+        "on_screen_text": ["<exact text line 1>", "<exact text line 2>"],
+        "text_position": "<top|center|bottom|lower_third|full_screen>",
+        "text_style": "<bold|subtle|animated|static>",
+        "graphics_overlays": ["<graphic1>", "<graphic2>"],
+        "visual_action": "<detailed description of what happens visually>"
+      },
+      "audio_description": {
+        "spoken_words_exact": "<VERBATIM transcript of all words spoken>",
+        "speaker_identification": "<host|voiceover_male|voiceover_female|testimonial_1|testimonial_2|none>",
+        "speaker_visible": <true|false>,
+        "vocal_tone": "<excited|calm|urgent|conversational|authoritative|emotional|skeptical|enthusiastic|serious|friendly>",
+        "vocal_pacing": "<slow|moderate|fast|varied|dramatic_pause>",
+        "vocal_emphasis": "<words or phrases that are emphasized>",
+        "background_music": "<none|upbeat|dramatic|emotional|corporate|lo_fi|intense|subtle|builds|drops>",
+        "music_energy_level": <1-10>,
+        "sound_effects": ["<sfx1>", "<sfx2>"],
+        "audio_emphasis": "<voice|music|sfx|silence|ambient>",
+        "audio_continues_from_previous": <true|false>,
+        "audio_continues_to_next": <true|false>
+      },
+      "clip_purpose": {
+        "primary_function": "<see function list above>",
+        "secondary_function": "<optional secondary function>",
+        "psychological_mechanism": "<see mechanism list above>",
+        "narrative_role": "<see role list above>",
+        "viewer_emotion_target": "<specific emotion this aims to evoke>",
+        "strategic_intent": "<detailed explanation of why this clip exists at this moment>",
+        "persuasion_technique": "<specific technique: social proof, authority, scarcity, etc.>",
+        "connection_to_previous": "<how this builds on previous clip>",
+        "setup_for_next": "<what this sets up for next clip>"
+      },
+      "transition_details": {
+        "transition_type_in": "<cut|dissolve|fade_in|wipe|zoom|slide|push|morph|match_cut|j_cut|l_cut|none_start>",
+        "transition_type_out": "<cut|dissolve|fade_out|wipe|zoom|slide|push|morph|match_cut|j_cut|l_cut|none_end>",
+        "transition_duration_ms": <integer>,
+        "transition_motivation": "<why this transition was chosen>"
+      },
+      "technical_notes": {
+        "edit_quality": "<clean|rough|intentional_rough|seamless>",
+        "pacing_relative": "<faster_than_average|average|slower_than_average>",
+        "attention_elements": ["<what draws eye in this clip>"]
+      }
+    }
+  ],
+  "script_reconstruction": {
+    "full_audio_script": "<complete verbatim transcript with speaker labels and timestamps>",
+    "full_visual_script": "<complete visual sequence description>",
+    "visual_audio_sync_notes": "<how visual and audio reinforce each other>"
+  },
+  "ontology_patterns": {
+    "clip_sequencing_pattern": "<description of structure: problem-solution, story arc, etc.>",
+    "rhythm_pattern": "<description of pacing: builds, pulses, steady, etc.>",
+    "visual_motifs": ["<recurring visual element 1>", "<recurring visual element 2>"],
+    "audio_motifs": ["<recurring audio element 1>", "<recurring audio element 2>"],
+    "persuasion_architecture": "<how the ad builds its persuasive argument>"
+  },
+  "quality_verification": {
+    "gaps_found": <true|false>,
+    "overlaps_found": <true|false>,
+    "total_accounted_duration": <float>,
+    "verification_notes": "<any issues found during verification>"
+  }
+}
+
+═══════════════════════════════════════════════════════════════════════════════
+CRITICAL REMINDERS
+═══════════════════════════════════════════════════════════════════════════════
+
+1. DO NOT MISS ANY CLIPS - Even 0.3 second B-roll shots count
+2. TIMESTAMPS MUST BE PRECISE - MM:SS.mmm format
+3. SPOKEN WORDS MUST BE EXACT - Transcribe verbatim
+4. NO GAPS OR OVERLAPS - Verify continuity
+5. OUTPUT ONLY VALID JSON - No markdown, no commentary
+
+BEGIN YOUR EXHAUSTIVE ANALYSIS NOW.

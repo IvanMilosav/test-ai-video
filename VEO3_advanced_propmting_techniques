@@ -1,0 +1,543 @@
+
+Search
+Write
+Sign up
+
+Sign in
+
+
+
+Google Cloud - Community
+Google Cloud - Community
+A collection of technical articles and blogs published or curated by Google Cloud Developer Advocates. The views expressed are those of the authors and don't necessarily reflect those of Google.
+
+Follow publication
+
+Veo 3: A Detailed Prompting Guide
+Dr. Wafae Bakkali
+Dr. Wafae Bakkali
+
+Follow
+15 min read
+·
+Jun 25, 2025
+203
+
+
+2
+
+
+
+Master video generation with expert-level prompting techniques using Google’s Veo 3
+
+Introduction
+Veo 3 is Google’s most advanced Artificial Intelligence (AI) video generation model to date. It creates high-quality videos from text or images and can even generate synchronized audio from a single prompt. As one of the most powerful generative video models available today, Veo 3 unlocks new creative possibilities for filmmakers, marketers, and content creators.
+
+Creating compelling videos with generative AI requires thoughtful prompting. This requires a different approach than prompting a large language model.
+
+In this guide:
+
+We share experimentation-based prompting guidance for Veo 3.
+You will learn how to structure effective prompts for Veo 3, apply best practices for video generation and avoid common pitfalls even without prior experience in AI or video production.
+The Anatomy of a Veo 3 Prompt
+Creating a great Veo 3 prompt is different from prompting a chatbot. It’s about using the right terminology and prompt structure. Breaking your creative idea down into key components is the most effective way to guide Veo 3 toward your desired outcome.
+
+Figure 1, below, illustrates this structure, outlining the nine core elements of an expert-level prompt. These elements represent the key building blocks you may use when crafting your prompt. However, it’s important to note that you don’t need to include all of them in every prompt. The right combination depends on your specific goals.
+
+Press enter or click to view image in full size
+
+[Image by author] Figure 1. The anatomy of a Veo 3 prompt
+In the following sections, we will break down each of the nine elements in detail, sharing supported options and examples to help you apply them effectively in your Veo 3 prompts.
+
+1- Subject
+Common options for the subject include, but are not limited to:
+
+People: Man, woman, elderly person, specific professions (e.g., “a seasoned detective”, “a joyful baker”, “a futuristic astronaut”), historical figures, mythical beings (e.g., “a mischievous fairy”, “a stoic knight”).
+Animals: Specific breeds (e.g., “a playful Golden Retriever puppy”, “a majestic bald eagle”, “a sleek black panther”), fantastical creatures (e.g., “a miniature dragon with iridescent scales”, “a wise, ancient talking tree”).
+Objects: Everyday items (e.g., “a vintage typewriter”, “a steaming cup of coffee”, “a worn leather-bound book”), vehicles (e.g., “a classic 1960s muscle car”, “a futuristic hovercraft”, “a weathered pirate ship”), abstract shapes (“glowing orbs”, “crystalline structures”).
+Multiple Subjects: You can combine people, animals, objects, or any mix of them in the same video (e.g., “A group of diverse friends laughing around a campfire while a curious fox watches from the shadows”, “a busy marketplace scene with vendors and shoppers”).
+Example: complex details with multiple subjects
+
+
+Prompt: “A hyper-realistic, cinematic portrait of a wise, androgynous shaman of indeterminate age. Their weathered skin is etched with intricate, bioluminescent circuit-like tattoos that pulse with a soft, cyan light. They are draped in ceremonial robes woven from dark moss and shimmering, metallic fiber-optic threads. In one hand, they hold a gnarled wooden staff entwined with glowing energy conduits and topped with a floating, crystalline artifact. Perched on their shoulder is a small, mechanical owl with holographic wings and camera-lens eyes that blink with a soft, red light. Their expression is serene and ancient, eyes holding a deep, knowing look”
+2- Action
+Actions can include, but are not limited to, the following examples:
+
+Basic Movements: e.g., Walking, running, jumping, flying, swimming, dancing, spinning, falling, standing still, sitting.
+Interactions: e.g., Talking, laughing, arguing, hugging, fighting, playing a game, cooking, building, writing, reading, observing.
+Emotional Expressions: e.g., Smiling, frowning, looking surprised, concentrating deeply, appearing thoughtful, showing excitement, crying.
+Subtle Actions: e.g., A gentle breeze ruffling hair, leaves rustling, a subtle nod, fingers tapping impatiently, eyes blinking slowly.
+Transformations/Processes: e.g., A flower blooming in fast-motion, ice melting, a city skyline developing over time (though keep clip length in mind).
+Example: Directing a story by sequencing actions and emotional changes
+
+
+Prompt: “A gloved hand carefully slices open the spine of an ancient, leather-bound book with a scalpel. The hand then delicately extracts a tiny, metallic data chip hidden within the binding. The character’s eyes, previously focused and calm, widen in a flash of alarm as a floorboard creaks off-screen. They quickly palm the chip, their head snapping up to scan the dimly lit room, their body tense and listening for any other sound”
+3- Scene / context
+The most common options for the scene include:
+
+Location (Interior): e.g., A cozy living room with a crackling fireplace, a sterile futuristic laboratory, a cluttered artist’s studio, a grand ballroom, a dusty attic.
+Location (Exterior): e.g., A sun-drenched tropical beach, a misty ancient forest, a bustling futuristic cityscape at night, a serene mountain peak at dawn, a desolate alien planet.
+Time of Day: e.g., Golden hour, midday sun, twilight, deep night, pre-dawn.
+Weather: e.g., Clear blue sky, overcast and gloomy, light drizzle, heavy thunderstorm with visible lightning, gentle snowfall, swirling fog.
+Historical/Fantastical Period: e.g., A medieval castle courtyard, a roaring 1920s jazz club, a cyberpunk alleyway, an enchanted forest glade.
+Atmospheric Details: e.g., Floating dust motes in a sunbeam, shimmering heat haze, reflections on wet pavement, leaves scattered by the wind.
+Example: Building an immersive world
+
+Prompt: “The scene is a rain-slicked, crumbling street in a forgotten city, shrouded in perpetual twilight. Giant, bioluminescent mushrooms have sprouted from the cracked asphalt, casting an eerie, pulsating green and purple glow onto the decaying facades of skeletal skyscrapers. A gentle, constant rain creates shimmering reflections in the puddles below, and the only sounds are the soft patter of rain and a low, otherworldly hum from the glowing fungi”
+4- Camera angles
+Here are some of the most common camera angles and the effects they typically create:
+
+Eye-Level Shot: Offers a neutral, common perspective, as if viewed from human height. “Eye-level shot of a woman sipping tea.”
+Low-Angle Shot: Positions the camera below the subject, looking up, making the subject appear powerful or imposing. “Low-angle tracking shot of a superhero landing.”
+High-Angle Shot: Places the camera above the subject, looking down, which can make the subject seem small, vulnerable, or part of a larger pattern. “High-angle shot of a child lost in a crowd.”
+Bird’s-Eye View / Top-Down Shot: A shot taken directly from above, offering a map-like perspective of the scene. “Bird’s-eye view of a bustling city intersection.”
+Worm’s-Eye View: A very low-angle shot looking straight up from the ground, emphasizing height and grandeur. “Worm’s-eye view of towering skyscrapers.”
+Dutch Angle / Canted Angle: The camera is tilted to one side, creating a skewed horizon line, often used to convey unease, disorientation, or dynamism. “Dutch angle shot of a character running down a hallway.”
+Close-Up: Frames a subject tightly, typically focusing on a face to emphasize emotions or a specific detail. “Close-up of a character’s determined eyes.”
+Extreme Close-Up: Isolates a very small detail of the subject, such as an eye or a drop of water. “Extreme close-up of a drop of water landing on a leaf.”
+Medium Shot: Shows the subject from approximately the waist up, balancing detail with some environmental context, common for dialogue. “Medium shot of two people conversing.”
+Full Shot / Long Shot: Shows the entire subject from head to toe, with some of the surrounding environment visible. “Full shot of a dancer performing.”
+Wide Shot / Establishing Shot: Shows the subject within their broad environment, often used to establish location and context at the beginning of a sequence. “Wide shot of a lone cabin in a snowy landscape.”
+Over-the-Shoulder Shot: Frames the shot from behind one person, looking over their shoulder at another person or object, common in conversations. “Over-the-shoulder shot during a tense negotiation.”
+Point-of-View Shot: Shows the scene from the direct visual perspective of a character, as if the audience is seeing through their eyes. “POV shot as someone rides a rollercoaster.”
+Example: Bird’s-eye view
+
+Prompt: “A bird’s-eye view of a vast, intricate maze made of high green hedges. A lone figure in a red coat is visible, moving through the labyrinthine paths below”
+Example: Extreme close-up
+
+Prompt: “An extreme close-up of a single, glistening drop of rain as it lands on the petal of a vibrant red rose, causing the petal to tremble slightly”
+5- Camera movements
+
+Here are some of the most common camera movements you can use in your prompts:
+
+Static Shot (or fixed): The camera remains completely still; there is no movement. “Static shot of a serene landscape.”
+Pan (left/right): The camera rotates horizontally left or right from a fixed position. “Slow pan left across a city skyline at dusk.”
+Tilt (up/down): The camera rotates vertically up or down from a fixed position. “Tilt down from the character’s shocked face to the revealing letter in their hands.”
+Dolly (In/Out): The camera physically moves closer to the subject or further away. “Dolly out from the character to emphasize their isolation.”
+Truck (Left/Right): The camera physically moves horizontally (sideways) left or right, often parallel to the subject or scene. “Truck right, following a character as they walk along a busy sidewalk.”
+Pedestal (Up/Down): The camera physically moves vertically up or down while maintaining a level perspective. “Pedestal up to reveal the full height of an ancient, towering tree.”
+Zoom (In/Out): The camera’s lens changes its focal length to magnify or de-magnify the subject. This is different from a dolly, as the camera itself does not move. “Slow zoom in on a mysterious artifact on a table.”
+Crane Shot: The camera is mounted on a crane and moves vertically (up or down) or in sweeping arcs, often used for dramatic reveals or high-angle perspectives. “Crane shot revealing a vast medieval battlefield.”
+Aerial Shot / Drone Shot: A shot taken from a high altitude, typically using an aircraft or drone, often involving smooth, flying movements. “Sweeping aerial drone shot flying over a tropical island chain.”
+Handheld / Shaky Cam: The camera is held by the operator, resulting in less stable, often jerky movements that can convey realism, immediacy, or unease. “Handheld camera shot during a chaotic marketplace chase.”
+Whip Pan: An extremely fast pan that blurs the image, often used as a transition or to convey rapid movement or disorientation. “Whip pan from one arguing character to another.”
+Arc Shot: The camera moves in a circular or semi-circular path around the subject. “Arc shot around a couple embracing in the rain.”
+Example: Zoom-in shot
+
+Prompt: “A slow, dramatic zoom in on a mysterious, ancient compass lying on a dusty map. The camera starts wide, showing the map and a flickering candle, then smoothly zooms in until the intricate, glowing symbols on the compass face fill the entire frame”
+Example: Aerial drone shot
+
+Prompt: “Sweeping aerial drone shot flying over a tropical island chain”
+6- Lens and optical effects
+Here are some common lenses and optical effects you can use to enhance your video:
+
+Wide-Angle Lens (e.g., “18mm lens,” “24mm lens”): Captures a broader field of view than a standard lens. It can exaggerate perspective, making foreground elements appear larger and creating a sense of grand scale or, at closer distances, distortion. “Wide-angle lens shot of a grand cathedral interior, emphasizing its soaring arches.”
+Telephoto Lens (e.g., “85mm lens,” “200mm lens”): Narrows the field of view and compresses perspective, making distant subjects appear closer and often isolating the subject by creating a shallow depth of field. “Telephoto lens shot capturing a distant eagle in flight against a mountain range.”
+Shallow Depth of Field / Bokeh: An optical effect where only a narrow plane of the image is in sharp focus, while the foreground and/or background are blurred. The aesthetic quality of this blur is known as ‘bokeh’. “Portrait of a man with a shallow depth of field, their face sharp against a softly blurred park background with beautiful bokeh.”
+Deep Depth of Field: Keeps most or all of the image, from foreground to background, in sharp focus. “Landscape scene with deep depth of field, showing sharp detail from the wildflowers in the immediate foreground to the distant mountains.”
+Lens Flare: An effect created when a bright light source directly strikes the camera lens, causing streaks, starbursts, or circles of light to appear in the image. Often used for dramatic or cinematic effect. “Cinematic lens flare as the sun dips below the horizon behind a silhouetted couple.”
+Rack Focus: The technique of shifting the focus of the lens from one subject or plane of depth to another within a single, continuous shot. “Rack focus from a character’s thoughtful face in the foreground to a significant photograph on the wall behind them.”
+Fisheye Lens Effect: An ultra-wide-angle lens that produces extreme barrel distortion, creating a circular or strongly convex, wide panoramic image. “Fisheye lens view from inside a car, capturing the driver and the entire curved dashboard and windscreen.”
+Vertigo Effect (Dolly Zoom): A camera effect achieved by dollying the camera towards or away from a subject while simultaneously zooming the lens in the opposite direction. This keeps the subject roughly the same size in the frame, but the background perspective changes dramatically, often conveying disorientation or unease. “Vertigo effect (dolly zoom) on a character standing at the edge of a cliff, the background rushing away.
+Example: Shallow Depth of Field
+
+Prompt: “A cinematic close-up portrait of a woman sitting in a café at night, with a very shallow depth of field. Her face is in sharp focus, while the city lights outside the window behind her are transformed into soft, beautiful bokeh circles”
+Example: Rack focus shot
+
+Prompt: “A medium shot of a detective’s hand in the foreground, holding a single, spent bullet casing. The camera then performs a slow rack focus, shifting from the casing to reveal the anxious face of a witness in the background, now in sharp focus”
+7- Visual style & aesthetics
+This broad category can be broken down into four key components:
+
+Get Dr. Wafae Bakkali’s stories in your inbox
+Join Medium for free to get updates from this writer.
+
+Enter your email
+Subscribe
+7.1. Lighting:
+
+Natural Light: “Soft morning sunlight streaming through a window,” “Overcast daylight”, “Moonlight.”
+Artificial Light: “Warm glow of a fireplace”, “Flickering candlelight,” “Harsh fluorescent office lighting”, “Pulsating neon signs.”
+Cinematic Lighting: “Rembrandt lighting on a portrait”, “Film noir style with deep shadows and stark highlights”, “High-key lighting for a bright, cheerful scene”, “Low-key lighting for a dark, mysterious mood.”
+Specific Effects: “Volumetric lighting creating visible light rays”, “Backlighting to create a silhouette”, “Golden hour glow”, “Dramatic side lighting.”
+7.2. Tone / Mood
+
+Happy/Joyful: Bright, vibrant, cheerful, uplifting, whimsical.
+Sad/Melancholy: Somber, muted colors, slow pace, poignant, wistful.
+Suspenseful/Tense: Dark, shadowy, quick cuts (if implying edit), sense of unease, thrilling.
+Peaceful/Serene: Calm, tranquil, soft, gentle, meditative.
+Epic/Grandiose: Sweeping, majestic, dramatic, awe-inspiring.
+Futuristic/Sci-Fi: Sleek, metallic, neon, technological, dystopian, utopian.
+Vintage/Retro: Sepia tone, grainy film, specific era aesthetics (e.g., “1950s Americana”, “1980s vaporwave”).
+Romantic: Soft focus, warm colors, intimate.
+Horror: Dark, unsettling, eerie, gory (though be mindful of content filters).
+7.3. Artistic style
+
+Photorealistic: “Ultra-realistic rendering”, “Shot on 8K camera.”
+Cinematic: “Cinematic film look”, “Shot on 35mm film”, “Anamorphic widescreen.”
+Animation Styles: “Japanese anime style”, “Classic Disney animation style,” “Pixar-like 3D animation”, “Claymation style”, “Stop-motion animation”, “Cel-shaded animation.”
+Art Movements/Artists: “In the style of Van Gogh”, “Surrealist painting,” “Impressionistic”, “Art Deco design”, “Bauhaus aesthetic.”
+Specific Looks: “Gritty graphic novel illustration”, “Watercolor painting coming to life”, “Charcoal sketch animation”, “Blueprint schematic style.
+7.4. Ambiance
+
+Color Palettes: “Monochromatic black and white”, “Vibrant and saturated tropical colors”, “Muted earthy tones”, “Cool blue and silver futuristic palette”, “Warm autumnal oranges and browns.”
+Atmospheric Effects: “Thick fog rolling across a moor”, “Swirling desert sands”, “Gentle falling snow creating a soft blanket”, “Heat haze shimmering above asphalt”, “Magical glowing particles in the air”, “Subsurface scattering on a translucent object.”
+Textural Qualities: “Rough-hewn stone walls”, “Smooth, polished chrome surfaces”, “Soft, velvety fabric”, “Dewdrops clinging to a spiderweb.”
+Example: Animation style
+
+Prompt: “A dynamic scene in a vibrant Japanese anime style. A magical girl with silver hair and glowing blue eyes walks in a forest The style features sharp lines, bright, saturated colors, and expressive”
+Example: Vintage style
+
+Prompt: “A vintage 1920s street scene, sepia toned, film grain, with characters in period attire”
+8- Temporal elements
+Common temporal elements you can specify include:
+
+Pacing: “Slow-motion”, “Fast-paced action”, “Time-lapse”.
+Evolution (subtle for short clips): “A flower bud slowly unfurling”, “A candle burning down slightly”, “Dawn breaking, the sky gradually lightening.”
+Rhythm: “Pulsating light”, “Rhythmic movement.”
+Example: Evolution
+
+Prompt: “A close-up of a single red rose bud, its petals tightly closed. The camera remains static as the flower slowly and gracefully unfurls over the course of the shot, revealing its vibrant inner layers. The evolution is subtle, showing a clear but gradual change”
+Example: Time-lapse
+
+Prompt: “A time-lapse of a bustling city skyline as day transitions to night. The camera is static. Watch as the sun sets, casting long shadows, and the city lights begin to twinkle on, with streaks of car headlights moving along the streets below”
+9- Audio
+
+Common audio elements you can describe in your prompt include:
+
+Sound Effects: Individual, distinct sounds that occur within the scene (e.g., “the sound of a phone ringing”, “water splashing in the background”, “soft house sounds, the creak of a closet door, and a ticking clock” ).
+Ambient Noise: The general background noise that makes a location feel real (e.g., “the sounds of city traffic and distant sirens”, “waves crashing on the shore”, “the quiet hum of an office” ).
+Dialogue: Spoken words from characters or a narrator (e.g., “The man in the red hat says: ‘Where is the rabbit?’”, “A voiceover with a polished British accent speaks in a serious, urgent tone”, “Two people discuss a movie” ).
+Example: Dialogue
+
+Prompt: “A medium shot in a dimly lit interrogation room. The seasoned detective says: Your story has holes. The nervous informant, sweating under a single bare bulb, replies: I’m telling you everything I know. The only other sounds are the slow, rhythmic ticking of a wall clock and the faint sound of rain against the window”
+Tips and best practices
+Beyond understanding the individual components, here are some best practices to help you combine them effectively and refine your results.
+
+1- Use advanced cinematic language
+While we’ve covered basic camera moves, you can suggest more advanced cinematic language in your prompts. Try incorporating terms for editing styles and specific techniques. Consider using terms like: “match cut”, “jump cut”, “establishing shot sequence”, “montage (of brief, related actions)”, “split diopter effect”.
+
+Example: Jump cut
+
+Prompt: “A person sitting in the same position but wearing different outfits, with sharp jump cuts between each outfit change. The background should stay static and the person should reappear instantly in the new outfit, creating a fast-paced, rhythmic jump cut effect. The lighting and framing should remain consistent to emphasize the sudden changes”
+2- Use clear and specific language
+For instance, instead of a confusing description like the one below:
+
+Potentially confusing: “I envision a scene where, like, the main focus, a dude, is kinda sad, and it’s like, dark, and the camera is sort of, from below, you know?”
+Provide a clear and direct prompt that eliminates ambiguity:
+
+Clear and direct: “Low-angle close-up shot of a man with a somber expression. The scene is dimly lit, conveying a melancholic mood.”
+3- Pro tip for dialogue: How to avoid unwanted subtitles
+To ensure your dialogue is spoken by the character without appearing as subtitles, use only a colon (:) after the speaker's action. Avoid using quotation marks (" "), as the model may interpret them as text to display visually.
+
+DO: A women says: My name is Clara
+Don’t: A women says: “My name is Clara”
+4- Maximize impact with multiple orientations
+To ensure your video performs effectively on all platforms, consider generating it in multiple aspect ratios. Different platforms are optimized for different shapes, and creating versions for each is especially critical for professional use cases like marketing and advertising.
+
+Here are the key aspect ratios and their primary uses:
+
+16:9 (Landscape): The standard for YouTube, presentations, and most traditional video displays.
+9:16 (Portrait/Vertical): Essential for mobile-first platforms like TikTok, Instagram Reels, and YouTube Shorts.
+1:1 (Square): Highly effective for in-feed posts on social media platforms like Instagram and Facebook.
+5- Focus on a single scene
+For the best results, dedicate each prompt to a single, focused moment. Trying to chain multiple distinct events (A then B then C) in one prompt for a short clip often leads to muddled or incomplete videos.
+
+Instead of one complex prompt:
+
+“A detective finds a clue in a library, then drives across the city at night, and then confronts a suspect in a warehouse.”
+
+Generate each part as a separate clip:
+
+Clip 1: “Close-up on a detective’s gloved hand brushing dust off an old book in a dark library, revealing a hidden symbol.”
+Clip 2: “A car driving through a neon-lit city at night, with rain streaking across the windshield, in a film noir style.”
+Clip 3: “Inside a shadowy warehouse, a detective stands opposite a silhouetted figure, creating a tense atmosphere.”
+6- Enhance Your Workflow with Gemini
+Gemini can be a powerful partner throughout your entire video creation process, from ideation to evaluation.
+
+Before Creation: Use Gemini as an expert prompter
+
+Instead of starting from scratch, you can ask Gemini to act as an expert prompter. Have it refine your basic ideas into detailed, veo-ready prompts. You can give it an instruction like this:
+
+Example prompt for Gemini: “Act as an expert prompter for a generative AI video generation model. Look at this image, and write a prompt that <instruction>. Ensure your prompt is comprehensive and detailed.”
+
+After Creation: Use Gemini as a “Second pair of eyes”
+
+Once your video is generated, Gemini can evaluate the final output, check it against company or brand guidelines, and flag any potentially problematic areas that may require human review.
+
+7- (Image to video) Use a high-quality source image
+When using the image-to-video feature, the quality of your source image is paramount. Veo uses this image as the foundational blueprint for everything that follows, including character detail, lighting, and overall artistic style.
+
+A sharp, clear, and well-composed photograph will always yield a more coherent and higher-quality video. Think of your source image as the first frame of your film, the stronger the start, the better the finish.
+
+8- (Image to video) Prompt for motion only
+This is the most important principle of Image-to-Video. Your source image already provides the subject, scene, and style. Your text prompt should only describe the motion you want to see.
+
+DO: Prompt for camera movement, subject animation, and environmental changes.
+DON’T: Re-describe the character, the background, or the lighting. Redundant prompts confuse the model and lead to poor results.
+Pro Tip: In your motion prompt, refer to the character with general terms like “the subject”, “the woman” or “he/she.”
+
+9- (Image to video) Three ways to animate your image
+You can direct three types of movement, either alone or in combination.
+
+Camera Motion: The camera moves, but the scene is static. This is the simplest and most reliable way to add dynamism.
+
+Example: “Slow dolly in on the subject.”
+Subject Animation: The main character or object moves. Best for subtle, lifelike actions.
+
+Example: “The character’s hair and clothes flutter gently in the wind.”
+Environmental Animation: The background or atmosphere comes alive.
+
+Example: “Fog rolls in slowly across the landscape.”
+Example: Subject animation
+
+Press enter or click to view image in full size
+
+[[Image by author, generated by Imagen 4] Input Image
+Prompt: “A sweeping drone-like aerial view starting from ground level and rising to reveal the entire landscape in epic proportions”
+10- How to achieve character and voice consistency
+When creating long videos, character and voice consistency is key. Follow these steps to maintain the best level of coherence throughout your scenes:
+
+Create a detailed character description: Your description is the foundation for consistency. To ensure reusability and voice consistency, build out the description for your character with a rich set of unchangeable features: physical build and age, hair color and style, facial structure, eye color and shape, any defining marks and a voice style. You can use Gemini to generate an exhaustive verbal description of your character’s facial features.
+Apply the description consistently: Copy and paste the entire, unchanged character description into your prompt for every new scene. Only modify the parts that describe the new action or setting. To speed up your workflow, you can also use Gemini as a scene generator. Provide it with your final character description and ask it to generate multiple scene prompts for you.
+Use the same seed parameter: Seed numbers are numerical values that control the randomness in the AI’s generation process. Using the same seed with the same prompt will likely generate very similar outputs, while altering the seed can lead to variations. For specific details on how to integrate the seed parameter, refer to the VEO API specification.
+Example: Character and voice consistency
+
+1️⃣Prompt for Scene 1: “A medium shot, with the camera slowly dollying forward in a dimly lit, grand Parisian archive. Dust motes dance in a single beam of light from a high window. Clara, a historian in her early 30s, with observant, dark brown eyes that hold a quiet intensity. She has chin-length, black hair styled in a classic bob. She is dressed in a sophisticated, dark navy-blue wool coat, with a silk scarf patterned with subtle gold and cream designs tied around her neck. She stands before a large, ancient wooden table, carefully turning the fragile, yellowed page of a massive, leather-bound book. Her expression is one of deep concentration. In a voice that is crisp and clear, with a thoughtful, analytical tone and a standard american accent, Clara says: It has to be here” 2️⃣Prompt for Scene 2: ”A wide shot of the Pont des Arts in Paris at twilight, the sky a mix of deep blue and soft orange. The lights of the city are beginning to twinkle on along the Seine. Clara, a historian in her early 30s, with observant, dark brown eyes that hold a quiet intensity. She has chin-length, black hair styled in a classic bob. She is dressed in a sophisticated, dark navy-blue wool coat, with a silk scarf patterned with subtle gold and cream designs tied around her neck. She leans against the railing, looking out at the water, a small, triumphant smile on her face. She pulls a folded, old map from her coat pocket and looks down at it. In a voice that is crisp and clear, with a thoughtful, analytical tone and a standard american accent, Clara says: I knew it. The path starts from here” 3️⃣Prompt for Scene 3: “An eye-level shot in a small, hidden Parisian courtyard, overgrown with ivy and lit by a single, warm gas lamp. Clara, a historian in her early 30s, with observant, dark brown eyes that hold a quiet intensity. She has chin-length, black hair styled in a classic bob. She is dressed in a sophisticated, dark navy-blue wool coat, with a silk scarf patterned with subtle gold and cream designs tied around her neck. She kneels down and runs her fingers over an ancient, carved symbol on a stone paver, almost completely obscured by moss. Her eyes light up with discovery. In a voice that is crisp and clear, with a thoughtful, analytical tone and a standard american accent, Clara says: After all these years, I’ve found it”
+Conclusion
+This guide shares experimentation-based best practices for structuring prompts, helping you create compelling videos with Veo 3 and bring your creative concepts to life.
+
+As you create, keep in mind that Veo applies safety filters across Vertex AI to help ensure that generated videos and uploaded photos don’t contain offensive content. For example, prompts that violate responsible AI guidelines are blocked.
+
+Acknowledgments
+The author would like to thank 
+G. Hussain Chinoy
+ for their earlier work that inspired this post, and feedback on this guidance.
+
+📜About the author
+
+Dr. Wafae Bakkali is a Staff Generative AI Specialist, Blackbelt at Google. With over 12 years of experience, she has a proven track record of combining deep technical expertise and leadership with strategic business insights to drive impactful outcomes. Through her current role at Google and former roles at reputable organizations such as AWS, Dr. Bakkali has successfully guided organizations across various industries in adopting and building AI solutions.
+
+She holds a PhD from IMT Atlantique, France, and served as a postdoctoral researcher at Centrale Supélec, Paris-Saclay University, France.
+
+Dr. Bakkali is also an active contributor to the AI community. She regularly shares her expertise as a speaker at international tech conferences and mentors participants in AI hackathons, tech, and startup events.
+
+🔗Connect with me on LinkedIn: https://www.linkedin.com/in/wafae-bakkali/
+
+Prompt Engineering
+Generative Ai Tools
+Veo
+Google Ai
+Video Generation
+203
+
+
+2
+
+
+Google Cloud - Community
+Published in Google Cloud - Community
+70K followers
+·
+Last published 12 hours ago
+A collection of technical articles and blogs published or curated by Google Cloud Developer Advocates. The views expressed are those of the authors and don't necessarily reflect those of Google.
+
+
+Follow
+Dr. Wafae Bakkali
+Written by Dr. Wafae Bakkali
+123 followers
+·
+4 following
+Generative AI Tech Lead at Google
+
+
+Follow
+Responses (2)
+
+Write a response
+
+What are your thoughts?
+
+Cancel
+Respond
+Sanket Dongre
+Sanket Dongre
+
+Jun 25
+
+
+Thanks for this awesome guide!
+3
+
+Reply
+
+Lokesh M
+Lokesh M
+
+Sep 23
+
+
+Do we have any updated Doc or is this the latest one ?
+Reply
+
+More from Dr. Wafae Bakkali and Google Cloud - Community
+Building a Multimodal AI Shopping Workflow with Gemini 2.5
+Google Cloud - Community
+In
+
+Google Cloud - Community
+
+by
+
+Dr. Wafae Bakkali
+
+Building a Multimodal AI Shopping Workflow with Gemini 2.5
+Exploring a generative AI workflow that combines computer use, multimodal reasoning, and creative generation to build end-to-end shopping…
+Oct 22
+100
+1
+Tutorial : Getting Started with Google Antigravity
+Google Cloud - Community
+In
+
+Google Cloud - Community
+
+by
+
+Romin Irani
+
+Tutorial : Getting Started with Google Antigravity
+Welcome to the tutorial on Antigravity, Google’s free and experimental Agent first development platform.
+Nov 19
+656
+13
+Building AI Agents Visually with Google ADK Visual Agent Builder
+Google Cloud - Community
+In
+
+Google Cloud - Community
+
+by
+
+Thomas Chong
+
+Building AI Agents Visually with Google ADK Visual Agent Builder
+Google ADK v1.18.0 introduced the Visual Agent Builder — a browser-based interface that lets you design, configure, and test complex…
+Nov 10
+181
+7
+Color Code Adherence in AI Image Generation: A Case Study with Gemini
+Google Cloud - Community
+In
+
+Google Cloud - Community
+
+by
+
+Dr. Wafae Bakkali
+
+Color Code Adherence in AI Image Generation: A Case Study with Gemini
+How to achieve precise color matching (HEX, RGB, HSL) with AI Image generation models: Example of Gemini 2.5 Flash Image (aka Nano Banana)
+Sep 20
+52
+See all from Dr. Wafae Bakkali
+See all from Google Cloud - Community
+Recommended from Medium
+An example of a perfect, human designed dashboard interface for desktop and mobile phone
+Michal Malewicz
+Michal Malewicz
+
+The End of Dashboards and Design Systems
+Design is becoming quietly human again.
+
+Nov 26
+2.1K
+79
+The Best AI Tools for 2026
+Artificial Corner
+In
+
+Artificial Corner
+
+by
+
+The PyCoach
+
+The Best AI Tools for 2026
+If you’re going to learn a new AI tool, make sure it’s one of these
+
+Dec 1
+995
+22
+The AI Bubble Is About To Burst, But The Next Bubble Is Already Growing
+Will Lockett
+Will Lockett
+
+The AI Bubble Is About To Burst, But The Next Bubble Is Already Growing
+Techbros are preparing their latest bandwagon.
+
+Sep 14
+19K
+704
+Stanford Just Killed Prompt Engineering With 8 Words (And I Can’t Believe It Worked)
+Generative AI
+In
+
+Generative AI
+
+by
+
+Adham Khaled
+
+Stanford Just Killed Prompt Engineering With 8 Words (And I Can’t Believe It Worked)
+ChatGPT keeps giving you the same boring response? This new technique unlocks 2× more creativity from ANY AI model — no training required…
+
+Oct 19
+19.3K
+472
+A middle-aged man with short dark hair, a beard, and glasses looks surprised and upset, surprised and angry. He wears a beige sweater and is positioned on the right side of the image against a light background. On the left, bold white text on a black rectangle reads, “YOUR CHATGPT HISTORY IS SHOWING UP ON GOOGLE. Here’s what to do.” Ask ChatGPT
+How To Profit AI®
+In
+
+How To Profit AI®
+
+by
+
+Mohamed Bakry
+
+Your ChatGPT History Just Went Public on Google. Here’s What I Did in 10 Mins to Fix It.
+Safety/Privacy Check Prompt Template Is Included
+
+5d ago
+12.8K
+399
+I have built around 300 agents, worked at 5 startups. Here’s what I learnt about AI Agent
+Yashwanth Sai
+Yashwanth Sai
+
+I have built around 300 agents, worked at 5 startups. Here’s what I learnt about AI Agent
+Lessons learnt after working with agents for over an year.
+
+Aug 24
+5.2K
+206
+See more recommendations
+Help
+
+Status
+
+About
+
+Careers
+
+Press
+
+Blog
+
+Privacy
+
+Rules
+
+Terms
+
+Text to speech

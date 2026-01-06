@@ -1,0 +1,388 @@
+======================================================================
+MASTER CLIP ONTOLOGY
+======================================================================
+Version: 1.0
+Videos Analyzed: 15
+Total Clips Analyzed: 1851
+Last Updated: 2025-12-31T15:22:50.606003
+
+======================================================================
+VISUAL ONTOLOGY
+======================================================================
+
+Shot Types:
+  medium (784x)
+  close_up (730x)
+  wide (170x)
+  extreme_close_up (87x)
+  overhead (37x)
+  insert (14x)
+  low_angle (13x)
+  long (10x)
+  high_angle (6x)
+
+Camera Angles:
+  eye_level (1391x)
+  high_angle (256x)
+  low_angle (95x)
+  overhead (81x)
+  birds_eye (18x)
+  handheld (7x)
+  over_the_shoulder (2x)
+  slightly_high_angle (1x)
+
+Camera Movements:
+  static (1465x)
+  handheld (180x)
+  pan (99x)
+  tracking (74x)
+  zoom_in (33x)
+
+Compositions:
+  centered (1425x)
+  rule_of_thirds (206x)
+  dynamic (154x)
+  symmetrical (51x)
+  split_screen (5x)
+  focused (2x)
+  cluttered (2x)
+  full_frame (1x)
+  layered (1x)
+  profile (1x)
+  chaotic (1x)
+  group (1x)
+  diagonal (1x)
+
+Setting Types:
+  indoor (1078x)
+  outdoor (252x)
+  studio (232x)
+  animated (199x)
+  industrial (45x)
+  screen_recording (42x)
+  kitchen (2x)
+  clinical (1x)
+
+Lighting Styles:
+  natural (439x)
+  indoor (268x)
+  studio (257x)
+  high_key (201x)
+  industrial (120x)
+  soft (115x)
+  bright (105x)
+  low_key (104x)
+  dramatic (82x)
+  daylight (82x)
+  warm (18x)
+  digital (16x)
+  clean (10x)
+  fluorescent (5x)
+  pop (3x)
+  vibrant (3x)
+  scientific (3x)
+  flat (3x)
+  dark (3x)
+  cool (3x)
+
+Color Moods:
+  warm (452x)
+  neutral (282x)
+  clean (226x)
+  cool (214x)
+  natural (134x)
+  dark (120x)
+  bright (108x)
+  green (98x)
+  vibrant (94x)
+  muted (69x)
+  white (31x)
+  blue (9x)
+  red (4x)
+  cold (2x)
+  grey (2x)
+  pale (1x)
+  calm (1x)
+  orange (1x)
+  daylight (1x)
+  yellow (1x)
+
+Subject Types:
+  person (898x)
+  product (486x)
+  b_roll (233x)
+  graphic (178x)
+  text_screen (42x)
+  object (14x)
+
+Subject Actions:
+  demonstrating (502x)
+  static (493x)
+  speaking (313x)
+  working (175x)
+  reacting (113x)
+  walking (77x)
+  struggling (69x)
+  gesturing (57x)
+  running (10x)
+  struggling (black and white footage) (8x)
+  floating (3x)
+  standing (2x)
+  walking through darkness (1x)
+  fallen (1x)
+  gesturing while speaking (1x)
+  moving (1x)
+  walking confidently (1x)
+  animating (1x)
+  pivoting with angle indicators (1x)
+  falling onto grass (1x)
+
+Text Purposes:
+  subtitle (1520x)
+  none (134x)
+  headline (66x)
+  cta (52x)
+  statistic (24x)
+  subtitles (17x)
+  narrative (6x)
+  feature (5x)
+  benefit (5x)
+  graphic (5x)
+  quote (5x)
+  proof (3x)
+  demonstration (3x)
+  instruction (2x)
+  emphasis (1x)
+  demo (1x)
+  contrast (1x)
+  hook (1x)
+
+======================================================================
+EMOTIONAL ONTOLOGY
+======================================================================
+
+Emotions:
+  trust (466x)
+  curiosity (425x)
+  fear (329x)
+  urgency (248x)
+  frustration (227x)
+  relief (207x)
+  confidence (162x)
+  desire (162x)
+  excitement (157x)
+  hope (156x)
+  disgust (57x)
+  satisfaction (44x)
+  joy (36x)
+  anger (35x)
+  awe (35x)
+  sadness (34x)
+  neutral (29x)
+  skepticism (29x)
+  concern (28x)
+  confusion (26x)
+
+Intensities:
+  moderate (1112x)
+  strong (459x)
+  subtle (231x)
+  low (26x)
+  neutral (11x)
+  high (9x)
+  positive (2x)
+  mixed (1x)
+
+======================================================================
+FUNCTIONAL ONTOLOGY
+======================================================================
+
+Clip Functions:
+  benefit (300x)
+  agitation (248x)
+  problem (240x)
+  proof (198x)
+  demo (146x)
+  solution (128x)
+  hook (127x)
+  feature (119x)
+  problem_demo (114x)
+  cta (75x)
+  transition (38x)
+  story (14x)
+  education (13x)
+  use_case (8x)
+  explanation (8x)
+  authority (8x)
+  social_proof (6x)
+  setup (5x)
+  demonstration (4x)
+  product_reveal (4x)
+
+Narrative Roles:
+  reinforce (315x)
+  build (300x)
+  setup (242x)
+  escalate (209x)
+  pivot (169x)
+  agitate (159x)
+  payoff (151x)
+  climax (98x)
+  contrast (90x)
+  solution (53x)
+  proof (18x)
+  transition (12x)
+  list (3x)
+  explanation (3x)
+  resolution (3x)
+  scarcity (2x)
+  reveal (2x)
+  context (2x)
+  demo (2x)
+  conflict (2x)
+
+Persuasion Mechanisms:
+  demonstration (305x)
+  pain_agitation (261x)
+  logic (219x)
+  authority (210x)
+  scarcity (169x)
+  social_proof (152x)
+  contrast (139x)
+  association (112x)
+  fear_appeal (106x)
+  curiosity_gap (102x)
+  storytelling (21x)
+  conspiracy (3x)
+  loss_aversion (3x)
+  visual_metaphor (3x)
+  visualization (3x)
+  hyperbole (2x)
+  story (2x)
+  comparison (2x)
+  risk_reversal (2x)
+  differentiation (2x)
+
+======================================================================
+TRANSITIONS
+======================================================================
+  cut (3645x)
+  fade (33x)
+  dissolve (11x)
+  zoom (6x)
+  wipe (5x)
+  zoom_in (2x)
+
+======================================================================
+FUNCTION DURATION AVERAGES
+======================================================================
+  graphic: 0.63s
+  problem_identification: 0.70s
+  brand_intro: 0.83s
+  dismissal: 0.90s
+  reason_why: 1.00s
+  cliffhanger: 1.00s
+  use_case: 1.07s
+  social_proof: 1.08s
+  product_intro: 1.10s
+  comparison: 1.10s
+  scarcity: 1.20s
+  product_reveal: 1.25s
+  product: 1.42s
+  climax: 1.42s
+  product_shot: 1.47s
+  solution_reveal: 1.50s
+  solution_demo: 1.50s
+  storytelling: 1.50s
+  context: 1.50s
+  authority: 1.53s
+  narrative: 1.65s
+  transition: 1.70s
+  villain_intro: 1.70s
+  feature: 1.76s
+  agitation: 1.81s
+  testimonial: 1.87s
+  benefit: 1.93s
+  contrast: 1.95s
+  problem: 1.97s
+  metaphor: 2.00s
+  technical_proof: 2.00s
+  hook: 2.04s
+  instruction: 2.08s
+  demo: 2.09s
+  problem_demo: 2.09s
+  revelation: 2.10s
+  proof: 2.15s
+  science: 2.37s
+  solution: 2.38s
+  cta: 2.38s
+  story: 2.40s
+  reveal_setup: 2.50s
+  setup: 2.55s
+  build: 2.70s
+  offer: 3.04s
+  demonstration: 3.10s
+  education: 3.27s
+  narrative_bridge: 3.40s
+  explanation: 3.41s
+  pain_point: 3.53s
+  pivot: 4.19s
+  payoff: 4.30s
+
+======================================================================
+EMOTION-FUNCTION CORRELATIONS
+======================================================================
+  agitation: fear(87), frustration(37), urgency(32)
+  authority: trust(4), respect(1), seriousness(1)
+  benefit: relief(72), confidence(38), trust(36)
+  brand_intro: excitement(1)
+  build: suspense(1)
+  cliffhanger: fear(1)
+  climax: excitement(1)
+  comparison: relief(2), skepticism(1)
+  context: frustration(1)
+  contrast: frustration(1), relief(1)
+  cta: urgency(43), desire(9), excitement(7)
+  demo: curiosity(56), confidence(18), trust(16)
+  demonstration: resignation(1), suspicion(1), frustration(1)
+  dismissal: rejection(1)
+  education: trust(7), curiosity(4), empathy(1)
+  explanation: trust(2), interest(1), boredom(1)
+  feature: curiosity(48), trust(30), confidence(11)
+  graphic: fear(1)
+  hook: curiosity(61), trust(21), urgency(10)
+  instruction: confidence(1)
+  metaphor: fear(1)
+  narrative: frustration(1), concern(1)
+  narrative_bridge: curiosity(1)
+  offer: desire(2), urgency(1)
+  pain_point: frustration(1)
+  payoff: excitement(1)
+  pivot: trust(2), empathy(1), curiosity(1)
+  problem: frustration(67), fear(63), trust(23)
+  problem_demo: fear(30), frustration(25), curiosity(15)
+  problem_identification: disgust(1)
+  product: trust(2), desire(2)
+  product_intro: desire(1)
+  product_reveal: desire(1), trust(1), curiosity(1)
+  product_shot: fear(1), curiosity(1), awe(1)
+  proof: trust(99), curiosity(19), excitement(12)
+  reason_why: excitement(1)
+  reveal_setup: curiosity(1)
+  revelation: frustration(1)
+  scarcity: urgency(1)
+  science: curiosity(1)
+  setup: curiosity(3), peace(1), confidence(1)
+  social_proof: excitement(4), urgency(1), confidence(1)
+  solution: hope(24), relief(22), trust(21)
+  solution_demo: triumph(1)
+  solution_reveal: awe(1)
+  story: curiosity(4), frustration(3), anger(2)
+  storytelling: curiosity(1), seriousness(1)
+  technical_proof: confidence(1)
+  testimonial: excitement(1), trust(1)
+  transition: curiosity(11), trust(8), urgency(5)
+  use_case: safety(1), freedom(1), dignity(1)
+  villain_intro: fear(1)
+
+======================================================================

@@ -1,0 +1,59 @@
+cat << EOF > request.json
+{
+    "endpoint": "projects/bold-guide-254318/locations/us-central1/publishers/google/models/veo-3.1-fast-generate-001",
+    "instances": [
+        {
+            "prompt": "PROMPT",
+            "image": {
+                "bytesBase64Encoded": BASE64BYTES
+                "mimeType": "image/png",
+            },
+        }
+    ],
+    "parameters": {
+        "aspectRatio": "16:9",
+        "sampleCount": 2,
+        "durationSeconds": "5",
+        "personGeneration": "allow_all",
+        "addWatermark": false,
+        "includeRaiReason": true,
+        "generateAudio": true,
+        "resolution": "720p",
+    }
+}
+EOF
+
+PROJECT_ID="bold-guide-254318"
+LOCATION_ID="us-central1"
+API_ENDPOINT="us-central1-aiplatform.googleapis.com"
+MODEL_ID="veo-3.1-fast-generate-001"
+
+OPERATION_ID=$(curl \
+-X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $(gcloud auth print-access-token)" \
+"https://${API_ENDPOINT}/v1/projects/${PROJECT_ID}/locations/${LOCATION_ID}/publishers/google/models/${MODEL_ID}:predictLongRunning" -d '@request.json' | grep '"name": .*'| sed 's|"name":\ ||g')
+
+echo "OPERATION_ID: ${OPERATION_ID}"
+
+
+
+
+
+
+
+
+Enter the following to get your results. If the long-running operation succeeded, an array of MP4 videos will be returned as base64-encoded strings. Otherwise, the operation's current status (e.g. “not started”, “running”) will be returned, and you can try repeating this step later.
+
+
+cat << EOF > fetch.json
+{
+    "operationName": ${OPERATION_ID}
+}
+EOF
+
+curl \
+-X POST \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer $(gcloud auth print-access-token)" \
+"https://${API_ENDPOINT}/v1/projects/${PROJECT_ID}/locations/${LOCATION_ID}/publishers/google/models/${MODEL_ID}:fetchPredictOperation" -d '@fetch.json'

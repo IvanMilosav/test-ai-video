@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Script-to-Clip Breakdown</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0a0a0a;
+            color: #e0e0e0;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        header {
+            text-align: center;
+            padding: 30px 0;
+            border-bottom: 1px solid #333;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+
+        /* Script Input Section */
+        .script-input-section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .script-input-section h2 {
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        textarea {
+            width: 100%;
+            height: 200px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #e0e0e0;
+            padding: 15px;
+            font-size: 14px;
+            line-height: 1.6;
+            resize: vertical;
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-secondary {
+            background: #333;
+            margin-left: 10px;
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 13px;
+        }
+
+        /* Loading */
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .loading.active {
+            display: block;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #333;
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Product Section */
+        .product-section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .product-section h2 {
+            margin-bottom: 15px;
+            color: #fff;
+        }
+
+        .product-upload-area {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .product-image-preview {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            background: #252525;
+            border: 2px dashed #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .product-image-preview.has-image {
+            border-style: solid;
+            border-color: #667eea;
+        }
+
+        .product-image-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-image-preview .placeholder {
+            font-size: 48px;
+            color: #666;
+        }
+
+        .product-info {
+            flex: 1;
+        }
+
+        .product-info p {
+            color: #888;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        /* Characters Section */
+        .characters-section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            display: none;
+        }
+
+        .characters-section.active {
+            display: block;
+        }
+
+        .characters-section h2 {
+            margin-bottom: 20px;
+            color: #fff;
+        }
+
+        .characters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .character-card {
+            background: #252525;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #333;
+        }
+
+        .character-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .character-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .character-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .character-image .placeholder {
+            font-size: 32px;
+            color: #666;
+        }
+
+        .character-info h3 {
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .character-archetype {
+            color: #667eea;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .character-description {
+            color: #999;
+            font-size: 13px;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .character-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: 0;
+            top: 0;
+            opacity: 0;
+            cursor: pointer;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Segments Section */
+        .segments-section {
+            display: none;
+        }
+
+        .segments-section.active {
+            display: block;
+        }
+
+        .segments-section h2 {
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .segment-card {
+            background: #1a1a1a;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border: 1px solid #333;
+        }
+
+        .segment-header {
+            background: #252525;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+
+        .segment-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 14px;
+        }
+
+        .segment-tags {
+            display: flex;
+            gap: 8px;
+        }
+
+        .tag {
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .tag-primary {
+            background: #2d4a3e;
+            color: #4ade80;
+        }
+
+        .tag-secondary {
+            background: #4a2d2d;
+            color: #f87171;
+        }
+
+        .tag-bucket {
+            background: #2d3a4a;
+            color: #60a5fa;
+        }
+
+        .segment-body {
+            padding: 20px;
+        }
+
+        .segment-script {
+            background: #0a0a0a;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 3px solid #667eea;
+        }
+
+        .segment-script p {
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .segment-meta {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .meta-item {
+            background: #252525;
+            padding: 12px;
+            border-radius: 8px;
+        }
+
+        .meta-label {
+            color: #888;
+            font-size: 11px;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+        }
+
+        .meta-value {
+            color: #e0e0e0;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .clip-description {
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .clip-description h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 13px;
+            text-transform: uppercase;
+        }
+
+        .clip-description p {
+            color: #e0e0e0;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .segment-image {
+            margin-top: 15px;
+        }
+
+        .segment-image img {
+            max-width: 100%;
+            border-radius: 8px;
+        }
+
+        .generated-image-placeholder {
+            background: #252525;
+            border: 2px dashed #444;
+            border-radius: 8px;
+            padding: 30px;
+            text-align: center;
+            color: #666;
+        }
+
+        .generated-image-placeholder.has-image {
+            border-style: solid;
+            border-color: #667eea;
+            padding: 0;
+        }
+
+        /* Description Fields */
+        .description-fields {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .description-field {
+            background: #252525;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .description-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .description-field h4 {
+            color: #667eea;
+            font-size: 12px;
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .btn-tiny {
+            padding: 4px 8px;
+            font-size: 14px;
+            margin: 0;
+            min-width: auto;
+        }
+
+        .btn-reroll {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        .btn-reroll:hover {
+            background: #444;
+        }
+
+        .description-field textarea {
+            width: 100%;
+            height: 100px;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            border-radius: 6px;
+            color: #e0e0e0;
+            padding: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            resize: vertical;
+        }
+
+        .description-field textarea:focus {
+            border-color: #667eea;
+            outline: none;
+        }
+
+        /* Product Toggle */
+        .product-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            color: #888;
+        }
+
+        .product-toggle input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #667eea;
+            cursor: pointer;
+        }
+
+        .product-toggle:hover {
+            color: #e0e0e0;
+        }
+
+        /* Product Tag */
+        .tag-product {
+            background: #4a3d2d;
+            color: #fbbf24;
+        }
+
+        /* Project Name Section */
+        .project-name-section {
+            background: #1a1a1a;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+
+        .project-name-section h2 {
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .section-description {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .project-name-input {
+            width: 100%;
+            max-width: 400px;
+            padding: 12px 15px;
+            background: #0a0a0a;
+            border: 1px solid #333;
+            border-radius: 8px;
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+
+        .project-name-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        /* Video Prompt Section */
+        .video-prompt-section {
+            background: #1a2a1a;
+            border: 1px solid #2d4a3e;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .video-prompt-section h4 {
+            color: #4ade80;
+            margin-bottom: 10px;
+            font-size: 12px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .video-prompt-section textarea {
+            width: 100%;
+            height: 80px;
+            background: #0a0a0a;
+            border: 1px solid #2d4a3e;
+            border-radius: 6px;
+            color: #e0e0e0;
+            padding: 10px;
+            font-size: 13px;
+            line-height: 1.5;
+            resize: vertical;
+            margin-bottom: 10px;
+        }
+
+        .video-prompt-actions {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .btn-enhance {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            color: #000;
+        }
+
+        .btn-generate-video {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: #000;
+        }
+
+        /* Video Preview */
+        .video-preview {
+            margin-top: 15px;
+            background: #252525;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-preview video {
+            width: 100%;
+            display: block;
+        }
+
+        .video-progress {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .progress-bar-container {
+            background: #333;
+            border-radius: 4px;
+            height: 8px;
+            overflow: hidden;
+            margin: 15px 0;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            height: 100%;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            color: #888;
+            font-size: 13px;
+        }
+
+        .video-actions {
+            padding: 15px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            border-top: 1px solid #333;
+        }
+
+        .btn-download {
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: #1a1a1a;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 30px;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 24px;
+            font-weight: 700;
+            color: #667eea;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .segment-meta {
+                grid-template-columns: 1fr;
+            }
+
+            .characters-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .description-fields {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Script-to-Clip Breakdown</h1>
+            <p class="subtitle">Transform scripts into visual segment breakdowns with AI</p>
+        </header>
+
+        <!-- Script Input -->
+        <section class="script-input-section">
+            <h2>Enter Your Script</h2>
+            <textarea id="scriptInput" placeholder="Paste your video ad script here..."></textarea>
+            <button class="btn" id="breakdownBtn" onclick="breakdownScript()">
+                Break Down Script
+            </button>
+        </section>
+
+        <!-- Loading -->
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>Analyzing script and generating segments...</p>
+        </div>
+
+        <!-- Characters Section -->
+        <section class="characters-section" id="charactersSection">
+            <h2>Characters</h2>
+            <div class="characters-grid" id="charactersGrid"></div>
+        </section>
+
+        <!-- Product Section -->
+        <section class="product-section" id="productSection" style="display: none;">
+            <h2>Product Reference</h2>
+            <div class="product-upload-area">
+                <div class="product-image-preview" id="productImagePreview">
+                    <span class="placeholder">📦</span>
+                </div>
+                <div class="product-info">
+                    <p>Upload a photo of your product. This image will be used as a reference when generating images for segments tagged as "PRODUCT".</p>
+                    <div class="file-input-wrapper">
+                        <button class="btn btn-secondary">Upload Product Photo</button>
+                        <input type="file" accept="image/*" onchange="uploadProductImage(this)">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Project Name Section -->
+        <section class="project-name-section" id="projectNameSection" style="display: none;">
+            <h2>Project Name</h2>
+            <p class="section-description">Enter a name for this project. This will be used for video file naming.</p>
+            <input type="text" id="projectNameInput" placeholder="e.g., FreshCore_Ad_v1" class="project-name-input">
+        </section>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar" id="statsBar" style="display: none;">
+            <div class="stat">
+                <div class="stat-value" id="segmentCount">0</div>
+                <div class="stat-label">Segments</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="characterCount">0</div>
+                <div class="stat-label">Characters</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value" id="wordCount">0</div>
+                <div class="stat-label">Words</div>
+            </div>
+        </div>
+
+        <!-- Segments Section -->
+        <section class="segments-section" id="segmentsSection">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Script Segments</h2>
+                <button class="btn" id="generateAllBtn" onclick="generateAllImages()">
+                    Generate All Images
+                </button>
+            </div>
+            <div id="segmentsList"></div>
+        </section>
+    </div>
+
+    <script>
+        const API_BASE = '';  // Same origin
+
+        let currentBreakdown = null;
+        let productImageBase64 = null;  // Store uploaded product image as base64
+
+        // Helper function to convert image URL to base64
+        async function imageUrlToBase64(url) {
+            try {
+                const response = await fetch(url);
+                const blob = await response.blob();
+                return new Promise((resolve, reject) => {
+                    const reader = new FileReader();
+                    reader.onloadend = () => resolve(reader.result.split(',')[1]); // Remove data:image/...;base64, prefix
+                    reader.onerror = reject;
+                    reader.readAsDataURL(blob);
+                });
+            } catch (error) {
+                console.error('Error converting image to base64:', error);
+                return null;
+            }
+        }
+
+        // Helper function to convert File to base64
+        function fileToBase64(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result.split(',')[1]); // Remove data:image/...;base64, prefix
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+        }
+
+        async function breakdownScript() {
+            const script = document.getElementById('scriptInput').value.trim();
+
+            if (!script) {
+                alert('Please enter a script');
+                return;
+            }
+
+            const btn = document.getElementById('breakdownBtn');
+            const loading = document.getElementById('loading');
+
+            btn.disabled = true;
+            loading.classList.add('active');
+
+            // Hide previous results
+            document.getElementById('charactersSection').classList.remove('active');
+            document.getElementById('productSection').style.display = 'none';
+            document.getElementById('segmentsSection').classList.remove('active');
+            document.getElementById('statsBar').style.display = 'none';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/breakdown`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ script }),
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+                currentBreakdown = data;
+
+                renderCharacters(data.characters);
+                renderSegments(data.segments);
+                updateStats(data);
+
+                // Show sections
+                document.getElementById('charactersSection').classList.add('active');
+                document.getElementById('productSection').style.display = 'block';
+                document.getElementById('projectNameSection').style.display = 'block';
+                document.getElementById('segmentsSection').classList.add('active');
+                document.getElementById('statsBar').style.display = 'flex';
+
+                // Set default project name based on first few words of script
+                const words = data.full_script.split(/\s+/).slice(0, 3).join('_').replace(/[^a-zA-Z0-9_]/g, '');
+                document.getElementById('projectNameInput').value = words || 'Project';
+
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Error breaking down script: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                loading.classList.remove('active');
+            }
+        }
+
+        function renderCharacters(characters) {
+            const grid = document.getElementById('charactersGrid');
+            grid.innerHTML = '';
+
+            characters.forEach(char => {
+                const card = document.createElement('div');
+                card.className = 'character-card';
+                card.innerHTML = `
+                    <div class="character-header">
+                        <div class="character-image" id="charImage_${char.id}">
+                            ${char.image_url
+                                ? `<img src="${char.image_url}" alt="${char.name}">`
+                                : `<span class="placeholder">👤</span>`
+                            }
+                        </div>
+                        <div class="character-info">
+                            <h3>${char.name}</h3>
+                            <div class="character-archetype">${char.visual_archetype}</div>
+                        </div>
+                    </div>
+                    <p class="character-description">${char.description}</p>
+                    <div class="character-actions">
+                        <div class="file-input-wrapper">
+                            <button class="btn btn-small btn-secondary">Upload Photo</button>
+                            <input type="file" accept="image/*" onchange="uploadCharacterImage('${char.id}', this)">
+                        </div>
+                        <button class="btn btn-small" onclick="generateCharacterImage('${char.id}', '${char.ai_prompt_keywords.replace(/'/g, "\\'")}')">
+                            Generate
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function renderSegments(segments) {
+            const list = document.getElementById('segmentsList');
+            list.innerHTML = '';
+
+            segments.forEach(seg => {
+                const card = document.createElement('div');
+                card.className = 'segment-card';
+                card.innerHTML = `
+                    <div class="segment-header">
+                        <div style="display: flex; align-items: center; gap: 15px;">
+                            <div class="segment-number">${seg.segment_number}</div>
+                            <div class="segment-tags">
+                                <span class="tag tag-primary">${seg.tags_primary}</span>
+                                <span class="tag tag-secondary">${seg.tags_secondary}</span>
+                                <span class="tag tag-bucket">${seg.bucket}</span>
+                                ${seg.show_product ? '<span class="tag tag-product">SHOW PRODUCT</span>' : ''}
+                            </div>
+                        </div>
+                        <label class="product-toggle" title="Include product in this segment">
+                            <input type="checkbox" ${seg.show_product ? 'checked' : ''} onchange="toggleShowProduct(${seg.segment_number}, this.checked)">
+                            <span>Show Product</span>
+                        </label>
+                    </div>
+                    <div class="segment-body">
+                        <div class="segment-script">
+                            <p>"${seg.script_text}"</p>
+                        </div>
+                        <div class="segment-meta">
+                            <div class="meta-item">
+                                <div class="meta-label">Fracture Reason</div>
+                                <div class="meta-value">${seg.fracture_reason}</div>
+                            </div>
+                            <div class="meta-item">
+                                <div class="meta-label">Character</div>
+                                <div class="meta-value">${seg.character_id ? getCharacterName(seg.character_id) : 'None'}</div>
+                            </div>
+                        </div>
+                        <div class="description-fields">
+                            <div class="description-field">
+                                <div class="description-header">
+                                    <h4>Start Frame (for image generation)</h4>
+                                    <button class="btn btn-tiny btn-reroll" onclick="rerollDescription(${seg.segment_number}, 'start_frame')" title="Regenerate description">↻</button>
+                                </div>
+                                <textarea id="startFrame_${seg.segment_number}" onchange="updateStartFrame(${seg.segment_number}, this.value)">${seg.start_frame_description || seg.clip_description || ''}</textarea>
+                            </div>
+                            <div class="description-field">
+                                <div class="description-header">
+                                    <h4>Clip Description (for video generation)</h4>
+                                    <button class="btn btn-tiny btn-reroll" onclick="rerollDescription(${seg.segment_number}, 'clip')" title="Regenerate description">↻</button>
+                                </div>
+                                <textarea id="clipDesc_${seg.segment_number}" onchange="updateClipDescription(${seg.segment_number}, this.value)">${seg.clip_description || ''}</textarea>
+                            </div>
+                        </div>
+                        <div class="segment-image">
+                            <div class="generated-image-placeholder ${seg.generated_image_url ? 'has-image' : ''}" id="segImage_${seg.segment_number}">
+                                ${seg.generated_image_url
+                                    ? `<img src="${seg.generated_image_url}" alt="Segment ${seg.segment_number}">`
+                                    : `<p>No image generated</p>
+                                       <button class="btn btn-small" onclick="generateSingleSegmentImage(${seg.segment_number})">
+                                           Generate Image
+                                       </button>`
+                                }
+                            </div>
+                        </div>
+                        <div class="video-prompt-section" id="videoSection_${seg.segment_number}">
+                            <h4>Video Generation (Veo 3.1)</h4>
+                            <textarea id="videoPrompt_${seg.segment_number}" placeholder="Click 'Enhance Prompt' or edit manually...">${seg.enhanced_video_prompt || seg.clip_description || ''}</textarea>
+                            <div class="video-prompt-actions">
+                                <button class="btn btn-small btn-enhance" onclick="enhanceVideoPrompt(${seg.segment_number})">
+                                    Enhance Prompt
+                                </button>
+                                <button class="btn btn-small btn-generate-video" onclick="generateVideo(${seg.segment_number})" id="genVideoBtn_${seg.segment_number}">
+                                    Generate Video
+                                </button>
+                            </div>
+                            <div class="video-preview" id="videoPreview_${seg.segment_number}" style="display: none;">
+                                <div class="video-progress" id="videoProgress_${seg.segment_number}">
+                                    <p>Generating video...</p>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar" id="progressBar_${seg.segment_number}"></div>
+                                    </div>
+                                    <p class="progress-text" id="progressText_${seg.segment_number}">Starting...</p>
+                                </div>
+                                <video id="video_${seg.segment_number}" controls style="display: none;"></video>
+                                <div class="video-actions" id="videoActions_${seg.segment_number}" style="display: none;">
+                                    <button class="btn btn-small btn-download" onclick="downloadVideo(${seg.segment_number})">
+                                        Download Video
+                                    </button>
+                                    <button class="btn btn-small btn-secondary" onclick="generateVideo(${seg.segment_number})">
+                                        Regenerate
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                list.appendChild(card);
+            });
+        }
+
+        function getCharacterName(charId) {
+            if (!currentBreakdown) return charId;
+            const char = currentBreakdown.characters.find(c => c.id === charId);
+            return char ? char.name : charId;
+        }
+
+        function updateStats(data) {
+            document.getElementById('segmentCount').textContent = data.segments.length;
+            document.getElementById('characterCount').textContent = data.characters.length;
+            document.getElementById('wordCount').textContent = data.full_script.split(/\s+/).length;
+        }
+
+        async function generateSegmentImage(segmentNumber, clipDescription, characterId) {
+            const placeholder = document.getElementById(`segImage_${segmentNumber}`);
+            placeholder.innerHTML = '<p>Generating...</p>';
+
+            try {
+                // Get character info if there's a character
+                let characterInfo = null;
+                if (characterId && currentBreakdown) {
+                    const char = currentBreakdown.characters.find(c => c.id === characterId);
+                    if (char) {
+                        characterInfo = {
+                            name: char.name,
+                            ai_prompt_keywords: char.ai_prompt_keywords
+                        };
+                    }
+                }
+
+                const response = await fetch(`${API_BASE}/api/generate-segment-image`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        segment_number: segmentNumber,
+                        clip_description: clipDescription,
+                        character_id: characterInfo  // Send full character info
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.image_url) {
+                    placeholder.classList.add('has-image');
+                    placeholder.innerHTML = `<img src="${data.image_url}" alt="Segment ${segmentNumber}">`;
+
+                    // Update current breakdown
+                    const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+                    if (seg) seg.generated_image_url = data.image_url;
+                }
+            } catch (error) {
+                placeholder.innerHTML = `<p>Error: ${error.message}</p>`;
+            }
+        }
+
+        async function generateAllImages() {
+            if (!currentBreakdown || !currentBreakdown.segments.length) {
+                alert('No segments to generate images for');
+                return;
+            }
+
+            const btn = document.getElementById('generateAllBtn');
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+
+            // Mark all placeholders as generating
+            currentBreakdown.segments.forEach(seg => {
+                const placeholder = document.getElementById(`segImage_${seg.segment_number}`);
+                if (placeholder && !seg.generated_image_url) {
+                    placeholder.innerHTML = '<p>Queued...</p>';
+                }
+            });
+
+            try {
+                // Convert product image to base64 if file exists
+                let productBase64 = null;
+                if (window.productImageFile) {
+                    console.log('[DEBUG] Converting product image to base64...');
+                    productBase64 = await fileToBase64(window.productImageFile);
+                    console.log('[DEBUG] Product base64 length:', productBase64 ? productBase64.length : 0);
+                } else {
+                    console.log('[DEBUG] No product image file stored');
+                }
+
+                // Prepare segments data for batch generation (include all needed fields)
+                const segmentsData = currentBreakdown.segments.map(seg => ({
+                    segment_number: seg.segment_number,
+                    start_frame_description: seg.start_frame_description || seg.clip_description,
+                    clip_description: seg.clip_description,
+                    character_id: seg.character_id,
+                    tags_primary: seg.tags_primary,
+                    tags_secondary: seg.tags_secondary,
+                    bucket: seg.bucket,
+                    show_product: seg.show_product || false
+                }));
+
+                // Log PRODUCT segments
+                const productSegments = segmentsData.filter(s => s.tags_primary === 'PRODUCT');
+                console.log('[DEBUG] PRODUCT segments:', productSegments.length, productSegments.map(s => s.segment_number));
+
+                // Prepare characters data (convert files to base64)
+                const charactersData = await Promise.all(currentBreakdown.characters.map(async char => {
+                    let imageBase64 = null;
+                    if (char.image_file) {
+                        imageBase64 = await fileToBase64(char.image_file);
+                    }
+                    return {
+                        id: char.id,
+                        name: char.name,
+                        ai_prompt_keywords: char.ai_prompt_keywords,
+                        image_base64: imageBase64
+                    };
+                }));
+
+                const response = await fetch(`${API_BASE}/api/generate-all-images`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        segments: segmentsData,
+                        characters: charactersData,
+                        product_image_base64: productBase64
+                    }),
+                });
+
+                const data = await response.json();
+
+                // Update UI with results
+                if (data.results) {
+                    data.results.forEach(result => {
+                        const placeholder = document.getElementById(`segImage_${result.segment_number}`);
+                        if (placeholder) {
+                            if (result.success && (result.image_data_url || result.image_url)) {
+                                // Use data_url for instant display, fall back to url
+                                const displayUrl = result.image_data_url || result.image_url;
+                                placeholder.classList.add('has-image');
+                                placeholder.innerHTML = `<img src="${displayUrl}" alt="Segment ${result.segment_number}">`;
+
+                                // Update current breakdown
+                                const seg = currentBreakdown.segments.find(s => s.segment_number === result.segment_number);
+                                if (seg) seg.generated_image_url = result.image_url;
+                            } else {
+                                placeholder.innerHTML = `<p>Error: ${result.error || 'Generation failed'}</p>`;
+                            }
+                        }
+                    });
+                }
+
+            } catch (error) {
+                alert('Error generating images: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Generate All Images';
+            }
+        }
+
+        async function generateCharacterImage(characterId, aiPromptKeywords) {
+            const imageDiv = document.getElementById(`charImage_${characterId}`);
+            imageDiv.innerHTML = '<span class="placeholder">⏳</span>';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/generate-character-image`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        character_id: characterId,
+                        ai_prompt_keywords: aiPromptKeywords
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.image_data_url || data.image_url) {
+                    // Use data_url for instant display, fall back to url
+                    const displayUrl = data.image_data_url || data.image_url;
+                    imageDiv.innerHTML = `<img src="${displayUrl}" alt="Character">`;
+
+                    // Update current breakdown
+                    const char = currentBreakdown.characters.find(c => c.id === characterId);
+                    if (char) char.image_url = data.image_url;
+                }
+            } catch (error) {
+                imageDiv.innerHTML = `<span class="placeholder">❌</span>`;
+            }
+        }
+
+        function uploadCharacterImage(characterId, input) {
+            if (!input.files || !input.files[0]) return;
+
+            const file = input.files[0];
+            const imageDiv = document.getElementById(`charImage_${characterId}`);
+
+            // Instantly show preview using object URL
+            const localUrl = URL.createObjectURL(file);
+            imageDiv.innerHTML = `<img src="${localUrl}" alt="Character">`;
+
+            // Store file for later base64 conversion (done at generation time)
+            const char = currentBreakdown.characters.find(c => c.id === characterId);
+            if (char) {
+                char.image_file = file;  // Store file for later conversion
+                char.image_url = localUrl;  // For display
+            }
+        }
+
+        function uploadProductImage(input) {
+            if (!input.files || !input.files[0]) return;
+
+            const file = input.files[0];
+            const preview = document.getElementById('productImagePreview');
+
+            // Instantly show preview using object URL
+            const localUrl = URL.createObjectURL(file);
+            preview.classList.add('has-image');
+            preview.innerHTML = `<img src="${localUrl}" alt="Product">`;
+
+            // Store file for later base64 conversion
+            window.productImageFile = file;
+        }
+
+        // Toggle show_product for a segment
+        function toggleShowProduct(segmentNumber, checked) {
+            if (!currentBreakdown) return;
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (seg) {
+                seg.show_product = checked;
+                // Update the tag display
+                const tagContainer = document.querySelector(`#segImage_${segmentNumber}`).closest('.segment-card').querySelector('.segment-tags');
+                const existingProductTag = tagContainer.querySelector('.tag-product');
+                if (checked && !existingProductTag) {
+                    const productTag = document.createElement('span');
+                    productTag.className = 'tag tag-product';
+                    productTag.textContent = 'SHOW PRODUCT';
+                    tagContainer.appendChild(productTag);
+                } else if (!checked && existingProductTag) {
+                    existingProductTag.remove();
+                }
+            }
+        }
+
+        // Update start frame description
+        function updateStartFrame(segmentNumber, value) {
+            if (!currentBreakdown) return;
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (seg) {
+                seg.start_frame_description = value;
+            }
+        }
+
+        // Update clip description and sync to video prompt
+        function updateClipDescription(segmentNumber, value) {
+            if (!currentBreakdown) return;
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (seg) {
+                seg.clip_description = value;
+                // Also update video prompt if it hasn't been enhanced yet
+                const videoPrompt = document.getElementById(`videoPrompt_${segmentNumber}`);
+                if (videoPrompt && !seg.enhanced_video_prompt) {
+                    videoPrompt.value = value;
+                }
+            }
+        }
+
+        // Reroll (regenerate) a description using Gemini
+        async function rerollDescription(segmentNumber, type) {
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (!seg) return;
+
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.disabled = true;
+            btn.textContent = '...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/reroll-description`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        segment_number: segmentNumber,
+                        type: type,  // 'start_frame' or 'clip'
+                        script_text: seg.script_text,
+                        tags_primary: seg.tags_primary,
+                        tags_secondary: seg.tags_secondary,
+                        bucket: seg.bucket,
+                        current_start_frame: seg.start_frame_description,
+                        current_clip: seg.clip_description,
+                        full_script: currentBreakdown.full_script
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (type === 'start_frame' && data.start_frame_description) {
+                    seg.start_frame_description = data.start_frame_description;
+                    document.getElementById(`startFrame_${segmentNumber}`).value = data.start_frame_description;
+                } else if (type === 'clip' && data.clip_description) {
+                    seg.clip_description = data.clip_description;
+                    document.getElementById(`clipDesc_${segmentNumber}`).value = data.clip_description;
+                    // Also update video prompt
+                    const videoPrompt = document.getElementById(`videoPrompt_${segmentNumber}`);
+                    if (videoPrompt && !seg.enhanced_video_prompt) {
+                        videoPrompt.value = data.clip_description;
+                    }
+                }
+            } catch (error) {
+                console.error('Error rerolling description:', error);
+                alert('Error regenerating description: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = originalText;
+            }
+        }
+
+        // Generate image for a single segment
+        async function generateSingleSegmentImage(segmentNumber) {
+            if (!currentBreakdown) return;
+
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (!seg) return;
+
+            const placeholder = document.getElementById(`segImage_${segmentNumber}`);
+            placeholder.innerHTML = '<p>Generating...</p>';
+
+            try {
+                // Convert product image to base64 if needed
+                let productBase64 = null;
+                if (seg.show_product && window.productImageFile) {
+                    productBase64 = await fileToBase64(window.productImageFile);
+                }
+
+                // Get character info if there's a character
+                let characterData = null;
+                if (seg.character_id && currentBreakdown.characters) {
+                    const char = currentBreakdown.characters.find(c => c.id === seg.character_id);
+                    if (char) {
+                        let imageBase64 = null;
+                        if (char.image_file) {
+                            imageBase64 = await fileToBase64(char.image_file);
+                        }
+                        characterData = {
+                            id: char.id,
+                            name: char.name,
+                            ai_prompt_keywords: char.ai_prompt_keywords,
+                            image_base64: imageBase64
+                        };
+                    }
+                }
+
+                // Use start_frame_description for image generation
+                const imagePrompt = seg.start_frame_description || seg.clip_description;
+
+                const response = await fetch(`${API_BASE}/api/generate-single-segment-image`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        segment_number: segmentNumber,
+                        start_frame_description: imagePrompt,
+                        show_product: seg.show_product,
+                        character: characterData,
+                        product_image_base64: productBase64
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (data.success && (data.image_data_url || data.image_url)) {
+                    const displayUrl = data.image_data_url || data.image_url;
+                    placeholder.classList.add('has-image');
+                    placeholder.innerHTML = `<img src="${displayUrl}" alt="Segment ${segmentNumber}">`;
+                    seg.generated_image_url = data.image_url;
+                } else {
+                    placeholder.innerHTML = `<p>Error: ${data.error || 'Generation failed'}</p>
+                        <button class="btn btn-small" onclick="generateSingleSegmentImage(${segmentNumber})">
+                            Retry
+                        </button>`;
+                }
+            } catch (error) {
+                placeholder.innerHTML = `<p>Error: ${error.message}</p>
+                    <button class="btn btn-small" onclick="generateSingleSegmentImage(${segmentNumber})">
+                        Retry
+                    </button>`;
+            }
+        }
+
+        // Get project name
+        function getProjectName() {
+            return document.getElementById('projectNameInput').value.trim().replace(/[^a-zA-Z0-9_-]/g, '_') || 'Project';
+        }
+
+        // Enhance video prompt using Gemini
+        async function enhanceVideoPrompt(segmentNumber) {
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (!seg) return;
+
+            const textarea = document.getElementById(`videoPrompt_${segmentNumber}`);
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = 'Enhancing...';
+
+            try {
+                const response = await fetch(`${API_BASE}/api/enhance-video-prompt`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        segment_number: segmentNumber,
+                        clip_description: seg.clip_description,
+                        start_frame_description: seg.start_frame_description,
+                        script_text: seg.script_text,
+                        tags_primary: seg.tags_primary,
+                        tags_secondary: seg.tags_secondary,
+                        bucket: seg.bucket,
+                        full_script: currentBreakdown.full_script
+                    }),
+                });
+
+                const data = await response.json();
+                if (data.enhanced_prompt) {
+                    textarea.value = data.enhanced_prompt;
+                    seg.enhanced_video_prompt = data.enhanced_prompt;
+                }
+            } catch (error) {
+                console.error('Error enhancing prompt:', error);
+                alert('Error enhancing prompt: ' + error.message);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Enhance Prompt';
+            }
+        }
+
+        // Generate video using Veo 3.1
+        async function generateVideo(segmentNumber) {
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (!seg) return;
+
+            const promptTextarea = document.getElementById(`videoPrompt_${segmentNumber}`);
+            const prompt = promptTextarea.value.trim();
+
+            console.log('[VIDEO GEN] Segment:', segmentNumber);
+            console.log('[VIDEO GEN] Prompt from textarea:', prompt);
+
+            if (!prompt) {
+                alert('Please enhance or enter a video prompt first');
+                return;
+            }
+
+            const btn = document.getElementById(`genVideoBtn_${segmentNumber}`);
+            const preview = document.getElementById(`videoPreview_${segmentNumber}`);
+            const progress = document.getElementById(`videoProgress_${segmentNumber}`);
+            const progressBar = document.getElementById(`progressBar_${segmentNumber}`);
+            const progressText = document.getElementById(`progressText_${segmentNumber}`);
+            const video = document.getElementById(`video_${segmentNumber}`);
+            const actions = document.getElementById(`videoActions_${segmentNumber}`);
+
+            btn.disabled = true;
+            btn.textContent = 'Generating...';
+            preview.style.display = 'block';
+            progress.style.display = 'block';
+            video.style.display = 'none';
+            actions.style.display = 'none';
+            progressBar.style.width = '0%';
+            progressText.textContent = 'Starting video generation...';
+
+            try {
+                // Get the generated image for this segment (if any) to use as starting frame
+                let startImageBase64 = null;
+                const imgElement = document.querySelector(`#segImage_${segmentNumber} img`);
+                if (imgElement && imgElement.src) {
+                    if (imgElement.src.startsWith('data:')) {
+                        startImageBase64 = imgElement.src.split(',')[1];
+                    } else {
+                        // Fetch and convert to base64
+                        try {
+                            const imgResponse = await fetch(imgElement.src);
+                            const blob = await imgResponse.blob();
+                            startImageBase64 = await new Promise((resolve) => {
+                                const reader = new FileReader();
+                                reader.onloadend = () => resolve(reader.result.split(',')[1]);
+                                reader.readAsDataURL(blob);
+                            });
+                        } catch (e) {
+                            console.warn('Could not load start image:', e);
+                        }
+                    }
+                }
+
+                // Start video generation
+                const response = await fetch(`${API_BASE}/api/generate-video`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        segment_number: segmentNumber,
+                        prompt: prompt,
+                        start_image_base64: startImageBase64,
+                        project_name: getProjectName()
+                    }),
+                });
+
+                const data = await response.json();
+                if (!data.operation_id) {
+                    throw new Error(data.error || 'Failed to start video generation');
+                }
+
+                // Poll for completion
+                const operationId = data.operation_id;
+                let attempts = 0;
+                const maxAttempts = 60; // 5 minutes max (5s intervals)
+
+                const pollInterval = setInterval(async () => {
+                    attempts++;
+                    const progressPercent = Math.min((attempts / maxAttempts) * 100, 95);
+                    progressBar.style.width = `${progressPercent}%`;
+                    progressText.textContent = `Generating video... (${Math.round(progressPercent)}%)`;
+
+                    try {
+                        const statusResponse = await fetch(`${API_BASE}/api/video-status/${operationId}`);
+                        const statusData = await statusResponse.json();
+
+                        if (statusData.done) {
+                            clearInterval(pollInterval);
+                            progressBar.style.width = '100%';
+
+                            if (statusData.video_url) {
+                                progressText.textContent = 'Video ready!';
+                                progress.style.display = 'none';
+                                video.src = statusData.video_url;
+                                video.style.display = 'block';
+                                actions.style.display = 'flex';
+                                seg.video_url = statusData.video_url;
+                                seg.video_filename = statusData.filename;
+                            } else {
+                                progressText.textContent = 'Error: ' + (statusData.error || 'Video generation failed');
+                            }
+
+                            btn.disabled = false;
+                            btn.textContent = 'Generate Video';
+                        } else if (attempts >= maxAttempts) {
+                            clearInterval(pollInterval);
+                            progressText.textContent = 'Timeout - video generation taking too long';
+                            btn.disabled = false;
+                            btn.textContent = 'Generate Video';
+                        }
+                    } catch (pollError) {
+                        console.error('Poll error:', pollError);
+                    }
+                }, 5000); // Poll every 5 seconds
+
+            } catch (error) {
+                console.error('Error generating video:', error);
+                progressText.textContent = 'Error: ' + error.message;
+                btn.disabled = false;
+                btn.textContent = 'Generate Video';
+            }
+        }
+
+        // Download video with proper naming
+        function downloadVideo(segmentNumber) {
+            const seg = currentBreakdown.segments.find(s => s.segment_number === segmentNumber);
+            if (!seg || !seg.video_url) return;
+
+            const projectName = getProjectName();
+            const filename = `${projectName}_segment${segmentNumber}.mp4`;
+
+            const a = document.createElement('a');
+            a.href = seg.video_url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        // Load sample script for demo
+        document.getElementById('scriptInput').value = `This tiny device makes any fridge completely odorless in 24 hours.
+
+And grocery chains are doing everything they can to keep it off the shelves.
+Here's why.
+
+Every fridge develops that smell. Bacteria and mold spores float through the air inside your fridge. They land on your food. They multiply. And they create that musty odor that hits you every time you open the door.
+
+Most people try baking soda or charcoal. But none of it works. They just absorb the odor and fill up in two weeks. They don't do anything about the actual cause of the odor.
+
+Meanwhile the bacteria keeps spreading. Your food keeps spoiling faster. And you keep throwing money in the trash.
+
+That's where this device comes in.
+
+A materials engineer named David Chen spent 18 years developing technology for food warehouses storing millions of dollars of food.
+
+His team developed a nano-catalytic technology that doesn't absorb odors... it destroys them. At the molecular level.
+
+For years, this technology was locked away in commercial facilities.
+
+Then one Thanksgiving, Chen visited his mother...
+
+She'd been cooking all day. The whole family was coming. She wanted everything perfect.
+
+When he opened her fridge... that smell hit him. She got embarrassed.
+
+She told him she'd tried everything. Baking soda. Charcoal. Nothing worked.
+
+She'd scrubbed the whole fridge the week before. The smell came right back.
+
+And Chen realized something. He'd spent two decades protecting million-dollar food warehouses.
+
+But his own mother was fighting the same problem with a three-dollar box of baking soda.
+
+That night, he miniaturized the technology.
+
+Small enough for a home fridge.
+
+He gave the first one to his mother. Within 24 hours, the smell was gone. She called him crying, saying her fridge had never been this fresh.
+
+He called it FreshCore.
+
+Inside is a patented core packed with a special nano-catalytic material. Air circulates through 360 degrees of airflow, and the material breaks apart odor molecules, bacteria, and mold spores.
+
+It doesn't trap them. It destroys them.
+
+And because it's catalytic, it never depletes. Never saturates. It for ten years.
+You put it in and forget it exists.
+
+One woman had rotting meat leak under her fridge drawers.
+
+She cleaned everything and he smell wouldn't leave. She put FreshCore in and the smell was gone in 24 hours.
+
+Helen bought one and her food started lasting twice as long. No more throwing away lettuce and berries every week.
+
+People are putting them in cars, closets, gym bags to keep them fresh and odorless.
+
+Now here's why it's hard to find.
+
+Chen tried to get FreshCore into stores. Every major retailer said no.
+He spent his savings on the first production run. When the stores rejected him, he almost gave up entirely.
+
+His mother told him to keep going. She said if it helped her, it would help other families too.
+
+So he started selling direct. Just him and a small team. No big warehouse. No massive inventory.
+
+Every batch sells out. And the next one takes weeks to manufacture because of the nano-catalytic core.
+
+Right now, there's still some left from the current run. But when it's gone, there's a wait.
+
+FreshCore costs less than what most families waste on spoiled food in one week.
+
+And it works for a decade.
+
+If your fridge isn't fresher within 48 hours, send it back. Full refund.
+
+But most people don't send it back. They order more.
+
+FreshCore. Put it in. Forget it. Done.
+
+Click below before this batch is gone.`;
+    </script>
+</body>
+</html>
