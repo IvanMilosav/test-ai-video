@@ -1,4 +1,5 @@
 # Dockerfile for containerized deployment (Railway, Render, etc.)
+# Updated to handle PORT environment variable correctly
 
 FROM python:3.9-slim
 
@@ -18,15 +19,11 @@ COPY brain_synthesizer.py .
 COPY ontology_reporter.py .
 COPY clip_ontology_schema.py .
 COPY script_clip_brain.py .
-COPY start.sh .
 COPY public/ ./public/
 COPY static/ ./static/
 
 # Create necessary directories
 RUN mkdir -p temp_uploads outputs
-
-# Make start script executable
-RUN chmod +x start.sh
 
 # Expose port
 EXPOSE 8000
