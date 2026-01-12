@@ -1,176 +1,1028 @@
 ================================================================================
-MASTER SCRIPT-TO-CLIP PLAYBOOK
+SCRIPT-TO-CLIP PLAYBOOK
 ================================================================================
-Generated: 2025-12-06 17:30:48
-Source: Synthesized from 6 video analyses
+Videos Analyzed: 5
+Last Updated: 2026-01-09T19:20:16.188678
 
-This playbook provides cinematographic guidance for matching clips to script
-content. It is vertical-agnostic and based on patterns observed across
-multiple video advertisements.
+This playbook shows what clips to use for different script content.
+Use it as a reference when breaking down a new script.
 
 ================================================================================
+PART 1: CLIP TYPES - WHEN TO USE EACH
+================================================================================
 
-Based on the detailed ontological analysis of the provided video ads, here is the Master Cinematographic Playbook. This guide synthesizes the editing logic, visual selection, and pacing patterns used to create high-converting direct response video creatives.
+--------------------------------------------------------------------------------
+## TALKING HEAD
+--------------------------------------------------------------------------------
+Definition: Person speaking directly to camera. Use for direct address, personal connection, credibility.
+Examples in library: 19
 
-***
+WHEN TO USE (learned from real ads):
 
-# MASTER CINEMATOGRAPHIC PLAYBOOK
-**For Direct Response Video Advertising**
+  For AGITATION segments:
+    Script: "then the names,"
+    Visual: Younger woman talking to older woman with blank expression.
+    Text on screen: ['then the names,']
 
-## SECTION 1: SHOT TYPE TAXONOMY
+    Script: "Then the spouse starts whispering: 'Something's wrong.'"
+    Visual: Elderly couple, man gesturing worry, woman detached.
+    Text on screen: ['Then the spouse starts whispering:', "'Something's wrong.'"]
 
-This taxonomy defines the visual vocabulary used across all verticals. Every frame in a video ad must fall into one of these categories to serve a specific psychological function.
+    Script: "Then the spouse starts whispering: "Something's wrong.""
+    Visual: Elderly couple sitting apart, serious conversation
+    Text on screen: ['Then the spouse starts', 'whispering:', '"Something\'s wrong."']
 
-### A) PROTAGONIST/HERO SHOTS
-Shots featuring a human narrator or character who acts as the anchor for trust and authority.
+  For AUTHORITY segments:
+    Script: "He's seen it 340 times."
+    Visual: Master Chen smiling knowingly.
+    Text on screen: ["He's seen it 340 times."]
 
-*   **The Authority Anchor:** Medium shot, eye-level, direct address. Used to establish expertise or deliver the "truth."
-    *   *Example (MagVolt):* "22 years as a cell phone repair engineer" → Medium shot of man in home office.
-    *   *Example (NeuroSpin):* "Master Chen told her to watch" → Close-up of Master Chen’s face.
-*   **The Relatable User:** Candid or "UGC-style" (User Generated Content). Used to bridge the gap between skepticism and belief.
-    *   *Example (MagAir Cowboy):* "I almost laughed in his face" → Medium shot of man leaning against a fence laughing.
-*   **The Action/Demonstration:** The protagonist engaging with the product physically.
-    *   *Example (CaneHero):* Narrator (implied protagonist) or actor unfolding the cane and walking.
+  For CONFLICT segments:
+    Script: "Lawyers started calling and emailing."
+    Visual: Man on phone looking stressed.
+    Text on screen: ['Lawyers started calling and emailing.']
 
-### B) PRODUCT/SUBJECT SHOTS
-Shots focused exclusively on the item being sold.
+  For ENEMY segments:
+    Script: "if he kept quiet and walked away."
+    Visual: Corporate meeting
+    Text on screen: ['if he kept quiet and walked away.']
 
-*   **The "Artifact" Shot (Beauty Shot):** High-key lighting, clean background, often rotating or static. Establishes the product as a premium object.
-    *   *Example (CaneHero):* Black folding cane on white surface.
-    *   *Example (MagVolt):* Black charger block held in hand against neutral wall.
-*   **The Mechanism Shot:** Close-up or macro shot showing *how* it works (ports, buttons, lights).
-    *   *Example (MagAir):* Close-up of the device plugged in with the blue light glowing.
-*   **The Comparison Shot:** Split-screen or sequential shots showing Product A vs. Competitor B.
-    *   *Example (MagAir):* Split screen smoke chamber test (Product vs. Smoke).
+    Script: "But nobody in the medical system wants this out."
+    Visual: Group of suited people whispering in shadows
+    Text on screen: ['But nobody in the medical system wants this out.']
 
-### C) B-ROLL CATEGORIES
-Supplementary footage used to visualize spoken concepts.
+  For GUARANTEE segments:
+    Script: "Master Chen's offering a 100% 120 day money back guarantee."
+    Visual: Master Chen holding the ball smiling
+    Text on screen: ["Master Chen's offering a 100%", '120 day money back guarantee.']
 
-*   **Visceral/Pain B-Roll:** High-contrast, often low-key or black & white footage depicting the problem.
-    *   *Example (CaneHero):* B&W footage of an elderly person falling on grass.
-    *   *Example (MagAir):* Close-up of black mold growing on a wall corner.
-*   **Metaphorical B-Roll:** Visuals that represent a concept rather than a literal reality.
-    *   *Example (CaneHero):* "Regulators will force" → Shot of a SWAT team (Visualizing force/government).
-    *   *Example (MagVolt):* "Waste of time" → Shot of a clock ticking.
-*   **Authority B-Roll:** Visuals that imply scale, industry, or science.
-    *   *Example (MagAir):* "NASA-powered" → Shot of NASA Vehicle Assembly Building.
-    *   *Example (MagVolt):* "Thousands of phones" → Overhead shot of a messy, professional repair workbench.
+  For HERO segments:
+    Script: "He refused."
+    Visual: Master Chen shaking his head smiling
+    Text on screen: ['He refused.']
 
-### D) TEXT/GRAPHIC SHOTS
-Visuals where text or 2D graphics are the primary focus.
+  For HOOK segments:
+    Script: "You need to see this. This 78-year-old Tai Chi master"
+    Visual: Asian man with long white beard (Master Chen).
+    Text on screen: ['You need to see this.', 'This 78-year-old Tai Chi master']
 
-*   **The Headline Card:** Large text on a solid or high-contrast background. Used for hooks.
-    *   *Example (MagAir):* "BAD NEWS" in red text on a white background.
-*   **The "Kill Switch" Overlay:** A red "X" or "Sold Out" graphic overlaid on a competitor product or setting.
-    *   *Example (MagVolt):* Red "X" over a phone settings menu.
-*   **The Scarcity Graphic:** Countdown timers, stock graphs, or "Sold Out" signs.
-    *   *Example (CaneHero):* Red line graph trending downwards ("Downgrade hits").
+  For PROBLEM segments:
+    Script: "'Something's wrong.'"
+    Visual: Older man expressing concern with hands
+    Text on screen: ["'Something's wrong.'"]
 
-### E) SCREEN RECORDINGS/DEMOS (Simulation)
-*   **The Invisible Made Visible:** CGI or animation showing internal mechanisms or invisible forces (germs, electricity, nerves).
-    *   *Example (NeuroSpin):* Glowing yellow nerves running up a transparent arm.
-    *   *Example (MagVolt):* Battery icon filling up rapidly with a green animation.
+    Script: "Repeating the same questions,"
+    Visual: Elderly woman looking confused/happy but lost
+    Text on screen: ['Repeating the same questions,']
 
-***
+    Script: "her daughter was touring nursing homes."
+    Visual: Daughter looking distressed
+    Text on screen: ['her daughter was touring nursing homes.']
 
-## SECTION 2: CONCEPTUAL BOUNDARIES
+  For PROOF segments:
+    Script: "Master Chen tested it on students aged 66 to 89."
+    Visual: Master Chen smiling with ball
+    Text on screen: ['Master Chen tested it on', 'students aged 66 to 89.']
 
-A "Conceptual Boundary" is the exact moment a cut *must* occur. The data proves that holding a shot while the script introduces a new concept kills retention.
+  For SOLUTION segments:
+    Script: "This 78-year-old Tai Chi master"
+    Visual: Elderly Asian man with white beard (Master Chen)
+    Text on screen: ['This 78-year-old Tai Chi master']
 
-### A) THE 3-SECOND RULE (Pacing & Retention)
-If a script line takes longer than 3 seconds to read, it must be split into multiple visual clips. The visual must change *before* the sentence finishes.
+    Script: "But he also discovered something else."
+    Visual: Master Chen smiling subtly
+    Text on screen: ['But he also discovered something else.']
 
-*   **Pattern:** [Subject/Setup] → CUT → [Predicate/Payoff]
-*   **Data Example (CaneHero):**
-    *   *Script:* "The government is banning this $97 smart cane next month..."
-    *   *Clip 1 (0.00-0.60s):* "The government is" → **Visual:** Studio shot of cane (Subject).
-    *   *Clip 2 (0.60-2.10s):* "banning this $97 smart cane next month" → **Visual:** Elderly man on couch (Impact/Context).
-*   **Data Example (MagVolt):**
-    *   *Script:* "Every time you plug in the charger that came with your phone, it sends a signal."
-    *   *Clip 1 (1.15-1.17s):* "Every time you plug in the charger that came" → **Visual:** Hands plugging in cable.
-    *   *Clip 2 (1.17-1.20s):* "with your phone, it sends a signal." → **Visual:** Phone spinning rapidly (Visualizing the "signal").
+  For STORY segments:
+    Script: "Eight weeks with NeuroSpin,"
+    Visual: Young woman (daughter) looking stressed
+    Text on screen: ['Eight weeks with NeuroSpin,']
 
-### B) SCRIPT-DRIVEN BOUNDARIES
-Cut immediately when the script introduces a new noun, verb, or distinct concept.
+  For TESTIMONIAL segments:
+    Script: "Her daughter whispered:"
+    Visual: Daughter talking to mother
+    Text on screen: ['Her daughter whispered:']
 
-*   **The List Rule:** If the script lists items, cut on every item.
-    *   *Script:* "Headaches, stuffiness, and that mold taste..."
-    *   *Visuals:* Cut to headache shot → Cut to stuffy nose shot → Cut to woman looking ill.
-*   **The "But/However" Rule:** Always cut on the conjunction that signals a pivot.
-    *   *Script:* "But here's the bad news."
-    *   *Visual:* Cut from happy user to stark product shot or text card.
+    Script: "You gave me my mother back."
+    Visual: Daughter smiling widely
+    Text on screen: ['You gave me my mother back.']
 
-### C) EMOTIONAL BOUNDARIES
-Cut when the sentiment shifts from Positive to Negative (or vice versa).
+--------------------------------------------------------------------------------
+## PRODUCT SHOT
+--------------------------------------------------------------------------------
+Definition: Close-up or beauty shot of the product. Use when mentioning the product, features, or results.
+Examples in library: 40
 
-*   *Example (NeuroSpin):*
-    *   *Positive:* "Robert, the engineer who could fix anything" (Shot of him working competently).
-    *   *Negative:* "now, asked if he'd eaten breakfast..." (Shot of him looking confused at table).
+WHEN TO USE (learned from real ads):
 
-***
+  For BENEFIT segments:
+    Script: "90 seconds a day."
+    Visual: Hand spinning gyro ball.
+    Text on screen: ['90 seconds a day.']
 
-## SECTION 3: PROTAGONIST/HERO USAGE PATTERNS
+    Script: "and fights back. No batteries, no charging. The faster it spins,"
+    Visual: Hand struggling to hold spinning device, muscles tense.
+    Text on screen: ['and fights back.', 'No batteries, no charging.', 'The faster it spins,']
 
-### A) WHEN TO SHOW THE PROTAGONIST
-*   **The Authority Hook:** Use the protagonist in the first 5 seconds if they represent a specific archetype (e.g., "22 years as a repair engineer").
-*   **The Vulnerable Confession:** Use a direct-address talking head when admitting a flaw or a past failure to build rapport.
-    *   *Example:* "I almost laughed in his face."
-*   **The "Trust Me" Close:** Return to the protagonist for the final recommendation before the hard CTA.
+    Script: "Buy it once, it works forever."
+    Visual: Hand holding glowing blue device.
+    Text on screen: ['Buy it once, it works forever.']
 
-### B) WHEN TO CUT AWAY
-*   **Immediate Visualization:** As soon as the protagonist mentions a specific object, location, or problem, cut away to B-roll of that thing. Do not keep the camera on the speaker describing an object.
-    *   *Rule:* If they say "This chip," show the chip. If they say "My shop," show the shop.
+  For CTA segments:
+    Script: "Click below to get one of the last 400 NeuroSpin units at 65% off."
+    Visual: 3 Gyro balls floating.
+    Text on screen: ['VITAL', '-65% OFF', 'Click below to get one of', 'the last 400 NeuroSpin', 'units at 65% off.']
 
-***
+    Script: "Strong hands, clear mind or your money back."
+    Visual: Hand starting device.
+    Text on screen: ['Strong hands, clear mind', 'or your money back.']
 
-## SECTION 4: SCRIPT-TO-CLIP MATCHING RULES
+    Script: "Get yours now."
+    Visual: Hand spinning ball rapidly
+    Text on screen: ['Get yours now.']
 
-Use this reference table to select footage based on specific script triggers.
+  For DEMO segments:
+    Script: "Use your hands with strength,"
+    Visual: Hand holding spinning gyro ball with green LEDs.
+    Text on screen: ['Use your hands with strength,']
 
-| SCRIPT CONTENT CATEGORY | VISUAL SELECTION RULE | DATA EXAMPLE |
-| :--- | :--- | :--- |
-| **Scarcity / "Gone Forever"** | **Empty Spaces / Industrial Scale.** Show empty shelves, warehouses, or "Sold Out" signs. | Script: "Once this batch is gone..." → Visual: Vast empty warehouse aisle. |
-| **"Government" / "Regulators"** | **Force / Bureaucracy.** Use SWAT teams, gavels, courthouses, or men in suits. | Script: "Regulators will force..." → Visual: SWAT team on truck / Lawyer arguing. |
-| **Physical Pain / Medical** | **X-Rays / Anatomy / B&W Struggle.** Use medical imaging or black & white shots of people wincing/falling. | Script: "No broken hips..." → Visual: Doctor pointing at spinal X-ray. |
-| **"Hidden" / "Invisible"** | **CGI / Microscope.** Use animation to make the invisible visible (germs, electricity, signals). | Script: "It sends a signal..." → Visual: Glowing red/blue lines entering phone. |
-| **Competition / "Old Way"** | **Trash / Chaos / Red X.** Show the competitor product being thrown away, broken, or overlaid with a Red X. | Script: "Trash aluminum canes..." → Visual: Pile of black canes with Red X. |
-| **Scientific Mechanism** | **Split Screen / Lab Test.** Show side-by-side comparison or a "lab setting" demonstration. | Script: "Destroys mold..." → Visual: Split screen smoke chamber test. |
-| **High Value / "Expensive"** | **Counting Money.** Show hands counting cash or a high price tag. | Script: "Cost thousands..." → Visual: Hands counting stack of bills. |
-| **"Easy" / "Simple"** | **Plug & Play.** Show the action of plugging in, unfolding, or turning on. One step. | Script: "Just plug it in..." → Visual: Hand plugging device into wall. |
-| **"Military Grade" / "NASA"** | **Origin Context.** Show soldiers, space stations, or tactical environments. | Script: "Forged for wounded warriors..." → Visual: Soldier hiking in rough terrain. |
+    Script: "It's a golf ball-sized gyro you hold for 90 seconds."
+    Visual: Hand holding device against wall.
+    Text on screen: ["It's a golf ball-sized gyro", 'you hold for 90 seconds.']
 
-***
+    Script: "Press the button"
+    Visual: Device spinning with blue light.
+    Text on screen: ['Press the button']
 
-## SECTION 5: TRANSITION PATTERNS
+  For DESCRIPTION segments:
+    Script: "It's a golf ball-sized gyro"
+    Visual: Hands holding NeuroSpin ball
+    Text on screen: ["It's a golf ball-sized gyro"]
 
-### A) THE "PIVOT" SEQUENCE (The Golden Sequence)
-This is the most common and effective sequence observed in the data.
-1.  **Agitation (B&W/Dark):** Visceral shot of the problem (Falling, Mold, Dead Battery).
-2.  **The Pivot (Text/Audio):** "But then I found..." / "There is a new way..."
-3.  **The Reveal (Color/Bright):** High-key shot of the product in a pristine environment.
-4.  **The Payoff (Lifestyle):** The user happy/succeeding (Walking, Sleeping, fast phone).
+  For ENEMY segments:
+    Script: "to fight billion dollar monopolies."
+    Visual: Hands holding stationary ball
+    Text on screen: ['to fight billion dollar', 'monopolies.']
 
-### B) THE "AUTHORITY BRIDGE"
-Used to validate a claim.
-1.  **Claim:** "It works 4x faster."
-2.  **Proof Visual:** Microscope shot / Lab timer / Circuit board close-up.
-3.  **Validation:** Authority figure nodding or working.
+  For EXPLANATION segments:
+    Script: "The faster it spins, the harder your whole hand has to work."
+    Visual: Arm muscles tensing while spinning the ball
+    Text on screen: ['The faster it spins, the harder', 'your whole hand has to work.']
 
-### C) AWKWARD TRANSITIONS TO AVOID
-*   **Static to Static:** Do not cut from a static talking head to another static talking head of the same angle. Change the angle (jump cut) or insert B-roll.
-*   **Literal to Literal:** Avoid cutting from a literal description of a feature to another literal description without an emotional or benefit-driven shot in between.
+  For INSTRUCTION segments:
+    Script: "Use just 90 seconds twice a day,"
+    Visual: Hand holding green light gyro.
+    Text on screen: ['Use just 90 seconds twice a day,']
 
-***
+    Script: "Use it 90 seconds in the morning,"
+    Visual: Hand using device on table.
+    Text on screen: ['Use it 90 seconds in the morning,']
 
-## SECTION 6: VERTICAL-AGNOSTIC PRINCIPLES
+    Script: "90 seconds at night."
+    Visual: Hand holding device.
+    Text on screen: ['90 seconds at night.']
 
-1.  **Visual Hyperbole is Mandatory:** If the script says "regulators," show a SWAT team. If the script says "killing your phone," show a soldering iron smoking. Do not be subtle. Visuals must be exaggerated to match the emotional intensity of the copy.
-2.  **Color Coding:**
-    *   **Problem =** Desaturated, Cool, Dark, or Black & White.
-    *   **Solution =** Vibrant, Warm, High-Key, Saturated.
-    *   *Scarcity =** Red, High Contrast, Industrial.
-3.  **The "Mechanism" Must Be Visualized:** Never describe a technical process (ions, stability, smart chip) without a CGI animation or a diagram. If the viewer cannot *see* how it works, they will not believe it works.
-4.  **Text Reinforcement:** Key phrases in the script (especially numbers, prices, and negative adjectives like "Banned" or "Toxic") must appear as text overlays *exactly* when spoken.
-5.  **Pacing is Manipulation:**
-    *   **Fear/Agitation:** Fast cuts (0.5s - 1.0s). Creates anxiety.
-    *   **Solution/Relief:** Slower cuts (1.5s - 3.0s). Creates a sense of calm and stability.
+  For OFFER segments:
+    Script: "So he's selling the last 1000 units himself."
+    Visual: Hands starting the ball
+    Text on screen: ["So he's selling the last", '1000 units himself.']
+
+  For PROBLEM segments:
+    Script: "Weak hands at 65"
+    Visual: Hand spinning ball fast
+    Text on screen: ['Weak hands at 65']
+
+  For PROOF segments:
+    Script: "That's all it took."
+    Visual: Hand spinning gyro ball
+    Text on screen: ["That's all it took."]
+
+  For SCARCITY segments:
+    Script: "billion dollar monopolies. So he's selling the last 1000 units himself."
+    Visual: Hands starting the device with string.
+    Text on screen: ['billion dollar monopolies.', "So he's selling the last 1000 units himself."]
+
+    Script: "There's only 400 units left."
+    Visual: Hand holding device.
+    Text on screen: ["There's only 400 units left."]
+
+    Script: "Once these 400 are gone, it will be gone for good."
+    Visual: Hands starting ball
+    Text on screen: ['Once these 400 are gone,', 'it will be gone for good.']
+
+  For SOLUTION segments:
+    Script: "That's why he created NeuroSpin."
+    Visual: Master Chen holding product.
+    Text on screen: ["That's why he created NeuroSpin."]
+
+    Script: "Eight weeks with NeuroSpin,"
+    Visual: Hand spinning device aggressively.
+    Text on screen: ['Eight weeks with NeuroSpin,']
+
+    Script: "Master Chen finally built a way for anyone to do it at home."
+    Visual: Hand holding spinning ball with green lights
+    Text on screen: ['Master Chen finally built a way', 'for anyone to do it at home.']
+
+--------------------------------------------------------------------------------
+## SCREEN DEMO
+--------------------------------------------------------------------------------
+Definition: Screen recording or software demonstration. Use when showing how something works.
+Examples in library: 0
+
+  No examples yet - analyze more videos to build library.
+
+--------------------------------------------------------------------------------
+## BROLL
+--------------------------------------------------------------------------------
+Definition: Supplementary footage. Use to illustrate concepts, add visual interest, or cover cuts.
+Examples in library: 1
+
+WHEN TO USE (learned from real ads):
+
+  For ENEMY segments:
+    Script: "CVS and Walgreens both said"
+    Visual: Medicine shelves.
+    Text on screen: ['CVS and Walgreens both said']
+
+--------------------------------------------------------------------------------
+## TEXT GRAPHIC
+--------------------------------------------------------------------------------
+Definition: Text, titles, or graphics on screen. Use for emphasis, stats, quotes, or CTAs.
+Examples in library: 35
+
+WHEN TO USE (learned from real ads):
+
+  For AGITATION segments:
+    Script: "are either alive right now or dying."
+    Visual: Brain model.
+    Text on screen: ['are either alive right now', 'or dying.']
+
+    Script: "'We can't stock something that stops people needing us.'"
+    Visual: Quote overlay
+    Text on screen: ["We can't stock something that stops people needing us"]
+
+    Script: "The nerves connecting your hands to your brain are either alive right now or dyi..."
+    Visual: Nervous system
+    Text on screen: ['The nerves connecting your hands']
+
+  For BENEFIT segments:
+    Script: "those wires light up and your brain stays sharp."
+    Visual: Activated nerves.
+    Text on screen: ['those wires light up', 'and your brain stays sharp.']
+
+    Script: "Every muscle fires,"
+    Visual: Muscles and nerves glowing with electricity
+    Text on screen: ['Every muscle fires,']
+
+    Script: "every sleepy nerve flips on like stadium lights."
+    Visual: Nervous system glowing intensely
+    Text on screen: ['every sleepy nerve flips on', 'like stadium lights.']
+
+  For CTA segments:
+    Script: "the last 400 NeuroSpin units at 65% off."
+    Visual: -65% OFF Graphic overlay
+    Text on screen: ['-65% OFF', 'the last 400 NeuroSpin units at 65% off.']
+
+  For DEMO segments:
+    Script: "Squeeze your hand"
+    Visual: Skeletal hand.
+    Text on screen: ['Squeeze your hand']
+
+  For ENEMY segments:
+    Script: ""We can't stock something that stops people needing us""
+    Visual: Quote text.
+    Text on screen: ['"We can\'t stock something that stops', 'people needing us"']
+
+    Script: "we can't stock something that stops people needing us."
+    Visual: Text quote overlay
+    Text on screen: ['"We can\'t stock something that', 'stops people needing us"']
+
+    Script: ""We can't stock something that stops people needing us.""
+    Visual: Quote text
+    Text on screen: ['"We can\'t stock something that', 'stops people needing us"']
+
+  For EXPLANATION segments:
+    Script: "They go dormant"
+    Visual: Arm nerves.
+    Text on screen: ['They go dormant']
+
+    Script: "Your hands are the window to your brain. Thousands of nerves run up both arms li..."
+    Visual: Nerve diagram.
+    Text on screen: ['Your hands are the window', 'to your brain.', 'Thousands of nerves run up both arms', 'like live wires.']
+
+    Script: "the harder your whole hand has to work. Every muscle fires, every sleepy nerve f..."
+    Visual: Arm anatomy.
+    Text on screen: ['the harder your whole hand has to work.', 'Every muscle fires,', 'every sleepy nerve flips on', 'like stadium lights.']
+
+  For HOOK segments:
+    Script: "Your hand has 17,000 nerve endings wired directly to your memory."
+    Visual: Brain and hand nervous system diagram.
+    Text on screen: ['Your hand has 17,000 nerve endings', 'wired directly to your memory.']
+
+    Script: "Most people"
+    Visual: Digital human body.
+    Text on screen: ['Most people']
+
+    Script: "Your hand has 17,000 nerve endings"
+    Visual: Anatomical drawing of brain connected to hand via nerves
+    Text on screen: ['Your hand has 17,000 nerve endings']
+
+  For PROBLEM segments:
+    Script: "let them go dark by age 65 and never realize it until the forgetting starts."
+    Visual: Neurons dying/fading.
+    Text on screen: ['let them go dark by age 65 and never realize it', 'until the forgetting starts.']
+
+    Script: "and your memories vanish."
+    Visual: Dying brain.
+    Text on screen: ['and your memories vanish.']
+
+    Script: "Most people let them go dark by age 65"
+    Visual: Neurons losing light and fading to grey
+    Text on screen: ['Most people', 'let them go dark by age', '65 and never realize it']
+
+  For PROMISE segments:
+    Script: "and they can be woken back up."
+    Visual: Human body nerves.
+    Text on screen: ['and they can be woken back up.']
+
+  For SOLUTION segments:
+    Script: "something else. The nerve endings don't die."
+    Visual: Healthy nerves.
+    Text on screen: ['something else.', "The nerve endings don't die."]
+
+    Script: "They go dormant and they can be woken back up"
+    Visual: Arm nerves
+    Text on screen: ['They go dormant']
+
+    Script: "90 seconds a day."
+    Visual: Nervous system animation
+    Text on screen: ['90 seconds a day.']
+
+--------------------------------------------------------------------------------
+## LIFESTYLE
+--------------------------------------------------------------------------------
+Definition: People using product or in relevant situations. Use for aspirational or relatable moments.
+Examples in library: 50
+
+WHEN TO USE (learned from real ads):
+
+  For AGITATION segments:
+    Script: "Try this right now."
+    Visual: Elderly man touching forehead.
+    Text on screen: ['Try this right now.']
+
+    Script: "slow, or your forearm starts"
+    Visual: Pale elderly arm with visible veins.
+    Text on screen: ['slow, or your forearm starts']
+
+    Script: "shaking before you hit five."
+    Visual: Elderly blue eyes.
+    Text on screen: ['shaking before you hit five.']
+
+  For BENEFIT segments:
+    Script: "Students who had strong hands at 80 stayed sharp."
+    Visual: Elderly men playing chess.
+    Text on screen: ['Students who had strong hands', 'at 80 stayed sharp.']
+
+    Script: "Within two weeks, your hands will feel stronger."
+    Visual: Elderly hands typing fluidly then face of elderly woman.
+    Text on screen: ['Within two weeks,', 'your hands will feel stronger.']
+
+    Script: "Within a month, your mind feels clearer."
+    Visual: Old hands typing proficiently on keyboard
+    Text on screen: ['Within a month, your mind', 'feels clearer.']
+
+  For COMPARISON segments:
+    Script: "No prescription, no refills, no co-pays."
+    Visual: Workers packing pills.
+    Text on screen: ['No prescription,', 'no refills, no co-pays.']
+
+    Script: "Within a month, your mind feels clearer. Or send it back. Drug companies charge ..."
+    Visual: Pharmacist scanning meds.
+    Text on screen: ['Within a month, your mind feels clearer.', 'Or send it back.', 'Drug companies charge thousands', 'every month for pills', 'that barely slow the decline.']
+
+  For CONTRAST segments:
+    Script: "Drug companies charge thousands every month for pills that barely slow the decli..."
+    Visual: Pharmacist scanning meds
+    Text on screen: ['Drug companies charge thousands every month', 'for pills that barely slow the decline.']
+
+  For DEMO segments:
+    Script: "as hard as you can. Hold it for five seconds."
+    Visual: Male fist squeezing tightly.
+    Text on screen: ['as hard as you can.', 'Hold it for five seconds.']
+
+    Script: "Hold it for five seconds."
+    Visual: Male hand maintaining fist squeeze
+    Text on screen: ['Hold it for five seconds.']
+
+  For ENEMY segments:
+    Script: "Doctors call weak hands normal aging."
+    Visual: Doctor's hands writing notes.
+    Text on screen: ['Doctors call weak hands', 'normal aging.']
+
+    Script: "But nobody in the medical system wants this out."
+    Visual: Three people in suits looking stern/conspiratorial.
+    Text on screen: ['But nobody in the medical system', 'wants this out.']
+
+  For GUARANTEE segments:
+    Script: "Master Chen's offering a 100% 120 day money back guarantee."
+    Visual: Master Chen holding device.
+    Text on screen: ["Master Chen's offering a 100%", '120 day money back guarantee.']
+
+    Script: "Or send it back."
+    Visual: Older woman typing
+    Text on screen: ['Or send it back.']
+
+  For HERO segments:
+    Script: "He refused."
+    Visual: Master Chen smiling/resolute.
+    Text on screen: ['He refused.']
+
+  For HOOK segments:
+    Script: "You need to see this."
+    Visual: Eyes of an elderly man
+    Text on screen: ['You need to see this.']
+
+  For PIVOT segments:
+    Script: "But he also discovered"
+    Visual: Master Chen.
+    Text on screen: ['But he also discovered']
+
+    Script: "But he also discovered something else."
+    Visual: Master Chen looking wise
+    Text on screen: ['But he also discovered something else.']
+
+  For PROBLEM segments:
+    Script: "If it feels weak,"
+    Visual: Elderly hands fidgeting.
+    Text on screen: ['If it feels weak,']
+
+    Script: "Those who had weak hands at 65"
+    Visual: Frail elderly woman in bed with nurse.
+    Text on screen: ['Those who had weak hands', 'at 65']
+
+    Script: "First, the grip fades,"
+    Visual: Master Chen holding hands with a student.
+    Text on screen: ['First, the grip fades,']
+
+  For PROOF segments:
+    Script: "He's seen the pattern hundreds of times."
+    Visual: Master Chen assisting elderly woman with walker.
+    Text on screen: ["He's seen the pattern", 'hundreds of times.']
+
+    Script: "Students with strong hands at 80 were beating him at chess."
+    Visual: Master Chen playing chess with another man.
+    Text on screen: ['Students with strong hands at 80', 'were beating him at chess.']
+
+    Script: "and Helen was cooking Sunday dinner"
+    Visual: Older woman happily cooking.
+    Text on screen: ['and Helen was cooking Sunday dinner']
+
+  For SOLUTION segments:
+    Script: "for 53 years."
+    Visual: Master Chen holding a gyro ball
+    Text on screen: ['for 53 years.']
+
+  For STORY segments:
+    Script: "Helen came in at 74."
+    Visual: Master Chen helping elderly woman with walker (Helen).
+    Text on screen: ['Helen came in at 74.']
+
+    Script: "A big company offered Master Chen $2 million"
+    Visual: Businessman signing document.
+    Text on screen: ['A big company offered Master Chen', '$2 million']
+
+    Script: "if he kept quiet and walked away."
+    Visual: Business people meeting.
+    Text on screen: ['if he kept quiet', 'and walked away.']
+
+  For TESTIMONIAL segments:
+    Script: "Her daughter whispered: You gave me my mother back."
+    Visual: Daughter smiling at mother.
+    Text on screen: ['Her daughter whispered:', 'You gave me my mother back.']
+
+  For THREAT segments:
+    Script: "And when they're gone, the lawyers might finish the job."
+    Visual: Silhouettes of three business people walking towards camera.
+    Text on screen: ["And when they're gone,", 'the lawyers might finish the job.']
+
+--------------------------------------------------------------------------------
+## DEMONSTRATION
+--------------------------------------------------------------------------------
+Definition: Person actively showing/doing something. Use for tutorials, how-tos, proof.
+Examples in library: 32
+
+WHEN TO USE (learned from real ads):
+
+  For AGITATION segments:
+    Script: "Weak hands at 65 means confusion by 72."
+    Visual: Hand shaking the device.
+    Text on screen: ['Weak hands at 65', 'means confusion by 72.']
+
+  For AUTHORITY segments:
+    Script: "for anyone to do it at home. Here's what Master Chen learned in 53 years."
+    Visual: Master Chen performing Tai Chi.
+    Text on screen: ['for anyone to do it at home.', "Here's what Master Chen", 'learned in 53 years.']
+
+  For BENEFIT segments:
+    Script: "and you've done more for your brain than most people manage all week."
+    Visual: Male hand using device.
+    Text on screen: ["and you've done more for your brain", 'than most people manage all week.']
+
+    Script: "and you've done more for your brain"
+    Visual: Forearm spinning the ball
+    Text on screen: ["and you've done more", 'for your brain']
+
+    Script: "than most people manage all week."
+    Visual: Hand continuing to spin ball
+    Text on screen: ['than most people manage', 'all week.']
+
+  For CTA segments:
+    Script: "Once these 400 are gone, it will be gone for good. Get yours now."
+    Visual: Hand vigorously shaking/using device.
+    Text on screen: ['Once these 400 are gone,', 'it will be gone for good.', 'Get yours now.']
+
+    Script: "Once these 400 are gone, it will be gone for good."
+    Visual: Hand holding ball
+    Text on screen: ['Once these 400 are gone,', 'it will be gone for good.']
+
+  For DEMO segments:
+    Script: "Squeeze your hand as hard as you can."
+    Visual: Male hand squeezing into a fist
+    Text on screen: ['Squeeze your hand', 'as hard as you can.']
+
+    Script: "you hold for 90 seconds."
+    Visual: Arm holding ball against wall
+    Text on screen: ['you hold for 90 seconds.']
+
+    Script: "The faster it spins, the harder your whole hand has to work."
+    Visual: Hand struggling to hold spinning ball, forearm muscles flexi
+    Text on screen: ['The faster it spins, the harder your whole hand has to work.']
+
+  For EXPLANATION segments:
+    Script: "Here's what Master Chen learned in 53 years."
+    Visual: Master Chen leading a class in movement
+    Text on screen: ["Here's what Master Chen", 'learned in 53 years.']
+
+  For INSTRUCTION segments:
+    Script: "Use your hands with strength,"
+    Visual: Hand holding NeuroSpin
+    Text on screen: ['Use your hands with strength,']
+
+  For PROBLEM segments:
+    Script: "she couldn't turn a doorknob."
+    Visual: Hand struggling to open smart lock/handle
+    Text on screen: ["she couldn't turn a doorknob."]
+
+    Script: "means confusion by 72."
+    Visual: Man using ball
+    Text on screen: ['means confusion by 72.']
+
+    Script: "were touring nursing homes by 70."
+    Visual: Hands flipping through nursing home brochure
+    Text on screen: ['were touring nursing homes by 70.']
+
+  For PROOF segments:
+    Script: "has used this exact test"
+    Visual: Group of elderly people doing Tai Chi.
+    Text on screen: ['has used this exact test']
+
+    Script: "Master Chen tested it on students aged 66 to 89."
+    Visual: Class of elderly students using the device.
+    Text on screen: ['Master Chen tested it on students', 'aged 66 to 89.']
+
+    Script: "That's all it took."
+    Visual: Man's hand aggressively shaking/using the spinning ball
+    Text on screen: ["That's all it took."]
+
+  For REASON segments:
+    Script: "At 78, he doesn't have the time to fight billion dollar monopolies."
+    Visual: Master Chen leading class
+    Text on screen: ["At 78, he doesn't have the time to", 'fight billion dollar monopolies.']
+
+  For SOLUTION segments:
+    Script: "for 53 years."
+    Visual: Master Chen holding a gyro ball device.
+    Text on screen: ['for 53 years.']
+
+    Script: "That's all it took. Master Chen finally built a way"
+    Visual: Male hands using the device.
+    Text on screen: ["That's all it took.", 'Master Chen finally built a way']
+
+    Script: "That's why he created NeuroSpin."
+    Visual: Master Chen holding the black ball
+    Text on screen: ["That's why he created NeuroSpin."]
+
+  For STORY segments:
+    Script: "At 78, he doesn't have the time to fight"
+    Visual: Master and students.
+    Text on screen: ["At 78, he doesn't have the time to fight"]
+
+    Script: "At 78, he doesn't have the time"
+    Visual: Group Tai Chi class with balls
+    Text on screen: ["At 78, he doesn't", 'have the time']
+
+--------------------------------------------------------------------------------
+## TESTIMONIAL
+--------------------------------------------------------------------------------
+Definition: Customer or user speaking. Use for social proof and credibility.
+Examples in library: 0
+
+  No examples yet - analyze more videos to build library.
+
+
+================================================================================
+PART 2: CLIP SELECTION BY SCRIPT FUNCTION
+================================================================================
+
+What clips work best for each part of the ad structure:
+
+--------------------------------------------------------------------------------
+## HOOK
+--------------------------------------------------------------------------------
+Purpose: Opening that grabs attention. First 3-5 seconds.
+
+Clip types that work for this:
+  - text_graphic
+  - talking_head
+  - lifestyle
+
+Examples:
+  Script: "Your hand has 17,000 nerve endings wired directly to your memory."
+  -> Use: text_graphic
+     Show: Brain and hand nervous system diagram.
+
+  Script: "Most people"
+  -> Use: text_graphic
+     Show: Digital human body.
+
+  Script: "You need to see this. This 78-year-old Tai Chi master"
+  -> Use: talking_head
+     Show: Asian man with long white beard (Master Chen).
+
+  Script: "Your hand has 17,000 nerve endings"
+  -> Use: text_graphic
+     Show: Anatomical drawing of brain connected to hand via 
+
+  Script: "Try this right now."
+  -> Use: text_graphic
+     Show: Skeletal hand closing into a fist
+
+--------------------------------------------------------------------------------
+## PROBLEM
+--------------------------------------------------------------------------------
+Purpose: Identifying the pain point or challenge.
+
+Clip types that work for this:
+  - lifestyle
+  - text_graphic
+  - demonstration
+  - talking_head
+  - product_shot
+
+Examples:
+  Script: "let them go dark by age 65 and never realize it until the forgetting s..."
+  -> Use: text_graphic
+     Show: Neurons dying/fading.
+
+  Script: "If it feels weak,"
+  -> Use: lifestyle
+     Show: Elderly hands fidgeting.
+
+  Script: "Those who had weak hands at 65"
+  -> Use: lifestyle
+     Show: Frail elderly woman in bed with nurse.
+
+  Script: "First, the grip fades,"
+  -> Use: lifestyle
+     Show: Master Chen holding hands with a student.
+
+  Script: "and your memories vanish."
+  -> Use: text_graphic
+     Show: Dying brain.
+
+--------------------------------------------------------------------------------
+## AGITATION
+--------------------------------------------------------------------------------
+Purpose: Making the problem feel urgent or painful.
+
+Clip types that work for this:
+  - lifestyle
+  - text_graphic
+  - talking_head
+  - demonstration
+
+Examples:
+  Script: "Try this right now."
+  -> Use: lifestyle
+     Show: Elderly man touching forehead.
+
+  Script: "slow, or your forearm starts"
+  -> Use: lifestyle
+     Show: Pale elderly arm with visible veins.
+
+  Script: "shaking before you hit five."
+  -> Use: lifestyle
+     Show: Elderly blue eyes.
+
+  Script: "were touring nursing homes by 70."
+  -> Use: lifestyle
+     Show: Hands flipping through brochure with elderly pictu
+
+  Script: "then the names,"
+  -> Use: talking_head
+     Show: Younger woman talking to older woman with blank ex
+
+--------------------------------------------------------------------------------
+## SOLUTION
+--------------------------------------------------------------------------------
+Purpose: Introducing the product/service as the answer.
+
+Clip types that work for this:
+  - product_shot
+  - demonstration
+  - text_graphic
+  - talking_head
+
+Examples:
+  Script: "for 53 years."
+  -> Use: demonstration
+     Show: Master Chen holding a gyro ball device.
+
+  Script: "something else. The nerve endings don't die."
+  -> Use: text_graphic
+     Show: Healthy nerves.
+
+  Script: "That's all it took. Master Chen finally built a way"
+  -> Use: demonstration
+     Show: Male hands using the device.
+
+  Script: "That's why he created NeuroSpin."
+  -> Use: product_shot
+     Show: Master Chen holding product.
+
+  Script: "Eight weeks with NeuroSpin,"
+  -> Use: product_shot
+     Show: Hand spinning device aggressively.
+
+--------------------------------------------------------------------------------
+## DEMO
+--------------------------------------------------------------------------------
+Purpose: Showing how it works.
+
+Clip types that work for this:
+  - product_shot
+  - demonstration
+  - lifestyle
+  - text_graphic
+
+Examples:
+  Script: "Squeeze your hand"
+  -> Use: text_graphic
+     Show: Skeletal hand.
+
+  Script: "as hard as you can. Hold it for five seconds."
+  -> Use: lifestyle
+     Show: Male fist squeezing tightly.
+
+  Script: "Use your hands with strength,"
+  -> Use: product_shot
+     Show: Hand holding spinning gyro ball with green LEDs.
+
+  Script: "It's a golf ball-sized gyro you hold for 90 seconds."
+  -> Use: product_shot
+     Show: Hand holding device against wall.
+
+  Script: "Press the button"
+  -> Use: product_shot
+     Show: Device spinning with blue light.
+
+--------------------------------------------------------------------------------
+## BENEFIT
+--------------------------------------------------------------------------------
+Purpose: Explaining what the viewer gains.
+
+Clip types that work for this:
+  - product_shot
+  - lifestyle
+  - text_graphic
+  - demonstration
+
+Examples:
+  Script: "Students who had strong hands at 80 stayed sharp."
+  -> Use: lifestyle
+     Show: Elderly men playing chess.
+
+  Script: "90 seconds a day."
+  -> Use: product_shot
+     Show: Hand spinning gyro ball.
+
+  Script: "those wires light up and your brain stays sharp."
+  -> Use: text_graphic
+     Show: Activated nerves.
+
+  Script: "and fights back. No batteries, no charging. The faster it spins,"
+  -> Use: product_shot
+     Show: Hand struggling to hold spinning device, muscles t
+
+  Script: "and you've done more for your brain than most people manage all week."
+  -> Use: demonstration
+     Show: Male hand using device.
+
+--------------------------------------------------------------------------------
+## PROOF
+--------------------------------------------------------------------------------
+Purpose: Evidence it works (testimonials, stats, results).
+
+Clip types that work for this:
+  - lifestyle
+  - demonstration
+  - talking_head
+
+Examples:
+  Script: "has used this exact test"
+  -> Use: demonstration
+     Show: Group of elderly people doing Tai Chi.
+
+  Script: "He's seen the pattern hundreds of times."
+  -> Use: lifestyle
+     Show: Master Chen assisting elderly woman with walker.
+
+  Script: "Students with strong hands at 80 were beating him at chess."
+  -> Use: lifestyle
+     Show: Master Chen playing chess with another man.
+
+  Script: "Master Chen tested it on students aged 66 to 89."
+  -> Use: demonstration
+     Show: Class of elderly students using the device.
+
+  Script: "and Helen was cooking Sunday dinner"
+  -> Use: lifestyle
+     Show: Older woman happily cooking.
+
+--------------------------------------------------------------------------------
+## CTA
+--------------------------------------------------------------------------------
+Purpose: Call to action - what to do next.
+
+Clip types that work for this:
+  - product_shot
+  - demonstration
+  - lifestyle
+  - text_graphic
+
+Examples:
+  Script: "Click below to get one of the last 400 NeuroSpin units at 65% off."
+  -> Use: product_shot
+     Show: 3 Gyro balls floating.
+
+  Script: "Strong hands, clear mind or your money back."
+  -> Use: product_shot
+     Show: Hand starting device.
+
+  Script: "Once these 400 are gone, it will be gone for good. Get yours now."
+  -> Use: demonstration
+     Show: Hand vigorously shaking/using device.
+
+  Script: "Get yours now."
+  -> Use: product_shot
+     Show: Hand spinning ball rapidly
+
+  Script: "So he's selling the last 1000 units himself."
+  -> Use: product_shot
+     Show: Hands examining metallic ball
+
+--------------------------------------------------------------------------------
+## TRANSITION
+--------------------------------------------------------------------------------
+Purpose: Connecting segments, pacing changes.
+
+Clip types that work for this:
+  - lifestyle
+  - text_graphic
+
+Examples:
+  Script: "Most people"
+  -> Use: text_graphic
+     Show: Neurons
+
+  Script: "before you hit five, You need to see this."
+  -> Use: lifestyle
+     Show: Elderly blue eyes looking concerned
+
+  Script: "But he also discovered something else."
+  -> Use: lifestyle
+     Show: Master Chen smiling subtly
+
+
+================================================================================
+PART 3: CLIP TRANSITIONS
+================================================================================
+
+What clip types naturally follow each other:
+
+  broll -> text_graphic
+    e.g., "CVS and Walgreens both said..." -> ""We can't stock something that stops peo..."
+
+  demonstration -> demonstration
+    e.g., "has used this exact test..." -> "for 53 years...."
+
+  demonstration -> lifestyle
+    e.g., "for 53 years...." -> "He's seen the pattern hundreds of times...."
+
+  demonstration -> product_shot
+    e.g., "At 78, he doesn't have the time to fight..." -> "billion dollar monopolies. So he's selli..."
+
+  demonstration -> talking_head
+    e.g., "she couldn't turn a doorknob...." -> "Repeating the same questions,..."
+
+  demonstration -> text_graphic
+    e.g., "for anyone to do it at home. Here's what..." -> "Your hands are the window to your brain...."
+
+  lifestyle -> demonstration
+    e.g., "were forgetting their children's names b..." -> "That's why he created NeuroSpin...."
+
+  lifestyle -> lifestyle
+    e.g., "as hard as you can. Hold it for five sec..." -> "If it feels weak,..."
+
+  lifestyle -> product_shot
+    e.g., "were forgetting their children's names b..." -> "That's why he created NeuroSpin...."
+
+  lifestyle -> talking_head
+    e.g., "shaking before you hit five...." -> "You need to see this. This 78-year-old T..."
+
+  lifestyle -> text_graphic
+    e.g., "Try this right now...." -> "Squeeze your hand..."
+
+  product_shot -> broll
+    e.g., "Buy it once, it works forever...." -> "CVS and Walgreens both said..."
+
+  product_shot -> demonstration
+    e.g., "90 seconds a day...." -> "That's all it took. Master Chen finally ..."
+
+  product_shot -> lifestyle
+    e.g., "Eight weeks with NeuroSpin,..." -> "and Helen was cooking Sunday dinner..."
+
+  product_shot -> product_shot
+    e.g., "That's why he created NeuroSpin...." -> "It's a golf ball-sized gyro you hold for..."
+
+  product_shot -> talking_head
+    e.g., "Click below to get one of the last 400 N..." -> "Master Chen's offering a 100% 120 day mo..."
+
+  product_shot -> text_graphic
+    e.g., "Use your hands with strength,..." -> "those wires light up and your brain stay..."
+
+  talking_head -> demonstration
+    e.g., "You need to see this. This 78-year-old T..." -> "has used this exact test..."
+
+  talking_head -> lifestyle
+    e.g., "then the names,..." -> "then the faces...."
+
+  talking_head -> product_shot
+    e.g., "Master Chen's offering a 100% 120 day mo..." -> "Strong hands, clear mind or your money b..."
+
+  talking_head -> talking_head
+    e.g., "'Something's wrong.'..." -> "But he also discovered something else...."
+
+  talking_head -> text_graphic
+    e.g., "But he also discovered something else...." -> "The nerve endings don't die...."
+
+  text_graphic -> demonstration
+    e.g., "Try this right now...." -> "Squeeze your hand as hard as you can...."
+
+  text_graphic -> lifestyle
+    e.g., "let them go dark by age 65 and never rea..." -> "Try this right now...."
+
+  text_graphic -> product_shot
+    e.g., "and they can be woken back up...." -> "90 seconds a day...."
+
+  text_graphic -> text_graphic
+    e.g., "Your hand has 17,000 nerve endings wired..." -> "Most people..."
+
+
+================================================================================
+PART 4: QUICK REFERENCE RULES
+================================================================================
+
+CONCEPTUAL BOUNDARIES:
+  - Break script at natural thought boundaries
+  - If a line takes >3 seconds to say, it likely needs multiple clips
+  - Each clip should have ONE visual focus
+  - Change clip when: topic shifts, emotion shifts, or emphasis needed
+
+MATCHING RULES:
+  - Mention product by name -> PRODUCT SHOT
+  - Show how it works -> SCREEN DEMO or DEMONSTRATION
+  - Direct address ('you', 'your') -> TALKING HEAD
+  - Stats or key points -> TEXT GRAPHIC
+  - Emotional/aspirational language -> LIFESTYLE or BROLL
+  - Customer quote or result -> TESTIMONIAL
+  - Action words (click, sign up, get) -> CTA with TEXT GRAPHIC
+
+PACING:
+  - Don't stay on talking head too long - cut to broll/product
+  - After product shot, often return to talking head
+  - Text graphics are punchy - use for emphasis, not narration
+  - Broll covers transitions and adds visual variety
+
+================================================================================

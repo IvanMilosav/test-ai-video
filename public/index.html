@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video Analyzer - AI-Powered Video Analysis</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🎬 Video Analyzer</h1>
+            <p class="subtitle">AI-Powered Video Analysis with Gemini</p>
+        </header>
+
+        <!-- Main Content -->
+        <main>
+            <!-- Step 1: Upload Video -->
+            <section class="card" id="uploadSection">
+                <div class="card-header">
+                    <h2>📁 Step 1: Select Your Video</h2>
+                    <p>Upload a video file (MP4, MOV, AVI, MKV - Max 20MB)</p>
+                </div>
+                <div class="card-body">
+                    <div class="drop-zone" id="dropZone">
+                        <div class="drop-zone-icon">📹</div>
+                        <p class="drop-zone-text">Drag & drop your video here</p>
+                        <p class="drop-zone-or">or</p>
+                        <button class="btn btn-primary" id="browseBtn">Browse Files</button>
+                        <input type="file" id="fileInput" accept="video/*" hidden>
+                    </div>
+
+                    <div id="fileInfo" class="file-info" style="display: none;">
+                        <div class="file-name">
+                            <strong>Selected:</strong> <span id="fileName"></span>
+                        </div>
+                        <div class="file-size">
+                            <strong>Size:</strong> <span id="fileSize"></span>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" id="clearBtn">Change Video</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 2: API Key (if needed) -->
+            <section class="card" id="apiKeySection" style="display: none;">
+                <div class="card-header">
+                    <h2>🔑 Step 2: API Key (One-time Setup)</h2>
+                    <p>Enter your Google Gemini API key to analyze videos</p>
+                </div>
+                <div class="card-body">
+                    <div class="api-key-input">
+                        <input type="password" id="apiKeyInput" placeholder="AIzaSy...">
+                        <button class="btn btn-primary" id="saveApiKeyBtn">Save Key</button>
+                    </div>
+                    <p class="help-text">
+                        Don't have an API key? <a href="https://aistudio.google.com/app/apikey" target="_blank">Get one free here</a>
+                    </p>
+                </div>
+            </section>
+
+            <!-- Step 3: Analyze -->
+            <section class="card" id="analyzeSection" style="display: none;">
+                <div class="card-header">
+                    <h2>🚀 Step 3: Analyze Video</h2>
+                    <p>Process your video with AI</p>
+                </div>
+                <div class="card-body">
+                    <button class="btn btn-success btn-lg" id="analyzeBtn">
+                        <span id="analyzeBtnText">Analyze Video</span>
+                    </button>
+
+                    <div id="progressSection" style="display: none;">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <p class="progress-text" id="progressText">Uploading video...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Step 4: Results -->
+            <section class="card" id="resultsSection" style="display: none;">
+                <div class="card-header">
+                    <h2>✅ Analysis Complete!</h2>
+                    <p>Your video has been analyzed</p>
+                </div>
+                <div class="card-body">
+                    <div class="results-container">
+                        <div class="result-preview" id="resultPreview">
+                            <!-- Results will be inserted here -->
+                        </div>
+                        <div class="result-actions">
+                            <button class="btn btn-primary" id="downloadBtn">📥 Download Results</button>
+                            <button class="btn btn-secondary" id="newAnalysisBtn">🔄 Analyze Another Video</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Data Viewer -->
+            <section class="card" id="dataSection">
+                <div class="card-header">
+                    <h2>📊 Your Data</h2>
+                    <p>View your analysis history and insights</p>
+                </div>
+                <div class="card-body">
+                    <div class="data-buttons">
+                        <button class="btn btn-outline" id="viewOntologyBtn">📊 Master Ontology</button>
+                        <button class="btn btn-outline" id="viewBrainBtn">🧠 Script-Clip Brain</button>
+                        <button class="btn btn-outline" id="viewHistoryBtn">🎬 Analysis History</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer>
+            <p>Powered by Google Gemini AI | <a href="#" id="aboutLink">About</a> | <a href="#" id="helpLink">Help</a></p>
+        </footer>
+    </div>
+
+    <!-- Modal for viewing data -->
+    <div class="modal" id="dataModal" style="display: none;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">Data Viewer</h2>
+                <button class="modal-close" id="closeModalBtn">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content loaded dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+        <div class="spinner"></div>
+        <p>Processing...</p>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

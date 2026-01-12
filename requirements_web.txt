@@ -1,0 +1,6 @@
+# Web deployment requirements (minimal set for faster deployment)
+google-genai>=0.2.0
+python-dotenv
+fastapi
+uvicorn[standard]
+python-multipart

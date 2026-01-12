@@ -39,7 +39,8 @@ class IterativeClipAnalyzer:
         api_key: str = None,
         model: str = "pro",
         ontology_path: str = "master_clip_ontology.pkl",
-        brain_path: str = "script_clip_brain.pkl"
+        brain_path: str = "script_clip_brain.pkl",
+        progress_callback: callable = None
     ):
         # Use Config for API key, with optional override
         self.api_key = api_key or Config.GOOGLE_API_KEY
@@ -50,6 +51,7 @@ class IterativeClipAnalyzer:
         self.model = self.MODELS.get(model, "gemini-2.0-pro")
         self.ontology_path = ontology_path
         self.brain_path = brain_path
+        self.progress_callback = progress_callback
 
         # Load or create master ontology (from pickle)
         if os.path.exists(ontology_path):
@@ -422,17 +424,25 @@ OUTPUT ONLY VALID JSON.'''
     def process_video(self, video_path: str, output_dir: str = None) -> Dict[str, Any]:
         """Full pipeline: analyze video, update ontology, generate outputs."""
         # Analyze
+        if self.progress_callback:
+            self.progress_callback("Analyzing video with Gemini AI...", 40)
         analysis = self.analyze_video(video_path)
 
         # Update ontology
+        if self.progress_callback:
+            self.progress_callback("Updating ontology...", 70)
         annotated_clips = self.update_ontology(analysis)
 
         # Generate output (text only)
+        if self.progress_callback:
+            self.progress_callback("Generating output files...", 85)
         text_path = self.generate_output(
             video_path, analysis, annotated_clips, output_dir
         )
 
         # Save master ontology as text + binary
+        if self.progress_callback:
+            self.progress_callback("Saving ontology and brain...", 95)
         ontology_text_path = self.ontology_path.replace('.pkl', '.txt')
         self.master_ontology.save(ontology_text_path)
         self.master_ontology.save_binary(self.ontology_path)
@@ -449,6 +459,9 @@ OUTPUT ONLY VALID JSON.'''
         print(f"Output: {text_path}")
         print(f"Master ontology: {ontology_text_path}")
         print(f"Brain: {brain_text_path}")
+
+        if self.progress_callback:
+            self.progress_callback("Complete!", 100)
 
         return {
             "video": video_path,

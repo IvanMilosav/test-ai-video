@@ -1,0 +1,292 @@
+═══════════════════════════════════════════════════════════════════════════
+                    VIDEO ANALYSIS DATA - COMPLETE GUIDE
+═══════════════════════════════════════════════════════════════════════════
+
+This guide shows you where to find all the data from your video analyses.
+
+───────────────────────────────────────────────────────────────────────────
+📊 FILE #1: MASTER ONTOLOGY (The Statistics Brain)
+───────────────────────────────────────────────────────────────────────────
+
+📁 FILE: master_clip_ontology.txt
+📏 SIZE: 5.6 KB
+🎯 PURPOSE: Shows overall patterns learned from ALL videos combined
+
+WHAT'S INSIDE:
+├── 📈 Summary Statistics
+│   ├── Videos analyzed: 4
+│   ├── Total clips: 340
+│   └── Last updated timestamp
+│
+├── 🎥 VISUAL ONTOLOGY (What you see)
+│   ├── Shot Types (close_up: 168x, medium: 126x, wide: 28x...)
+│   ├── Camera Angles (eye_level: 310x, high_angle: 16x...)
+│   ├── Camera Movements (static: 308x, pan: 15x...)
+│   ├── Compositions (centered: 256x, rule_of_thirds: 47x...)
+│   ├── Setting Types (indoor: 243x, animated: 51x...)
+│   ├── Lighting Styles (natural: 162x, soft: 31x...)
+│   ├── Color Moods (warm: 129x, neutral: 55x...)
+│   ├── Subject Types (person: 202x, product: 78x...)
+│   └── Subject Actions (demonstrating: 102x, static: 81x...)
+│
+├── 😊 EMOTIONAL ONTOLOGY (How it makes you feel)
+│   ├── Emotions (curiosity: 39x, fear: 35x, trust: 23x...)
+│   └── Intensities (moderate: 246x, strong: 68x...)
+│
+├── 🎯 FUNCTIONAL ONTOLOGY (Why it exists)
+│   ├── Clip Functions (benefit: 53x, problem: 47x, agitation: 36x...)
+│   ├── Narrative Roles (conflict: 32x, setup: 30x...)
+│   └── Persuasion Mechanisms (pain_agitation: 53x...)
+│
+├── 🔄 TRANSITIONS
+│   └── cut: 666x, dissolve: 11x, fade: 3x
+│
+├── ⏱️ FUNCTION DURATION AVERAGES
+│   ├── hook: 1.82s (quick attention grab)
+│   ├── problem: 1.93s
+│   ├── solution: 1.82s
+│   ├── benefit: 2.59s (longer to explain value)
+│   └── cta: 2.88s (longest, needs clarity)
+│
+└── 🔗 EMOTION-FUNCTION CORRELATIONS (Patterns discovered!)
+    ├── problem: fear(17), sadness(11), worry(7) ← Always negative!
+    ├── benefit: satisfaction(12), hope(11), excitement(8) ← Always positive!
+    ├── cta: urgency(6), desire(4), confidence(3) ← Creates urgency!
+    └── [25+ more correlations...]
+
+HOW TO USE IT:
+✓ Check what's common vs rare (close-ups are used 168 times!)
+✓ Validate your ad structure (problem clips should use fear/sadness)
+✓ Estimate clip durations (hooks average 1.82 seconds)
+✓ Learn proven emotion-function pairings
+
+
+───────────────────────────────────────────────────────────────────────────
+🧠 FILE #2: SCRIPT-CLIP BRAIN (The Recipe Book)
+───────────────────────────────────────────────────────────────────────────
+
+📁 FILE: script_clip_brain.txt
+📏 SIZE: 36 KB
+🎯 PURPOSE: Shows REAL EXAMPLES of "when script says X, show Y"
+
+WHAT'S INSIDE:
+├── 📚 PART 1: CLIP TYPES - WHEN TO USE EACH
+│   │
+│   ├── TALKING HEAD (17 examples)
+│   │   └── Examples organized by function:
+│   │       ├── For HOOK segments: "You need to see this..." → Show: Master Chen
+│   │       ├── For PROBLEM: "'Something's wrong'" → Show: Concerned older man
+│   │       ├── For AGITATION: "Then the spouse starts whispering..." 
+│   │       └── [More examples...]
+│   │
+│   ├── PRODUCT SHOT (34 examples)
+│   │   └── Examples:
+│   │       ├── "90 seconds a day" → Show: Hand spinning gyro ball
+│   │       ├── "Buy it once, it works forever" → Show: Glowing blue device
+│   │       └── [32 more examples...]
+│   │
+│   ├── TEXT GRAPHIC (32 examples)
+│   ├── LIFESTYLE (50 examples)
+│   ├── DEMONSTRATION (26 examples)
+│   └── BROLL (1 example)
+│
+├── 🎯 PART 2: BY SCRIPT FUNCTION
+│   │
+│   ├── HOOK (6 examples)
+│   │   └── What works: talking_head, text_graphic
+│   │
+│   ├── PROBLEM (30 examples)
+│   │   └── What works: lifestyle, talking_head showing frustration/fear
+│   │
+│   ├── SOLUTION (15 examples)
+│   │   └── What works: product_shot, demonstration
+│   │
+│   ├── BENEFIT (22 examples)
+│   │   └── What works: product_shot, demonstration, text_graphic
+│   │
+│   └── [20+ more functions with examples...]
+│
+├── 🔄 PART 3: CLIP TRANSITIONS (26 patterns learned)
+│   ├── talking_head → product_shot (seen 12 times)
+│   ├── product_shot → talking_head (natural return)
+│   ├── lifestyle → text_graphic (emphasis)
+│   └── [23 more transition patterns...]
+│
+└── 📖 PART 4: QUICK REFERENCE RULES
+    ├── Mention product by name → PRODUCT SHOT
+    ├── Show how it works → SCREEN DEMO or DEMONSTRATION
+    ├── Direct address ('you', 'your') → TALKING HEAD
+    ├── Stats or key points → TEXT GRAPHIC
+    └── [More proven rules...]
+
+HOW TO USE IT:
+✓ Look up similar script lines to yours
+✓ See what clip types were used for similar content
+✓ Learn transition patterns (what naturally follows what)
+✓ Get inspired by 160 real examples from actual ads
+
+
+───────────────────────────────────────────────────────────────────────────
+🎬 FILE #3: INDIVIDUAL VIDEO ANALYSES (Clip-by-Clip Breakdowns)
+───────────────────────────────────────────────────────────────────────────
+
+📁 FILES: [videoname]_ontology_[timestamp].txt
+📏 SIZE: 94-104 KB per video
+🎯 PURPOSE: Complete breakdown of ONE specific video
+
+YOUR VIDEO FILES:
+├── gabriel_compressed_ontology_20260108_181910.txt (83 clips, 189s)
+├── gabriel_compressed_ontology_20260108_163733.txt
+├── gabriel_compressed_ontology_20260106_160158.txt
+└── [More analyses...]
+
+WHAT'S INSIDE EACH FILE:
+├── 📊 HEADER
+│   ├── Video filename
+│   ├── Analysis timestamp
+│   ├── Total clips found
+│   └── Total duration
+│
+├── 📝 FULL TRANSCRIPT
+│   └── Complete verbatim transcript of the entire ad
+│
+└── 🎬 CLIP-BY-CLIP BREAKDOWN (Every single clip detailed!)
+    │
+    ├── CLIP 1
+    │   ├── Timestamp: 00:00.000 → 00:03.500 (3.50s)
+    │   ├── Script Segment: "Your hand has 17,000 nerve endings..."
+    │   │
+    │   ├── VISUAL:
+    │   │   ├── Shot: medium
+    │   │   ├── Camera: eye_level / static
+    │   │   ├── Composition: centered
+    │   │   ├── Setting: animated - Vintage medical illustration
+    │   │   ├── Lighting: soft
+    │   │   ├── Color: warm
+    │   │   ├── Subject: graphic - static
+    │   │   ├── Subject Detail: Anatomical diagram
+    │   │   ├── Text On Screen: ["Your hand has 17,000 nerve endings"]
+    │   │   └── Text Purpose: subtitle
+    │   │
+    │   ├── EMOTIONAL:
+    │   │   ├── Primary: curiosity
+    │   │   ├── Intensity: moderate
+    │   │   └── Direction: neutral
+    │   │
+    │   ├── FUNCTIONAL:
+    │   │   ├── Function: hook
+    │   │   ├── Narrative Role: setup
+    │   │   └── Persuasion: curiosity_gap → awareness
+    │   │
+    │   ├── TRANSITIONS: cut → cut
+    │   │
+    │   └── PURPOSE: "Establishes the scientific premise..."
+    │
+    ├── CLIP 2
+    │   └── [Same detailed structure...]
+    │
+    ├── CLIP 3
+    │   └── [Same detailed structure...]
+    │
+    └── ... [83 clips total for Gabriel video]
+
+HOW TO USE IT:
+✓ Study successful ad structures clip-by-clip
+✓ See exact timestamps for each clip
+✓ Understand WHY each clip exists (purpose summary)
+✓ Learn how emotions flow through an ad
+✓ Copy proven sequences and structures
+✓ Reference when creating similar ads
+
+
+───────────────────────────────────────────────────────────────────────────
+💾 BONUS: PICKLE FILES (Binary Storage)
+───────────────────────────────────────────────────────────────────────────
+
+These are the actual data storage files (not human-readable):
+
+📁 master_clip_ontology.pkl (9.4 KB)
+   └── Contains all the statistics in computer-readable format
+
+📁 script_clip_brain.pkl (63.9 KB)
+   └── Contains all 160 examples in computer-readable format
+
+These files are automatically loaded when you run the analyzer.
+They store the "memory" of the system between runs.
+
+
+───────────────────────────────────────────────────────────────────────────
+🔍 HOW TO VIEW THE DATA
+───────────────────────────────────────────────────────────────────────────
+
+OPTION 1: Open in any text editor
+  ✓ master_clip_ontology.txt
+  ✓ script_clip_brain.txt
+  ✓ gabriel_compressed_ontology_20260108_181910.txt
+
+OPTION 2: View in your IDE (VSCode, etc.)
+
+OPTION 3: Command line (if you like terminal):
+  cat master_clip_ontology.txt
+  less script_clip_brain.txt
+  grep "problem" script_clip_brain.txt
+
+
+───────────────────────────────────────────────────────────────────────────
+💡 PRACTICAL USE CASES
+───────────────────────────────────────────────────────────────────────────
+
+SCENARIO 1: "I'm creating a new ad. What clip types should I use?"
+→ Open: script_clip_brain.txt
+→ Go to: PART 2 (By Script Function)
+→ Find your function (hook, problem, solution, etc.)
+→ See real examples of what worked
+
+SCENARIO 2: "How long should my problem clips be?"
+→ Open: master_clip_ontology.txt
+→ Find: FUNCTION DURATION AVERAGES
+→ See: problem clips average 1.93 seconds
+
+SCENARIO 3: "What emotions work for benefit clips?"
+→ Open: master_clip_ontology.txt
+→ Find: EMOTION-FUNCTION CORRELATIONS
+→ See: benefit clips use satisfaction(12), hope(11), excitement(8)
+
+SCENARIO 4: "Show me a great hook clip example"
+→ Open: gabriel_compressed_ontology_20260108_181910.txt
+→ Find: CLIP 1
+→ Study: How it uses curiosity + animated graphic + scientific claim
+
+SCENARIO 5: "What makes the Gabriel ad work so well?"
+→ Open: gabriel_compressed_ontology_20260108_181910.txt
+→ Read: Full transcript + all 83 clips
+→ Notice: The sequence, emotion progression, persuasion tactics
+
+SCENARIO 6: "What naturally follows a talking head clip?"
+→ Open: script_clip_brain.txt
+→ Find: PART 3 (Transitions)
+→ See: talking_head → product_shot (most common)
+
+
+───────────────────────────────────────────────────────────────────────────
+📍 FILE LOCATIONS
+───────────────────────────────────────────────────────────────────────────
+
+All files are in: /home/ivan/Desktop/AI vdieo/python video/advisualbreakdown/
+
+Master files:
+  master_clip_ontology.txt
+  script_clip_brain.txt
+
+Individual videos:
+  gabriel_compressed_ontology_20260108_181910.txt
+  [and other dated versions]
+
+Binary storage (automatic):
+  master_clip_ontology.pkl
+  script_clip_brain.pkl
+
+
+═══════════════════════════════════════════════════════════════════════════
+                              HAPPY ANALYZING! 🎬
+═══════════════════════════════════════════════════════════════════════════

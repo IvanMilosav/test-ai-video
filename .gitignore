@@ -1,38 +1,82 @@
-# Environment variables
+# Environment and secrets
 .env
+*.env
 .env.local
-.env.*.local
 
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-venv/
+# Virtual environments
 .venv/
-ENV/
+.venv_web/
+venv/
 env/
 
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-.DS_Store
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyc
 
-# Generated files
+# Temporary and output files
+temp_uploads/
+outputs/
 generated_images/
 uploads/
+
+# Data files
 *.pkl
+*_ontology_*.txt
+master_clip_ontology.txt
+script_clip_brain.txt
 
-# Logs
-*.log
+# Video files
+*.mp4
+*.mov
+*.avi
+*.mkv
 
-# Temp files
-/tmp/
-*.tmp
-videos/
-uploads/
-nebroo/
-generated_images/
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Desktop files not needed for web
+simple_launcher.*
+video_analyzer.bat
+video_analyzer.sh
+video_analyzer_gui.py
+build_installer.py
+*.desktop
+create_desktop_icon.*
+create_icon.py
+
+# Test files
+gabriel_compressed*
+video_gabriel_ad.mp4
+veo_example.py
+vertex_request.txt
+
+# Old docs
+CREATE_*
+DESKTOP_*
+FIXED_*
+FIX_*
+GUI_*
+HOW_TO_*
+LAUNCH_*
+MACOS_*
+PLATFORM_*
+QUICK_LAUNCHER_*
+QUICK_START.txt
+START_HERE.txt
+TRUST_*
+install_*
+setup_*
+test_*
+verify_*
+fix_*
+desktop_*
+start_mac.sh
+start_video_analyzer.sh
+
+.claude/

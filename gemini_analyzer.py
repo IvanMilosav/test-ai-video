@@ -44,19 +44,24 @@ class GeminiAnalyzer:
                     types.Part.from_text(text=prompt)
                 ]
             )]
-            
+
+            print("Waiting for Gemini response (this may take 30-60 seconds)...")
             response_stream = self.client.models.generate_content_stream(
                 model="gemini-2.5-flash",
                 contents=contents
             )
-            
+
             # Collect response text
             response_text = ""
+            chunk_count = 0
             for chunk in response_stream:
                 if chunk.text:
                     response_text += chunk.text
-            
-            print("Received response from Gemini")
+                    chunk_count += 1
+                    if chunk_count % 5 == 0:
+                        print(f"  Receiving response... ({len(response_text)} chars so far)")
+
+            print(f"Received complete response from Gemini ({len(response_text)} chars)")
             
             # Parse JSON response with robust error handling
             try:
@@ -375,7 +380,7 @@ class GeminiAnalyzer:
             # Generate analysis
             print(f"      🧠 Analyzing batch {batch_number} with Gemini...")
             response_stream = self.client.models.generate_content_stream(
-                model="gemini-2.5-pro",
+                model="gemini-2.5-flash",
                 contents=contents
             )
             
@@ -445,7 +450,7 @@ class GeminiAnalyzer:
             )]
             
             response_stream = self.client.models.generate_content_stream(
-                model="gemini-2.5-pro",
+                model="gemini-2.5-flash",
                 contents=contents
             )
             

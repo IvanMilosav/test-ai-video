@@ -1,0 +1,141 @@
+═══════════════════════════════════════════════════════════════════
+    VIDEO ANALYZER - START HERE (Non-Technical Users)
+═══════════════════════════════════════════════════════════════════
+
+Welcome! This is the EASIEST way to get started.
+
+
+STEP 1: GET YOUR FREE API KEY (2 minutes)
+──────────────────────────────────────────────────────────────────
+
+1. Open your web browser
+2. Go to: https://aistudio.google.com/app/apikey
+3. Sign in with your Google account (or create one)
+4. Click "Create API Key"
+5. Click "Copy" to copy the key
+6. Keep this browser tab open for now
+
+
+STEP 2: CREATE YOUR CONFIGURATION FILE (1 minute)
+──────────────────────────────────────────────────────────────────
+
+WINDOWS:
+1. Find the file called ".env.example" in this folder
+2. Right-click it → Open with → Notepad
+3. You'll see: GOOGLE_API_KEY=your_api_key_here
+4. Replace "your_api_key_here" with the key you copied
+5. Click File → Save As
+6. Change filename to: .env (just dot-env, nothing else)
+7. Change "Save as type" to "All Files (*.*)"
+8. Click Save
+9. Close Notepad
+
+MAC / LINUX:
+1. Open Terminal
+2. Type: cd (with a space after it)
+3. Drag this folder into the Terminal window
+4. Press Enter
+5. Type: nano .env
+6. Type: GOOGLE_API_KEY= and paste your API key after the =
+7. Press Control+X, then Y, then Enter
+8. Close Terminal
+
+
+STEP 3: START THE APPLICATION (30 seconds)
+──────────────────────────────────────────────────────────────────
+
+WINDOWS:
+→ Double-click: simple_launcher.bat
+
+MAC / LINUX:
+→ Open Terminal in this folder
+→ Type: ./simple_launcher.sh
+→ Press Enter
+
+WAIT: The first time takes 30-60 seconds while it sets up.
+A window will appear when ready!
+
+
+STEP 4: ANALYZE YOUR FIRST VIDEO (2 minutes)
+──────────────────────────────────────────────────────────────────
+
+1. Click the big "Browse Files" button
+2. Select a video file from your computer
+   (MP4, MOV, AVI, or MKV under 20MB)
+3. Click "Analyze Video"
+4. Wait (usually 1-3 minutes)
+5. When done, click "Yes" to see your results!
+
+Your results will be saved as a text file in this folder.
+
+
+═══════════════════════════════════════════════════════════════════
+TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════════
+
+Problem: "API key not found" error
+→ Make sure you saved the file as .env (not .env.txt)
+→ Open .env and check the API key is there
+
+Problem: "Video too large" error
+→ Your video is over 20MB
+→ Use a video compressor (search "compress video online")
+→ Or use HandBrake (free): https://handbrake.fr/
+
+Problem: App won't start on Windows
+→ Right-click simple_launcher.bat → Run as administrator
+
+Problem: App won't start on Mac
+→ In Terminal, type: chmod +x simple_launcher.sh
+→ Then run it again
+
+Problem: Python not found
+→ Windows: Download from https://www.python.org/downloads/
+→ Mac: Already installed, or use: brew install python3
+→ Linux: sudo apt install python3 python3-pip python3-venv
+
+
+═══════════════════════════════════════════════════════════════════
+NEED MORE HELP?
+═══════════════════════════════════════════════════════════════════
+
+Read these files in this folder:
+→ USER_GUIDE_SIMPLE.md - Complete user guide with screenshots
+→ DEPLOYMENT_GUIDE.md - Technical details
+→ DISTRIBUTION_README.md - Overview of all options
+
+
+═══════════════════════════════════════════════════════════════════
+QUICK TIPS
+═══════════════════════════════════════════════════════════════════
+
+✓ Keep videos under 20MB for best results
+✓ Clear, well-lit videos work best
+✓ You need internet connection (AI runs in the cloud)
+✓ Results are saved in this folder with the video name
+✓ Your API key is FREE but has limits (usually enough for personal use)
+✓ Keep your API key private - don't share it!
+
+
+═══════════════════════════════════════════════════════════════════
+WHAT'S NEXT?
+═══════════════════════════════════════════════════════════════════
+
+After your first analysis:
+
+→ Try the menu "View Data" to see:
+  • Master Ontology (patterns across all your videos)
+  • Script-Clip Brain (examples of script-to-visual matches)
+  • Recent Analyses (all your past analyses)
+
+→ Analyze more videos to build up your knowledge base!
+
+
+═══════════════════════════════════════════════════════════════════
+
+You're all set! Double-click simple_launcher.bat (Windows) or
+run ./simple_launcher.sh (Mac/Linux) to get started!
+
+Happy analyzing! 🎬
+
+═══════════════════════════════════════════════════════════════════
