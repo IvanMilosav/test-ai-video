@@ -16,6 +16,8 @@ COPY gemini_analyzer.py .
 COPY analyze_video.py .
 COPY brain_synthesizer.py .
 COPY ontology_reporter.py .
+COPY clip_ontology_schema.py .
+COPY script_clip_brain.py .
 COPY public/ ./public/
 COPY static/ ./static/
 
