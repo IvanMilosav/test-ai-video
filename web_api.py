@@ -63,6 +63,12 @@ async def analyze_video_stream(
                 yield f"data: {json.dumps({'error': 'API key not configured'})}\n\n"
                 return
 
+            # Validate file type
+            allowed_types = ['video/mp4', 'video/quicktime', 'video/x-msvideo', 'video/x-matroska', 'video/avi', 'video/mov']
+            if video.content_type not in allowed_types and not video.content_type.startswith('video/'):
+                yield f"data: {json.dumps({'error': 'Invalid file type. Please upload a video file (MP4, MOV, AVI, MKV)'})}\n\n"
+                return
+
             # Send initial message
             yield f"data: {json.dumps({'status': 'Uploading video...'})}\n\n"
             await asyncio.sleep(0.1)
