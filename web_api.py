@@ -112,8 +112,15 @@ async def analyze_video_stream(
                     yield f"data: {json.dumps({'status': line.strip()})}\n\n"
                     await asyncio.sleep(0.05)
 
+            # Read the output file content
+            output_file_path = result.get('output', '')
+            output_content = ''
+            if output_file_path and os.path.exists(output_file_path):
+                with open(output_file_path, 'r', encoding='utf-8') as f:
+                    output_content = f.read()
+
             # Send final result
-            yield f"data: {json.dumps({'success': True, 'output': result.get('output', ''), 'status': 'Complete!'})}\n\n"
+            yield f"data: {json.dumps({'success': True, 'output': output_content, 'status': 'Complete!'})}\n\n"
 
         except Exception as e:
             yield f"data: {json.dumps({'error': str(e)})}\n\n"
@@ -170,10 +177,17 @@ async def analyze_video(
         # Process video
         result = analyzer.process_video(temp_video_path, None)
 
+        # Read the output file content
+        output_file_path = result.get('output', '')
+        output_content = 'Analysis complete'
+        if output_file_path and os.path.exists(output_file_path):
+            with open(output_file_path, 'r', encoding='utf-8') as f:
+                output_content = f.read()
+
         return JSONResponse({
             "success": True,
-            "output": result.get('output', 'Analysis complete'),
-            "output_file": result.get('output', None),
+            "output": output_content,
+            "output_file": output_file_path,
             "message": "Video analyzed successfully"
         })
 
