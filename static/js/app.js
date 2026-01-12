@@ -161,6 +161,8 @@ async function analyzeVideo() {
     document.getElementById('analyzeBtnText').textContent = 'Analyzing...';
     progressSection.style.display = 'block';
 
+    let progressInterval = null;
+
     try {
         // Upload video
         updateProgress(10, 'Uploading video...');
@@ -168,17 +170,28 @@ async function analyzeVideo() {
         const formData = new FormData();
         formData.append('video', selectedFile);
 
+        // Start progress simulation
+        let progress = 10;
+        progressInterval = setInterval(() => {
+            if (progress < 90) {
+                progress += 5;
+                updateProgress(progress, progress < 30 ? 'Uploading video...' : 'Analyzing with Gemini AI...');
+            }
+        }, 2000); // Update every 2 seconds
+
         const response = await fetch(`${API_BASE_URL}/api/analyze-video`, {
             method: 'POST',
             body: formData,
         });
 
+        // Stop progress simulation
+        clearInterval(progressInterval);
+        progressInterval = null;
+
         if (!response.ok) {
             const error = await response.json();
             throw new Error(error.detail || 'Analysis failed');
         }
-
-        updateProgress(50, 'Analyzing with Gemini AI...');
 
         const result = await response.json();
         analysisResult = result;
@@ -190,6 +203,11 @@ async function analyzeVideo() {
 
     } catch (error) {
         console.error('Analysis error:', error);
+
+        // Stop progress if still running
+        if (progressInterval) {
+            clearInterval(progressInterval);
+        }
 
         // Check if it's an API key error
         if (error.message.includes('API key not configured')) {
