@@ -5,14 +5,19 @@ Simplified API for web-based video analysis deployment
 """
 
 import os
+import sys
 import tempfile
 from datetime import datetime
+from io import StringIO
+from contextlib import redirect_stdout
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from iterative_analyzer import IterativeClipAnalyzer
 import glob
+import asyncio
+import json
 
 # Create FastAPI app
 app = FastAPI(title="Video Analyzer API", version="1.0.0")
@@ -38,6 +43,83 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 async def root():
     """Serve the web application"""
     return FileResponse("public/index.html")
+
+
+@app.post("/api/analyze-video-stream")
+async def analyze_video_stream(
+    video: UploadFile = File(...)
+):
+    """
+    Analyze a video file and stream progress updates
+    Uses Server-Sent Events (SSE) for real-time progress
+    """
+    async def generate():
+        temp_video_path = None
+
+        try:
+            # Check API key
+            from config import Config
+            if not Config.GOOGLE_API_KEY:
+                yield f"data: {json.dumps({'error': 'API key not configured'})}\n\n"
+                return
+
+            # Send initial message
+            yield f"data: {json.dumps({'status': 'Uploading video...'})}\n\n"
+            await asyncio.sleep(0.1)
+
+            # Save uploaded file
+            file_size = 0
+            temp_video_path = os.path.join("temp_uploads", f"temp_{datetime.now().timestamp()}_{video.filename}")
+
+            with open(temp_video_path, "wb") as f:
+                while chunk := await video.read(1024 * 1024):
+                    file_size += len(chunk)
+                    if file_size > 20 * 1024 * 1024:
+                        yield f"data: {json.dumps({'error': 'Video too large (max 20MB)'})}\n\n"
+                        return
+                    f.write(chunk)
+
+            yield f"data: {json.dumps({'status': f'Upload complete ({file_size/1024/1024:.1f}MB)'})}\n\n"
+            await asyncio.sleep(0.1)
+
+            # Capture stdout to send progress messages
+            yield f"data: {json.dumps({'status': 'Initializing analyzer...'})}\n\n"
+
+            # Create analyzer
+            analyzer = IterativeClipAnalyzer(
+                model='pro',
+                ontology_path='master_clip_ontology.pkl'
+            )
+
+            yield f"data: {json.dumps({'status': 'Sending video to Gemini AI...'})}\n\n"
+            await asyncio.sleep(0.1)
+
+            # Capture print output
+            captured_output = StringIO()
+            with redirect_stdout(captured_output):
+                result = analyzer.process_video(temp_video_path, None)
+
+            # Send captured messages
+            output_lines = captured_output.getvalue().split('\n')
+            for line in output_lines:
+                if line.strip():
+                    yield f"data: {json.dumps({'status': line.strip()})}\n\n"
+                    await asyncio.sleep(0.05)
+
+            # Send final result
+            yield f"data: {json.dumps({'success': True, 'output': result.get('output', ''), 'status': 'Complete!'})}\n\n"
+
+        except Exception as e:
+            yield f"data: {json.dumps({'error': str(e)})}\n\n"
+
+        finally:
+            if temp_video_path and os.path.exists(temp_video_path):
+                try:
+                    os.remove(temp_video_path)
+                except:
+                    pass
+
+    return StreamingResponse(generate(), media_type="text/event-stream")
 
 
 @app.post("/api/analyze-video")

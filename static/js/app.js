@@ -149,7 +149,7 @@ function updateUI() {
     }
 }
 
-// Video analysis
+// Video analysis with real-time streaming
 async function analyzeVideo() {
     if (!selectedFile) {
         showAlert('Please select a video file', 'error');
@@ -160,54 +160,59 @@ async function analyzeVideo() {
     analyzeBtn.disabled = true;
     document.getElementById('analyzeBtnText').textContent = 'Analyzing...';
     progressSection.style.display = 'block';
-
-    let progressInterval = null;
+    updateProgress(5, 'Preparing...');
 
     try {
-        // Upload video
-        updateProgress(10, 'Uploading video...');
-
         const formData = new FormData();
         formData.append('video', selectedFile);
 
-        // Start progress simulation
-        let progress = 10;
-        progressInterval = setInterval(() => {
-            if (progress < 90) {
-                progress += 5;
-                updateProgress(progress, progress < 30 ? 'Uploading video...' : 'Analyzing with Gemini AI...');
-            }
-        }, 2000); // Update every 2 seconds
-
-        const response = await fetch(`${API_BASE_URL}/api/analyze-video`, {
+        // Use streaming endpoint
+        const response = await fetch(`${API_BASE_URL}/api/analyze-video-stream`, {
             method: 'POST',
             body: formData,
         });
 
-        // Stop progress simulation
-        clearInterval(progressInterval);
-        progressInterval = null;
-
         if (!response.ok) {
-            const error = await response.json();
-            throw new Error(error.detail || 'Analysis failed');
+            throw new Error('Failed to start analysis');
         }
 
-        const result = await response.json();
-        analysisResult = result;
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let progress = 10;
 
-        updateProgress(100, 'Analysis complete!');
+        while (true) {
+            const { done, value } = await reader.read();
 
-        // Show results
-        displayResults(result);
+            if (done) break;
+
+            const chunk = decoder.decode(value);
+            const lines = chunk.split('\n');
+
+            for (const line of lines) {
+                if (line.startsWith('data: ')) {
+                    const data = JSON.parse(line.substring(6));
+
+                    if (data.error) {
+                        throw new Error(data.error);
+                    }
+
+                    if (data.status) {
+                        // Update progress bar with real message
+                        progress = Math.min(progress + 2, 95);
+                        updateProgress(progress, data.status);
+                    }
+
+                    if (data.success) {
+                        updateProgress(100, 'Complete!');
+                        analysisResult = { output: data.output };
+                        displayResults(analysisResult);
+                    }
+                }
+            }
+        }
 
     } catch (error) {
         console.error('Analysis error:', error);
-
-        // Stop progress if still running
-        if (progressInterval) {
-            clearInterval(progressInterval);
-        }
 
         // Check if it's an API key error
         if (error.message.includes('API key not configured')) {
