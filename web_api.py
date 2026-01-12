@@ -183,6 +183,8 @@ async def health_check():
 
 if __name__ == "__main__":
     import uvicorn
-    print("Starting Video Analyzer Web App...")
-    print("Open http://localhost:8000 in your browser")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    # Get port from environment variable (Railway) or default to 8000
+    port = int(os.getenv("PORT", 8000))
+    print(f"Starting Video Analyzer Web App on port {port}...")
+    print(f"Open http://localhost:{port} in your browser")
+    uvicorn.run(app, host="0.0.0.0", port=port)
