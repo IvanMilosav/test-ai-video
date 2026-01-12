@@ -18,15 +18,18 @@ COPY brain_synthesizer.py .
 COPY ontology_reporter.py .
 COPY clip_ontology_schema.py .
 COPY script_clip_brain.py .
+COPY start.sh .
 COPY public/ ./public/
 COPY static/ ./static/
 
 # Create necessary directories
 RUN mkdir -p temp_uploads outputs
 
+# Make start script executable
+RUN chmod +x start.sh
+
 # Expose port
 EXPOSE 8000
 
-# Run the application
-# Use PORT environment variable provided by Railway, default to 8000 for local testing
-CMD sh -c "uvicorn web_api:app --host 0.0.0.0 --port ${PORT:-8000}"
+# Run the application using start script
+CMD ["./start.sh"]
