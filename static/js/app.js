@@ -185,33 +185,49 @@ async function analyzeVideo() {
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let progress = 10;
+        let buffer = ''; // Buffer for incomplete messages
 
         while (true) {
             const { done, value } = await reader.read();
 
             if (done) break;
 
-            const chunk = decoder.decode(value);
-            const lines = chunk.split('\n');
+            // Decode and add to buffer
+            buffer += decoder.decode(value, { stream: true });
 
-            for (const line of lines) {
-                if (line.startsWith('data: ')) {
-                    const data = JSON.parse(line.substring(6));
+            // Process complete messages (ending with \n\n)
+            const messages = buffer.split('\n\n');
 
-                    if (data.error) {
-                        throw new Error(data.error);
-                    }
+            // Keep last incomplete message in buffer
+            buffer = messages.pop() || '';
 
-                    if (data.status) {
-                        // Update progress bar with real message
-                        progress = Math.min(progress + 2, 95);
-                        updateProgress(progress, data.status);
-                    }
+            for (const message of messages) {
+                const lines = message.split('\n');
 
-                    if (data.success) {
-                        updateProgress(100, 'Complete!');
-                        analysisResult = { output: data.output };
-                        displayResults(analysisResult);
+                for (const line of lines) {
+                    if (line.startsWith('data: ')) {
+                        try {
+                            const data = JSON.parse(line.substring(6));
+
+                            if (data.error) {
+                                throw new Error(data.error);
+                            }
+
+                            if (data.status) {
+                                // Update progress bar with real message
+                                progress = Math.min(progress + 2, 95);
+                                updateProgress(progress, data.status);
+                            }
+
+                            if (data.success) {
+                                updateProgress(100, 'Complete!');
+                                analysisResult = { output: data.output };
+                                displayResults(analysisResult);
+                            }
+                        } catch (e) {
+                            console.error('JSON parse error:', e, 'Line:', line.substring(0, 100));
+                            // Continue processing other messages
+                        }
                     }
                 }
             }
