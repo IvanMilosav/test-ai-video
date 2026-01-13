@@ -42,7 +42,7 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 
 def compress_video(input_path: str, output_path: str, target_size_mb: float = 18) -> bool:
     """
-    Fast video compression using ffmpeg with optimized settings for speed
+    Smart video compression using proven algorithm from compress_videos.py
 
     Args:
         input_path: Path to input video
@@ -53,65 +53,120 @@ def compress_video(input_path: str, output_path: str, target_size_mb: float = 18
         True if successful, False otherwise
     """
     try:
-        # Get video duration and current size
+        # Probe video for detailed information
         probe_cmd = [
-            'ffprobe', '-v', 'error', '-show_entries',
-            'format=duration,size', '-of', 'default=noprint_wrappers=1:nokey=1',
+            'ffprobe', '-v', 'quiet',
+            '-print_format', 'json',
+            '-show_format', '-show_streams',
             input_path
         ]
-        result = subprocess.run(probe_cmd, capture_output=True, text=True, timeout=10)
-        lines = result.stdout.strip().split('\n')
-        duration = float(lines[0])
-        current_size_mb = float(lines[1]) / (1024 * 1024)
+        result = subprocess.run(probe_cmd, capture_output=True, text=True, timeout=10, check=True)
+        data = json.loads(result.stdout)
 
-        # Calculate target bitrate (in kbps) - be aggressive to hit target size
-        target_size_bits = target_size_mb * 8 * 1024 * 1024
-        audio_bitrate = 64  # Reduced from 96k
-        target_video_bitrate = int((target_size_bits / duration) - audio_bitrate)  # Total minus audio
+        # Extract format info
+        fmt = data.get('format', {})
+        duration = float(fmt.get('duration', 0))
+        file_size = int(fmt.get('size', 0))
+        current_size_mb = file_size / (1024 * 1024)
 
-        print(f"Compressing: {current_size_mb:.1f}MB -> {target_size_mb}MB (duration: {duration:.1f}s, video bitrate: {target_video_bitrate}k)")
+        # Find video stream
+        video_stream = None
+        audio_stream = None
+        for stream in data.get('streams', []):
+            if stream.get('codec_type') == 'video' and not video_stream:
+                video_stream = stream
+            elif stream.get('codec_type') == 'audio' and not audio_stream:
+                audio_stream = stream
 
-        # Aggressive compression - use veryfast preset (faster than medium, smaller than ultrafast)
-        compress_cmd = [
-            'ffmpeg', '-i', input_path,
-            '-c:v', 'libx264',  # H.264 codec
-            '-preset', 'veryfast',  # Balance speed vs compression
-            '-b:v', f'{target_video_bitrate}k',  # Target video bitrate
-            '-maxrate', f'{target_video_bitrate}k',  # Max bitrate
-            '-bufsize', f'{int(target_video_bitrate * 1.5)}k',  # Buffer size
-            '-vf', 'scale=\'min(1280,iw)\':-2',  # Scale down if needed
-            '-c:a', 'aac',  # AAC audio codec
-            '-b:a', f'{audio_bitrate}k',  # Audio bitrate
-            '-ac', '2',  # Stereo audio
-            '-movflags', '+faststart',  # Optimize for streaming
-            '-threads', '0',  # Use all CPU cores
-            '-y',  # Overwrite output
+        if not video_stream:
+            print("No video stream found")
+            return False
+
+        # Get video dimensions
+        width = video_stream.get('width', 0)
+        height = video_stream.get('height', 0)
+
+        # Calculate needed bitrate for target size
+        needed_bitrate_kbps = int((target_size_mb * 8 * 1024) / duration)
+
+        # Plan audio bitrate
+        audio_bitrate = 128  # Standard quality
+
+        # Calculate video bitrate
+        video_bitrate = needed_bitrate_kbps - audio_bitrate
+        video_bitrate = max(video_bitrate, 300)  # Minimum quality floor
+
+        print(f"Compressing: {current_size_mb:.1f}MB -> {target_size_mb}MB")
+        print(f"  Duration: {duration:.1f}s, Resolution: {width}x{height}")
+        print(f"  Target bitrates - Video: {video_bitrate}k, Audio: {audio_bitrate}k")
+
+        # Build compression command
+        cmd = ['ffmpeg', '-y', '-i', input_path]
+
+        # Add video filters if needed
+        filters = []
+
+        # Downscale if resolution is too high
+        if height > 720:
+            filters.append('scale=-2:720')
+            print(f"  Downscaling {height}p -> 720p")
+        elif height > 480 and current_size_mb > target_size_mb * 1.5:
+            filters.append('scale=-2:480')
+            print(f"  Downscaling {height}p -> 480p")
+
+        if filters:
+            cmd.extend(['-vf', ','.join(filters)])
+
+        # Video encoding
+        cmd.extend([
+            '-c:v', 'libx264',
+            '-preset', 'medium',  # Good compression
+            '-b:v', f'{video_bitrate}k',
+            '-maxrate', f'{int(video_bitrate * 1.5)}k',
+            '-bufsize', f'{video_bitrate * 2}k',
+            '-pix_fmt', 'yuv420p',
+        ])
+
+        # Audio encoding
+        if audio_stream:
+            cmd.extend([
+                '-c:a', 'aac',
+                '-b:a', f'{audio_bitrate}k',
+                '-ac', '2',
+            ])
+        else:
+            cmd.extend(['-an'])
+
+        # Output options
+        cmd.extend([
+            '-movflags', '+faststart',
             output_path
-        ]
+        ])
 
-        # Run with timeout of 180 seconds (3 minutes for veryfast)
-        print(f"Running ffmpeg compression (max 3 minutes)...")
-        result = subprocess.run(compress_cmd, check=True, capture_output=True, timeout=180)
+        # Run compression with timeout
+        print(f"  Running ffmpeg compression...")
+        subprocess.run(cmd, check=True, capture_output=True, timeout=300)
 
-        # Check output file size
+        # Check output
         if os.path.exists(output_path):
             final_size_mb = os.path.getsize(output_path) / (1024 * 1024)
-            print(f"Compression complete: {final_size_mb:.1f}MB")
+            reduction_pct = ((current_size_mb - final_size_mb) / current_size_mb) * 100
+            print(f"  ✓ Complete: {current_size_mb:.1f}MB -> {final_size_mb:.1f}MB ({reduction_pct:.0f}% smaller)")
 
-            # If still too large, warn but continue
             if final_size_mb > 20:
-                print(f"WARNING: Compressed file is {final_size_mb:.1f}MB, larger than 20MB target")
+                print(f"  WARNING: Still {final_size_mb:.1f}MB (over 20MB limit)")
+                return False
 
             return True
         else:
-            print("Compression failed: output file not created")
+            print("  ERROR: Output file not created")
             return False
 
     except subprocess.TimeoutExpired:
-        print(f"Compression timeout after 120 seconds")
+        print("  ERROR: Compression timeout after 5 minutes")
         return False
     except Exception as e:
-        print(f"Compression error: {e}")
+        print(f"  ERROR: Compression failed - {e}")
         return False
 
 
