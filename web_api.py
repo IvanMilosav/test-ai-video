@@ -194,19 +194,37 @@ async def analyze_video_stream(
             )
 
             yield f"data: {json.dumps({'status': f'Sending video ({final_size:.1f}MB) to Gemini AI...'})}\n\n"
+            yield f"data: {json.dumps({'status': 'This may take 5-10 minutes, please wait...'})}\n\n"
             await asyncio.sleep(0.1)
 
-            # Capture print output
-            captured_output = StringIO()
-            with redirect_stdout(captured_output):
-                result = analyzer.process_video(video_to_analyze, None)
+            # Process video with timeout - run in thread pool
+            try:
+                import concurrent.futures
 
-            # Send captured messages
-            output_lines = captured_output.getvalue().split('\n')
-            for line in output_lines:
-                if line.strip():
-                    yield f"data: {json.dumps({'status': line.strip()})}\n\n"
-                    await asyncio.sleep(0.05)
+                def run_analysis():
+                    # Run analysis without capturing stdout (shows progress in server logs)
+                    return analyzer.process_video(video_to_analyze, None)
+
+                # Create thread pool and run with timeout
+                with concurrent.futures.ThreadPoolExecutor() as executor:
+                    future = executor.submit(run_analysis)
+                    try:
+                        # Wait max 15 minutes for analysis
+                        yield f"data: {json.dumps({'status': 'Processing with Gemini (timeout: 15min)...'})}\n\n"
+                        result = future.result(timeout=900)  # 15 minutes
+
+                        yield f"data: {json.dumps({'status': 'Analysis complete, reading results...'})}\n\n"
+
+                    except concurrent.futures.TimeoutError:
+                        yield f"data: {json.dumps({'error': 'Analysis timeout after 15 minutes. Video might be too long. Try a shorter video.'})}\n\n"
+                        return
+                    except Exception as e:
+                        yield f"data: {json.dumps({'error': f'Analysis error: {str(e)}'})}\n\n"
+                        return
+
+            except Exception as e:
+                yield f"data: {json.dumps({'error': f'Failed to start analysis: {str(e)}'})}\n\n"
+                return
 
             # Read the output file content
             output_file_path = result.get('output', '')
@@ -214,6 +232,9 @@ async def analyze_video_stream(
             if output_file_path and os.path.exists(output_file_path):
                 with open(output_file_path, 'r', encoding='utf-8') as f:
                     output_content = f.read()
+            else:
+                yield f"data: {json.dumps({'error': 'Analysis completed but no output file found'})}\n\n"
+                return
 
             # Send final result
             yield f"data: {json.dumps({'success': True, 'output': output_content, 'status': 'Complete!'})}\n\n"
