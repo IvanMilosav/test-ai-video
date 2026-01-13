@@ -131,8 +131,8 @@ async def analyze_video_stream(
             with open(temp_video_path, "wb") as f:
                 while chunk := await video.read(1024 * 1024):
                     file_size += len(chunk)
-                    if file_size > 100 * 1024 * 1024:  # Increased to 100MB since we'll compress
-                        yield f"data: {json.dumps({'error': 'Video too large (max 100MB)'})}\n\n"
+                    if file_size > 512 * 1024 * 1024:  # 512MB limit
+                        yield f"data: {json.dumps({'error': 'Video too large (max 512MB)'})}\n\n"
                         return
                     f.write(chunk)
 
