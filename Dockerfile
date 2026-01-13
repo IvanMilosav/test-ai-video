@@ -5,7 +5,13 @@ FROM python:3.9-slim
 
 WORKDIR /app
 
-# Install dependencies
+# Install system dependencies (ffmpeg for video compression)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ffmpeg \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
 COPY requirements_web.txt .
 RUN pip install --no-cache-dir -r requirements_web.txt
 

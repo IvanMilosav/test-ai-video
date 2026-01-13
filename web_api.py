@@ -18,6 +18,7 @@ from iterative_analyzer import IterativeClipAnalyzer
 import glob
 import asyncio
 import json
+import subprocess
 
 # Create FastAPI app
 app = FastAPI(title="Video Analyzer API", version="1.0.0")
@@ -37,6 +38,56 @@ os.makedirs("outputs", exist_ok=True)
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="static"), name="static")
+
+
+def compress_video(input_path: str, output_path: str, target_size_mb: float = 18) -> bool:
+    """
+    Compress video to target size using ffmpeg
+
+    Args:
+        input_path: Path to input video
+        output_path: Path to save compressed video
+        target_size_mb: Target size in MB (default 18MB to leave buffer under 20MB)
+
+    Returns:
+        True if successful, False otherwise
+    """
+    try:
+        # Get video duration
+        probe_cmd = [
+            'ffprobe', '-v', 'error', '-show_entries',
+            'format=duration', '-of', 'default=noprint_wrappers=1:nokey=1',
+            input_path
+        ]
+        result = subprocess.run(probe_cmd, capture_output=True, text=True, timeout=10)
+        duration = float(result.stdout.strip())
+
+        # Calculate target bitrate (in kbps)
+        target_size_bits = target_size_mb * 8 * 1024 * 1024
+        target_bitrate = int((target_size_bits / duration) * 0.95)  # 95% to leave room for audio
+
+        # Compress video with ffmpeg
+        compress_cmd = [
+            'ffmpeg', '-i', input_path,
+            '-c:v', 'libx264',  # H.264 codec
+            '-b:v', f'{target_bitrate}k',  # Target video bitrate
+            '-maxrate', f'{target_bitrate}k',
+            '-bufsize', f'{target_bitrate * 2}k',
+            '-vf', 'scale=1280:-2',  # Scale to max 1280px width, maintain aspect ratio
+            '-c:a', 'aac',  # AAC audio codec
+            '-b:a', '128k',  # Audio bitrate
+            '-ac', '2',  # Stereo audio
+            '-preset', 'medium',  # Encoding speed
+            '-y',  # Overwrite output
+            output_path
+        ]
+
+        subprocess.run(compress_cmd, check=True, capture_output=True, timeout=300)
+        return True
+
+    except Exception as e:
+        print(f"Compression error: {e}")
+        return False
 
 
 @app.get("/")
@@ -80,13 +131,32 @@ async def analyze_video_stream(
             with open(temp_video_path, "wb") as f:
                 while chunk := await video.read(1024 * 1024):
                     file_size += len(chunk)
-                    if file_size > 20 * 1024 * 1024:
-                        yield f"data: {json.dumps({'error': 'Video too large (max 20MB)'})}\n\n"
+                    if file_size > 100 * 1024 * 1024:  # Increased to 100MB since we'll compress
+                        yield f"data: {json.dumps({'error': 'Video too large (max 100MB)'})}\n\n"
                         return
                     f.write(chunk)
 
             yield f"data: {json.dumps({'status': f'Upload complete ({file_size/1024/1024:.1f}MB)'})}\n\n"
             await asyncio.sleep(0.1)
+
+            # Compress if needed
+            video_to_analyze = temp_video_path
+            compressed_path = None
+
+            if file_size > 20 * 1024 * 1024:  # If larger than 20MB, compress
+                yield f"data: {json.dumps({'status': 'Video is large, compressing to under 20MB...'})}\n\n"
+                await asyncio.sleep(0.1)
+
+                compressed_path = temp_video_path.replace('.', '_compressed.')
+                success = compress_video(temp_video_path, compressed_path)
+
+                if success and os.path.exists(compressed_path):
+                    compressed_size = os.path.getsize(compressed_path)
+                    yield f"data: {json.dumps({'status': f'Compressed to {compressed_size/1024/1024:.1f}MB'})}\n\n"
+                    video_to_analyze = compressed_path
+                else:
+                    yield f"data: {json.dumps({'error': 'Failed to compress video. Please upload a smaller file.'})}\n\n"
+                    return
 
             # Capture stdout to send progress messages
             yield f"data: {json.dumps({'status': 'Initializing analyzer...'})}\n\n"
@@ -103,7 +173,7 @@ async def analyze_video_stream(
             # Capture print output
             captured_output = StringIO()
             with redirect_stdout(captured_output):
-                result = analyzer.process_video(temp_video_path, None)
+                result = analyzer.process_video(video_to_analyze, None)
 
             # Send captured messages
             output_lines = captured_output.getvalue().split('\n')
@@ -126,9 +196,15 @@ async def analyze_video_stream(
             yield f"data: {json.dumps({'error': str(e)})}\n\n"
 
         finally:
+            # Cleanup temp files
             if temp_video_path and os.path.exists(temp_video_path):
                 try:
                     os.remove(temp_video_path)
+                except:
+                    pass
+            if compressed_path and os.path.exists(compressed_path):
+                try:
+                    os.remove(compressed_path)
                 except:
                     pass
 
