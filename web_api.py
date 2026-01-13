@@ -178,6 +178,12 @@ async def analyze_video_stream(
                     yield f"data: {json.dumps({'error': 'Failed to compress video. Please upload a smaller file.'})}\n\n"
                     return
 
+            # Verify video file size before sending to Gemini
+            final_size = os.path.getsize(video_to_analyze) / (1024 * 1024)
+            if final_size > 20:
+                yield f"data: {json.dumps({'error': f'Video still too large ({final_size:.1f}MB). Please try a shorter video.'})}\n\n"
+                return
+
             # Capture stdout to send progress messages
             yield f"data: {json.dumps({'status': 'Initializing analyzer...'})}\n\n"
 
@@ -187,7 +193,7 @@ async def analyze_video_stream(
                 ontology_path='master_clip_ontology.pkl'
             )
 
-            yield f"data: {json.dumps({'status': 'Sending video to Gemini AI...'})}\n\n"
+            yield f"data: {json.dumps({'status': f'Sending video ({final_size:.1f}MB) to Gemini AI...'})}\n\n"
             await asyncio.sleep(0.1)
 
             # Capture print output
