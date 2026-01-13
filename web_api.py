@@ -64,24 +64,24 @@ def compress_video(input_path: str, output_path: str, target_size_mb: float = 18
         duration = float(lines[0])
         current_size_mb = float(lines[1]) / (1024 * 1024)
 
-        # Calculate target bitrate (in kbps)
+        # Calculate target bitrate (in kbps) - be aggressive to hit target size
         target_size_bits = target_size_mb * 8 * 1024 * 1024
-        target_bitrate = int((target_size_bits / duration) * 0.90)  # 90% for video, rest for audio
+        audio_bitrate = 64  # Reduced from 96k
+        target_video_bitrate = int((target_size_bits / duration) - audio_bitrate)  # Total minus audio
 
-        print(f"Compressing: {current_size_mb:.1f}MB -> {target_size_mb}MB (duration: {duration:.1f}s, bitrate: {target_bitrate}k)")
+        print(f"Compressing: {current_size_mb:.1f}MB -> {target_size_mb}MB (duration: {duration:.1f}s, video bitrate: {target_video_bitrate}k)")
 
-        # Fast compression with ultrafast preset
+        # Aggressive compression - use veryfast preset (faster than medium, smaller than ultrafast)
         compress_cmd = [
             'ffmpeg', '-i', input_path,
             '-c:v', 'libx264',  # H.264 codec
-            '-preset', 'ultrafast',  # FAST encoding (was 'medium')
-            '-crf', '28',  # Constant rate factor (quality, 23 is default, 28 is lower quality but faster)
-            '-b:v', f'{target_bitrate}k',  # Target video bitrate
-            '-maxrate', f'{target_bitrate}k',
-            '-bufsize', f'{target_bitrate}k',
-            '-vf', 'scale=\'min(1280,iw)\':-2',  # Only scale down if needed
+            '-preset', 'veryfast',  # Balance speed vs compression
+            '-b:v', f'{target_video_bitrate}k',  # Target video bitrate
+            '-maxrate', f'{target_video_bitrate}k',  # Max bitrate
+            '-bufsize', f'{int(target_video_bitrate * 1.5)}k',  # Buffer size
+            '-vf', 'scale=\'min(1280,iw)\':-2',  # Scale down if needed
             '-c:a', 'aac',  # AAC audio codec
-            '-b:a', '96k',  # Lower audio bitrate (was 128k)
+            '-b:a', f'{audio_bitrate}k',  # Audio bitrate
             '-ac', '2',  # Stereo audio
             '-movflags', '+faststart',  # Optimize for streaming
             '-threads', '0',  # Use all CPU cores
@@ -89,14 +89,19 @@ def compress_video(input_path: str, output_path: str, target_size_mb: float = 18
             output_path
         ]
 
-        # Run with timeout of 120 seconds (2 minutes should be plenty for ultrafast)
-        print(f"Running ffmpeg compression (max 2 minutes)...")
-        result = subprocess.run(compress_cmd, check=True, capture_output=True, timeout=120)
+        # Run with timeout of 180 seconds (3 minutes for veryfast)
+        print(f"Running ffmpeg compression (max 3 minutes)...")
+        result = subprocess.run(compress_cmd, check=True, capture_output=True, timeout=180)
 
         # Check output file size
         if os.path.exists(output_path):
             final_size_mb = os.path.getsize(output_path) / (1024 * 1024)
             print(f"Compression complete: {final_size_mb:.1f}MB")
+
+            # If still too large, warn but continue
+            if final_size_mb > 20:
+                print(f"WARNING: Compressed file is {final_size_mb:.1f}MB, larger than 20MB target")
+
             return True
         else:
             print("Compression failed: output file not created")
