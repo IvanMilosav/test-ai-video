@@ -278,7 +278,8 @@ async def analyze_video_stream(
 
                         timeout = 1800  # 30 minutes
                         start_time = time.time()
-                        check_interval = 15  # Check every 15 seconds
+                        check_interval = 10  # Check every 10 seconds
+                        last_update = 0
 
                         while True:
                             elapsed = time.time() - start_time
@@ -294,10 +295,12 @@ async def analyze_video_stream(
                                     yield f"data: {json.dumps({'error': 'Analysis timeout after 30 minutes. Video might be too complex or Gemini API is slow. Please try again.'})}\n\n"
                                     return
 
-                                # Send periodic updates
-                                minutes_elapsed = int(elapsed / 60)
-                                if int(elapsed) % 30 == 0 and int(elapsed) > 0:  # Every 30 seconds
-                                    yield f"data: {json.dumps({'status': f'Still processing with Gemini... ({minutes_elapsed}m{int(elapsed % 60)}s elapsed)'})}\n\n"
+                                # Send periodic updates every 30 seconds
+                                if elapsed - last_update >= 30:
+                                    minutes_elapsed = int(elapsed / 60)
+                                    seconds_part = int(elapsed % 60)
+                                    yield f"data: {json.dumps({'status': f'Still processing with Gemini... ({minutes_elapsed}m{seconds_part:02d}s elapsed)'})}\n\n"
+                                    last_update = elapsed
 
                                 await asyncio.sleep(check_interval)
                                 continue
