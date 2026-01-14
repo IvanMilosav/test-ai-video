@@ -5,9 +5,8 @@
 let selectedFile = null;
 let analysisResult = null;
 
-// API Base URL - supports both Railway and Netlify deployments
-// For Netlify: Create a config.js file or use environment variable injection
-const API_BASE_URL = window.API_BASE_URL || window.location.origin;
+// API Base URL
+const API_BASE_URL = window.location.origin;
 
 // Elements
 const dropZone = document.getElementById('dropZone');
