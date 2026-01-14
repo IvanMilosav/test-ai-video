@@ -118,10 +118,10 @@ function setFile(file) {
         return;
     }
 
-    // Check file size (512MB limit - will auto-compress if over 20MB)
-    const maxSize = 512 * 1024 * 1024; // 512MB
+    // Check file size (200MB limit - will auto-compress if over 100MB)
+    const maxSize = 200 * 1024 * 1024; // 200MB
     if (file.size > maxSize) {
-        showAlert('Video file is too large. Maximum size is 512MB.', 'error');
+        showAlert('Video file is too large. Maximum size is 200MB.', 'error');
         return;
     }
 

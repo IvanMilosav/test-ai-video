@@ -40,14 +40,14 @@ os.makedirs("outputs", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-def compress_video(input_path: str, output_path: str, target_size_mb: float = 18) -> bool:
+def compress_video(input_path: str, output_path: str, target_size_mb: float = 100) -> bool:
     """
     Smart video compression using proven algorithm from compress_videos.py
 
     Args:
         input_path: Path to input video
         output_path: Path to save compressed video
-        target_size_mb: Target size in MB (default 18MB to leave buffer under 20MB)
+        target_size_mb: Target size in MB (default 100MB for Gemini API)
 
     Returns:
         True if successful, False otherwise
@@ -153,8 +153,8 @@ def compress_video(input_path: str, output_path: str, target_size_mb: float = 18
             reduction_pct = ((current_size_mb - final_size_mb) / current_size_mb) * 100
             print(f"  ✓ Complete: {current_size_mb:.1f}MB -> {final_size_mb:.1f}MB ({reduction_pct:.0f}% smaller)")
 
-            if final_size_mb > 20:
-                print(f"  WARNING: Still {final_size_mb:.1f}MB (over 20MB limit)")
+            if final_size_mb > 120:
+                print(f"  WARNING: Still {final_size_mb:.1f}MB (over 120MB limit)")
                 return False
 
             return True
@@ -211,8 +211,8 @@ async def analyze_video_stream(
             with open(temp_video_path, "wb") as f:
                 while chunk := await video.read(1024 * 1024):
                     file_size += len(chunk)
-                    if file_size > 512 * 1024 * 1024:  # 512MB limit
-                        yield f"data: {json.dumps({'error': 'Video too large (max 512MB)'})}\n\n"
+                    if file_size > 200 * 1024 * 1024:  # 200MB limit
+                        yield f"data: {json.dumps({'error': 'Video too large (max 200MB)'})}\n\n"
                         return
                     f.write(chunk)
 
@@ -223,12 +223,12 @@ async def analyze_video_stream(
             video_to_analyze = temp_video_path
             compressed_path = None
 
-            if file_size > 20 * 1024 * 1024:  # If larger than 20MB, compress
-                yield f"data: {json.dumps({'status': 'Video is large, compressing to under 20MB...'})}\n\n"
+            if file_size > 100 * 1024 * 1024:  # If larger than 100MB, compress
+                yield f"data: {json.dumps({'status': 'Video is large, compressing to ~100MB...'})}\n\n"
                 await asyncio.sleep(0.1)
 
                 compressed_path = temp_video_path.replace('.', '_compressed.')
-                success = compress_video(temp_video_path, compressed_path)
+                success = compress_video(temp_video_path, compressed_path, target_size_mb=100)
 
                 if success and os.path.exists(compressed_path):
                     compressed_size = os.path.getsize(compressed_path)
@@ -240,7 +240,7 @@ async def analyze_video_stream(
 
             # Verify video file size before sending to Gemini
             final_size = os.path.getsize(video_to_analyze) / (1024 * 1024)
-            if final_size > 20:
+            if final_size > 120:
                 yield f"data: {json.dumps({'error': f'Video still too large ({final_size:.1f}MB). Please try a shorter video.'})}\n\n"
                 return
 
