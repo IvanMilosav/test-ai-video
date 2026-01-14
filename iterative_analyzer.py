@@ -227,21 +227,43 @@ OUTPUT ONLY VALID JSON.'''
 
         response_text = ""
         chunk_count = 0
+
         try:
+            print("Calling Gemini API...")
             response_stream = self.client.models.generate_content_stream(
                 model=self.model,
                 contents=contents
             )
             print("Receiving response from Gemini...")
+
+            import signal
+            import time
+
+            # Add timeout monitoring
+            last_chunk_time = time.time()
             for chunk in response_stream:
                 if chunk.text:
                     response_text += chunk.text
                     chunk_count += 1
+                    last_chunk_time = time.time()
+
                     # Print progress every 10 chunks
                     if chunk_count % 10 == 0:
                         print(f"  Received {len(response_text)} characters so far...")
+
+                # Check for stalled stream (no chunks for 5 minutes)
+                if time.time() - last_chunk_time > 300:
+                    raise TimeoutError("Gemini stream stalled - no chunks received for 5 minutes")
+
+        except TimeoutError as e:
+            raise RuntimeError(f"Gemini API timeout: {e}")
         except Exception as e:
-            raise RuntimeError(f"Gemini API error: {e}")
+            error_details = str(e)
+            print(f"Gemini API error: {error_details}")
+            raise RuntimeError(f"Gemini API error: {error_details}")
+
+        if chunk_count == 0:
+            raise RuntimeError("Gemini returned no response chunks. API might be down or rate limited.")
 
         print(f"Received complete response: {len(response_text)} chars from {chunk_count} chunks")
 
