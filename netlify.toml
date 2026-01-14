@@ -1,22 +1,31 @@
+# Netlify Configuration - Frontend Only
+# Backend API runs on Railway (supports long-running processes)
+#
+# To deploy:
+# 1. Set environment variable in Netlify: VITE_API_URL=https://your-railway-app.railway.app
+# 2. Deploy to Netlify
+# 3. Frontend will use Railway backend for all API calls
+
 [build]
-  command = "pip install -r requirements_web.txt"
   publish = "public"
-  functions = "netlify/functions"
+  # No build command needed for static frontend
 
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/api/:splat"
-  status = 200
-
+# Serve static files
 [[redirects]]
   from = "/static/*"
   to = "/static/:splat"
   status = 200
 
+# SPA fallback - serve index.html for all routes
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[build.environment]
-  PYTHON_VERSION = "3.9"
+# CORS headers for API calls
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"

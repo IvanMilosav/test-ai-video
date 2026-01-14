@@ -3,6 +3,9 @@
 *.env
 .env.local
 
+# Deployment config (contains backend URLs)
+static/js/config.js
+
 # Virtual environments
 .venv/
 .venv_web/

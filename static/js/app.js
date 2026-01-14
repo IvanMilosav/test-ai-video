@@ -5,8 +5,9 @@
 let selectedFile = null;
 let analysisResult = null;
 
-// API Base URL
-const API_BASE_URL = window.location.origin;
+// API Base URL - supports both Railway and Netlify deployments
+// For Netlify: Create a config.js file or use environment variable injection
+const API_BASE_URL = window.API_BASE_URL || window.location.origin;
 
 // Elements
 const dropZone = document.getElementById('dropZone');
@@ -44,12 +45,20 @@ function init() {
 
 function setupEventListeners() {
     // File selection
-    browseBtn.addEventListener('click', () => fileInput.click());
+    browseBtn.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent event bubbling
+        fileInput.click();
+    });
     fileInput.addEventListener('change', handleFileSelect);
     clearBtn.addEventListener('click', clearFile);
 
     // Drag and drop
-    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('click', (e) => {
+        // Only open file input if clicking the drop zone itself, not the button
+        if (e.target === dropZone || e.target.closest('.drop-zone-icon, .drop-zone-text, .drop-zone-or')) {
+            fileInput.click();
+        }
+    });
     dropZone.addEventListener('dragover', handleDragOver);
     dropZone.addEventListener('dragleave', handleDragLeave);
     dropZone.addEventListener('drop', handleDrop);
