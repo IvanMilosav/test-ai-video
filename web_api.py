@@ -40,14 +40,14 @@ os.makedirs("outputs", exist_ok=True)
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 
-def compress_video(input_path: str, output_path: str, target_size_mb: float = 100) -> bool:
+def compress_video(input_path: str, output_path: str, target_size_mb: float = 45) -> bool:
     """
     Smart video compression using proven algorithm from compress_videos.py
 
     Args:
         input_path: Path to input video
         output_path: Path to save compressed video
-        target_size_mb: Target size in MB (default 100MB for Gemini API)
+        target_size_mb: Target size in MB (default 45MB for optimal Gemini performance)
 
     Returns:
         True if successful, False otherwise
@@ -153,8 +153,8 @@ def compress_video(input_path: str, output_path: str, target_size_mb: float = 10
             reduction_pct = ((current_size_mb - final_size_mb) / current_size_mb) * 100
             print(f"  ✓ Complete: {current_size_mb:.1f}MB -> {final_size_mb:.1f}MB ({reduction_pct:.0f}% smaller)")
 
-            if final_size_mb > 120:
-                print(f"  WARNING: Still {final_size_mb:.1f}MB (over 120MB limit)")
+            if final_size_mb > 50:
+                print(f"  WARNING: Still {final_size_mb:.1f}MB (over 50MB limit)")
                 return False
 
             return True
@@ -223,12 +223,14 @@ async def analyze_video_stream(
             video_to_analyze = temp_video_path
             compressed_path = None
 
-            if file_size > 100 * 1024 * 1024:  # If larger than 100MB, compress
-                yield f"data: {json.dumps({'status': 'Video is large, compressing to ~100MB...'})}\n\n"
+            # Always compress videos larger than 50MB for better Gemini performance
+            if file_size > 50 * 1024 * 1024:  # If larger than 50MB, compress
+                yield f"data: {json.dumps({'status': 'Compressing video for optimal processing...'})}\n\n"
                 await asyncio.sleep(0.1)
 
                 compressed_path = temp_video_path.replace('.', '_compressed.')
-                success = compress_video(temp_video_path, compressed_path, target_size_mb=100)
+                # Compress to 45MB for safety margin
+                success = compress_video(temp_video_path, compressed_path, target_size_mb=45)
 
                 if success and os.path.exists(compressed_path):
                     compressed_size = os.path.getsize(compressed_path)
@@ -238,10 +240,10 @@ async def analyze_video_stream(
                     yield f"data: {json.dumps({'error': 'Failed to compress video. Please upload a smaller file.'})}\n\n"
                     return
 
-            # Verify video file size before sending to Gemini
+            # Verify video file size before sending to Gemini (keep under 60MB for reliability)
             final_size = os.path.getsize(video_to_analyze) / (1024 * 1024)
-            if final_size > 120:
-                yield f"data: {json.dumps({'error': f'Video still too large ({final_size:.1f}MB). Please try a shorter video.'})}\n\n"
+            if final_size > 60:
+                yield f"data: {json.dumps({'error': f'Video still too large ({final_size:.1f}MB). Please try a shorter video or reduce quality.'})}\n\n"
                 return
 
             # Capture stdout to send progress messages
@@ -257,9 +259,10 @@ async def analyze_video_stream(
             yield f"data: {json.dumps({'status': 'This may take 5-10 minutes, please wait...'})}\n\n"
             await asyncio.sleep(0.1)
 
-            # Process video with timeout - run in thread pool
+            # Process video with timeout - run in thread pool with periodic updates
             try:
                 import concurrent.futures
+                import time
 
                 def run_analysis():
                     # Run analysis without capturing stdout (shows progress in server logs)
@@ -269,15 +272,36 @@ async def analyze_video_stream(
                 with concurrent.futures.ThreadPoolExecutor() as executor:
                     future = executor.submit(run_analysis)
                     try:
-                        # Wait max 15 minutes for analysis
-                        yield f"data: {json.dumps({'status': 'Processing with Gemini (timeout: 15min)...'})}\n\n"
-                        result = future.result(timeout=900)  # 15 minutes
+                        # Wait max 30 minutes for analysis with periodic updates
+                        yield f"data: {json.dumps({'status': 'Sending video to Gemini AI...'})}\n\n"
+                        await asyncio.sleep(2)
 
-                        yield f"data: {json.dumps({'status': 'Analysis complete, reading results...'})}\n\n"
+                        timeout = 1800  # 30 minutes
+                        start_time = time.time()
+                        check_interval = 15  # Check every 15 seconds
 
-                    except concurrent.futures.TimeoutError:
-                        yield f"data: {json.dumps({'error': 'Analysis timeout after 15 minutes. Video might be too long. Try a shorter video.'})}\n\n"
-                        return
+                        while True:
+                            elapsed = time.time() - start_time
+
+                            # Check if analysis is done
+                            try:
+                                result = future.result(timeout=0.1)
+                                yield f"data: {json.dumps({'status': 'Analysis complete, reading results...'})}\n\n"
+                                break
+                            except concurrent.futures.TimeoutError:
+                                # Still running, send status update
+                                if elapsed > timeout:
+                                    yield f"data: {json.dumps({'error': 'Analysis timeout after 30 minutes. Video might be too complex or Gemini API is slow. Please try again.'})}\n\n"
+                                    return
+
+                                # Send periodic updates
+                                minutes_elapsed = int(elapsed / 60)
+                                if int(elapsed) % 30 == 0 and int(elapsed) > 0:  # Every 30 seconds
+                                    yield f"data: {json.dumps({'status': f'Still processing with Gemini... ({minutes_elapsed}m{int(elapsed % 60)}s elapsed)'})}\n\n"
+
+                                await asyncio.sleep(check_interval)
+                                continue
+
                     except Exception as e:
                         yield f"data: {json.dumps({'error': f'Analysis error: {str(e)}'})}\n\n"
                         return
