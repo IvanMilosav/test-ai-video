@@ -201,8 +201,8 @@ OUTPUT ONLY VALID JSON.'''
         file_size_mb = os.path.getsize(video_path) / (1024 * 1024)
         print(f"File size: {file_size_mb:.2f} MB")
 
-        if file_size_mb > 20:
-            raise ValueError(f"File too large: {file_size_mb:.2f} MB (max 20MB)")
+        if file_size_mb > 200:
+            raise ValueError(f"File too large: {file_size_mb:.2f} MB (max 200MB)")
 
         # Load video
         with open(video_path, 'rb') as f:
@@ -226,18 +226,24 @@ OUTPUT ONLY VALID JSON.'''
         )]
 
         response_text = ""
+        chunk_count = 0
         try:
             response_stream = self.client.models.generate_content_stream(
                 model=self.model,
                 contents=contents
             )
+            print("Receiving response from Gemini...")
             for chunk in response_stream:
                 if chunk.text:
                     response_text += chunk.text
+                    chunk_count += 1
+                    # Print progress every 10 chunks
+                    if chunk_count % 10 == 0:
+                        print(f"  Received {len(response_text)} characters so far...")
         except Exception as e:
             raise RuntimeError(f"Gemini API error: {e}")
 
-        print(f"Received response: {len(response_text)} chars")
+        print(f"Received complete response: {len(response_text)} chars from {chunk_count} chunks")
 
         # Parse response
         analysis = self._parse_response(response_text)
