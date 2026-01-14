@@ -284,7 +284,7 @@ async def analyze_video_stream(
                         while True:
                             elapsed = time.time() - start_time
 
-                            # Check if analysis is done
+                            # Check if analysis is done or failed
                             try:
                                 result = future.result(timeout=0.1)
                                 yield f"data: {json.dumps({'status': 'Analysis complete, reading results...'})}\n\n"
@@ -292,7 +292,7 @@ async def analyze_video_stream(
                             except concurrent.futures.TimeoutError:
                                 # Still running, send status update
                                 if elapsed > timeout:
-                                    yield f"data: {json.dumps({'error': 'Analysis timeout after 30 minutes. Video might be too complex or Gemini API is slow. Please try again.'})}\n\n"
+                                    yield f"data: {json.dumps({'error': 'Analysis timeout after 30 minutes. Please try a shorter video.'})}\n\n"
                                     return
 
                                 # Send periodic updates every 30 seconds
@@ -304,9 +304,16 @@ async def analyze_video_stream(
 
                                 await asyncio.sleep(check_interval)
                                 continue
+                            except Exception as analysis_error:
+                                # Analysis failed with an exception
+                                error_msg = str(analysis_error)
+                                print(f"Analysis failed: {error_msg}")
+                                yield f"data: {json.dumps({'error': f'Analysis failed: {error_msg}'})}\n\n"
+                                return
 
                     except Exception as e:
-                        yield f"data: {json.dumps({'error': f'Analysis error: {str(e)}'})}\n\n"
+                        print(f"Loop error: {str(e)}")
+                        yield f"data: {json.dumps({'error': f'Processing error: {str(e)}'})}\n\n"
                         return
 
             except Exception as e:
