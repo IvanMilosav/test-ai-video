@@ -1,4 +1,0 @@
-#!/bin/bash
-# Simple launcher for Video Analyzer
-cd "/home/ivan/Desktop/AI vdieo/python video/advisualbreakdown"
-exec ./venv/bin/python3 video_analyzer_gui.py "$@"
